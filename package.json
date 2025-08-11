@@ -2,7 +2,7 @@
   "name": "ansible-ontap-snippets",
   "displayName": "ONTAP Ansible Snippets",
   "description": "Search and insert NetApp ONTAP Ansible snippets inside VSCode",
-  "version": "1.0.0",
+  "version": "22.14.0",
   "engines": {
     "vscode": "^1.80.0"
   },
@@ -26,17 +26,15 @@
     "type": "git",
     "url": "https://github.com/rajeshvu/vscode-extension-ansible-ontap.git"
   },
-  "activationEvents": [],
+  "activationEvents": [
+      "onLanguage:yaml"
+  ],
   "main": "./out/extension.js",
   "contributes": {
     "commands": [
       {
-        "command": "ansible-ontap-snippets.search-23.1.0",
-        "title": "ONTAP Ansible Snippets - v23.1.0"
-      },
-      {
-        "command": "ansible-ontap-snippets.search-23.0.0",
-        "title": "ONTAP Ansible Snippets - v23.0.0"
+        "command": "ansible-ontap-snippets.search-22.14.0",
+        "title": "ONTAP Ansible Snippets - v22.14.0"
       }
     ]
   },
