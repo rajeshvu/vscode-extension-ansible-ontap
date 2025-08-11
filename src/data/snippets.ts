@@ -1,4 +1,4 @@
-import { snippets_22_14_0 } from "./snippets-22.14.0";
+import { snippets_23_0_0 } from "./snippets-23.0.0";
 
 export interface SnippetItem {
     label: string;
@@ -13,7 +13,7 @@ export interface Snippets {
 
 export const SNIPPETS: Snippets[] = [
     {
-        version: '22.14.0',
-        snippets: snippets_22_14_0
+        version: '23.0.0',
+        snippets: snippets_23_0_0
     }
 ]

@@ -1,6 +1,6 @@
 import { SnippetItem } from "./snippets";
 
-export const snippets_22_14_0: SnippetItem[] = [
+export const snippets_23_0_0: SnippetItem[] = [
     {
         "label": "Create active directory account.",
         "description": "- netapp.ontap.na_ontap_active_directory",
@@ -85,11 +85,6 @@ export const snippets_22_14_0: SnippetItem[] = [
         "label": "Send message",
         "description": "- netapp.ontap.na_ontap_autosupport_invoke",
         "body": "- name: Send message\n  netapp.ontap.na_ontap_autosupport_invoke:\n    name: node1\n    autosupport_message: invoked test autosupport rest\n    uri: http://1.2.3.4/delivery_uri\n    type: test\n    hostname: '{{ netapp_hostname }}'\n    username: '{{ netapp_username }}'\n    password: '{{ netapp_password }}'\n"
-    },
-    {
-        "label": "Modify status to enable automatic update",
-        "description": "- netapp.ontap.na_ontap_autoupdate_support",
-        "body": "- name: Modify status to enable automatic update\n  netapp.ontap.na_ontap_autoupdate_support:\n    enabled: true\n    force: true\n    hostname: '{{ netapp_hostname }}'\n    username: '{{ netapp_username }}'\n    password: '{{ netapp_password }}'\n"
     },
     {
         "label": "Create BGP configuration for a node",
@@ -1474,7 +1469,22 @@ export const snippets_22_14_0: SnippetItem[] = [
     {
         "label": "Create NVME Namespace",
         "description": "- netapp.ontap.na_ontap_nvme_namespace",
-        "body": "- name: Create NVME Namespace\n  netapp.ontap.na_ontap_nvme_namespace:\n    state: present\n    ostype: linux\n    path: /vol/ansible/test\n    size: 20\n    size_unit: mb\n    vserver: '{{ vserver }}'\n    hostname: '{{ netapp_hostname }}'\n    username: '{{ netapp_username }}'\n    password: '{{ netapp_password }}'\n"
+        "body": "- name: Create NVME Namespace\n  netapp.ontap.na_ontap_nvme_namespace:\n    state: present\n    ostype: linux\n    path: /vol/ansible/test\n    size: 5\n    size_unit: mb\n    vserver: '{{ vserver }}'\n    hostname: '{{ netapp_hostname }}'\n    username: '{{ netapp_username }}'\n    password: '{{ netapp_password }}'\n"
+    },
+    {
+        "label": "Create NVME Namespace ASA R2 system",
+        "description": "- netapp.ontap.na_ontap_nvme_namespace",
+        "body": "- name: Create NVME Namespace ASA R2 system\n  netapp.ontap.na_ontap_nvme_namespace:\n    state: present\n    ostype: linux\n    path: /vol/ansible/test\n    size: 5\n    size_unit: mb\n    provisioning_options:\n      count: 2\n    vserver: '{{ vserver }}'\n    hostname: '{{ netapp_hostname }}'\n    username: '{{ netapp_username }}'\n    password: '{{ netapp_password }}'\n"
+    },
+    {
+        "label": "Modify NVME Namespace",
+        "description": "- netapp.ontap.na_ontap_nvme_namespace",
+        "body": "- name: Modify NVME Namespace\n  netapp.ontap.na_ontap_nvme_namespace:\n    state: present\n    ostype: linux\n    path: /vol/ansible/test\n    size: 10\n    size_unit: mb\n    vserver: '{{ vserver }}'\n    hostname: '{{ netapp_hostname }}'\n    username: '{{ netapp_username }}'\n    password: '{{ netapp_password }}'\n"
+    },
+    {
+        "label": "Delete NVME Namespace",
+        "description": "- netapp.ontap.na_ontap_nvme_namespace",
+        "body": "- name: Delete NVME Namespace\n  netapp.ontap.na_ontap_nvme_namespace:\n    state: absent\n    ostype: linux\n    path: /vol/ansible/test\n    size: 10\n    size_unit: mb\n    vserver: '{{ vserver }}'\n    hostname: '{{ netapp_hostname }}'\n    username: '{{ netapp_username }}'\n    password: '{{ netapp_password }}'\n"
     },
     {
         "label": "Create NVME Subsystem",
@@ -1679,7 +1689,7 @@ export const snippets_22_14_0: SnippetItem[] = [
     {
         "label": "Add/Set quota rule for type qtree in REST.",
         "description": "- netapp.ontap.na_ontap_quotas",
-        "body": "- name: Add/Set quota rule for type qtree in REST.\n  netapp.ontap.na_ontap_quotas:\n    state: present\n    vserver: ansible\n    volume: ansible\n    quota_target: qtree1\n    type: qtree\n    file_limit: 2\n    disk_limit: 3\n    set_quota_status: true\n    hostname: '{{ netapp_hostname }}'\n    username: '{{ netapp_username }}'\n    password: '{{ netapp_password }}'\n"
+        "body": "- name: Add/Set quota rule for type qtree in REST.\n  netapp.ontap.na_ontap_quotas:\n    state: present\n    vserver: ansible\n    volume: ansible\n    quota_target: qtree1\n    type: tree\n    file_limit: 2\n    disk_limit: 3\n    set_quota_status: true\n    hostname: '{{ netapp_hostname }}'\n    username: '{{ netapp_username }}'\n    password: '{{ netapp_password }}'\n"
     },
     {
         "label": "Create quota policy",
@@ -2084,7 +2094,7 @@ export const snippets_22_14_0: SnippetItem[] = [
     {
         "label": "Create SnapMirror relationship - SVM DR (creating and peering destination svm)",
         "description": "- netapp.ontap.na_ontap_snapmirror",
-        "body": "- name: Create SnapMirror relationship - SVM DR (creating and peering destination\n    svm)\n  netapp.ontap.na_ontap_snapmirror:\n    state: present\n    source_endpoint:\n      cluster: '{{ _source_cluster }}'\n      path: '{{ source_vserver + '':'' }}'\n    destination_endpoint:\n      cluster: '{{ _destination_cluster }}'\n      path: '{{ destination_vserver_SVMDR + '':'' }}'\n    create_destination:\n      enabled: true\n    hostname: '{{ destination_hostname }}'\n    username: '{{ username }}'\n    password: '{{ password }}'\n    https: true\n    validate_certs: false\n"
+        "body": "- name: Create SnapMirror relationship - SVM DR (creating and peering destination\n    svm)\n  tags: create_svmdr\n  netapp.ontap.na_ontap_snapmirror:\n    state: present\n    source_endpoint: null\n    cluster: '{{ _source_cluster }}'\n    path: '{{ source_vserver + '':'' }}'\n    destination_endpoint:\n      cluster: '{{ _destination_cluster }}'\n      path: '{{ destination_vserver_SVMDR + '':'' }}'\n    create_destination:\n      enabled: true\n    hostname: '{{ destination_hostname }}'\n    username: '{{ username }}'\n    password: '{{ password }}'\n    https: true\n    validate_certs: false\n"
     },
     {
         "label": "Create SnapMirror policy",
@@ -2314,7 +2324,7 @@ export const snippets_22_14_0: SnippetItem[] = [
     {
         "label": "Modify the support config_backup",
         "description": "- netapp.ontap.na_ontap_support_config_backup",
-        "body": "- name: Modify the support config_backup\n  netapp.ontap.na_ontap_support_config_backup:\n    state: present\n    hostname: '{{ netapp_hostname }}'\n    username: '{{ netapp_username }}'\n    password: '{{ netapp_password }}'\n    https: true\n    validate_certs: false\n    validate_certificate: true\n    url: '{{ backup_url }}'\n    name: ftpuser\n    set_password: netapp\n    feature_flags:\n      trace_apis: true\n"
+        "body": "- name: Modify the support config_backup\n  netapp.ontap.na_ontap_support_config_backup:\n    state: present\n    hostname: '{{ netapp_hostname }}'\n    username: '{{ netapp_username }}'\n    password: '{{ netapp_password }}'\n    https: true\n    validate_certs: false\n    validate_certificate: true\n    url: '{{ backup_url }}'\n    name: ftpuser\n    feature_flags:\n      trace_apis: true\n"
     },
     {
         "label": "Create SVM",
