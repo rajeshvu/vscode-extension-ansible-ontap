@@ -1,6 +1,6 @@
 import { ModuleOptions } from "./options";
 
-export const options_23_0_0: ModuleOptions = {
+export const options_23_1_0: ModuleOptions = {
     "netapp.ontap.na_ontap_active_directory": {
         "state": {
             "description": [
@@ -578,6 +578,21 @@ export const options_23_0_0: ModuleOptions = {
                 "send the AutoSupport message to the destination you specify instead of the configured destination."
             ],
             "type": "str"
+        }
+    },
+    "netapp.ontap.na_ontap_autoupdate_support": {
+        "enabled": {
+            "description": [
+                "Flag indicating feature state."
+            ],
+            "type": "bool"
+        },
+        "force": {
+            "description": [
+                "Set the force flag to true to enable the automatic update feature regardless of how AutoSupport is configured.",
+                "Without this flag set to true, an attempt to enable the automatic update feature fails unless AutoSupport is enabled, its transport is HTTPS, and the AutoSupport OnDemand feature is enabled."
+            ],
+            "type": "bool"
         }
     },
     "netapp.ontap.na_ontap_bgp_config": {
@@ -1966,6 +1981,22 @@ export const options_23_0_0: ModuleOptions = {
             ],
             "type": "str",
             "version_added": "20.5.0"
+        },
+        "local_name_for_peer": {
+            "description": [
+                "Specifies local name of the peer Cluster in the relationship.",
+                "By default the system will generate the same name as cluster name."
+            ],
+            "type": "str",
+            "version_added": "23.1.0"
+        },
+        "local_name_for_source": {
+            "description": [
+                "Specifies local name of the source Cluster in the relationship.",
+                "By default the system will generate the same name as cluster name."
+            ],
+            "type": "str",
+            "version_added": "23.1.0"
         }
     },
     "netapp.ontap.na_ontap_command": {
@@ -7866,6 +7897,17 @@ export const options_23_0_0: ModuleOptions = {
                     "type": "int"
                 }
             }
+        },
+        "nfsv3_hide_snapdir": {
+            "description": [
+                "Specifies whether hiding a snapshot directory under a NFSv3 mount point is enabled (support from ONTAP 9.13 onward).",
+                "Supported only with REST."
+            ],
+            "choices": [
+                "enabled",
+                "disabled"
+            ],
+            "type": "str"
         }
     },
     "netapp.ontap.na_ontap_node": {
@@ -9909,6 +9951,13 @@ export const options_23_0_0: ModuleOptions = {
                     ]
                 }
             }
+        },
+        "snapshot_policy": {
+            "description": [
+                "Specifies the snapshot policy for the bucket."
+            ],
+            "type": "str",
+            "version_added": "23.1.0"
         }
     },
     "netapp.ontap.na_ontap_s3_groups": {
@@ -11353,6 +11402,15 @@ export const options_23_0_0: ModuleOptions = {
                 "exclude_network_and_protocol_config"
             ],
             "version_added": "22.4.0"
+        },
+        "quick_resync": {
+            "description": [
+                "Set to true to reduce resync time by not preserving storage efficiency.",
+                "This property is applicable only for relationships with FlexVol volume endpoints and SVMDR relationships when the PATCH state is being changed to \"snapmirrored\".",
+                "Only supported with REST."
+            ],
+            "type": "bool",
+            "version_added": "23.1.0"
         }
     },
     "netapp.ontap.na_ontap_snapmirror_policy": {
@@ -12269,6 +12327,14 @@ export const options_23_0_0: ModuleOptions = {
                 "The option \"name\" should be used in parameter instead of \"username\"."
             ],
             "type": "str"
+        },
+        "set_password": {
+            "description": [
+                "Password used to uploads configuration backups.",
+                "The option \"set_password\" should be used in parameter instead of \"password\"."
+            ],
+            "type": "str",
+            "version_added": "23.1.0"
         }
     },
     "netapp.ontap.na_ontap_svm": {
@@ -12616,6 +12682,15 @@ export const options_23_0_0: ModuleOptions = {
                     "type": "bool"
                 }
             }
+        },
+        "storage_limit": {
+            "description": [
+                "Specifies the maximum storage permitted on a single SVM, in bytes.",
+                "This parameter can be set to zero to disable storage-limit enforcement.",
+                "Only supported with REST, requires ONTAP 9.13.1 or later."
+            ],
+            "type": "int",
+            "version_added": "23.1.0"
         }
     },
     "netapp.ontap.na_ontap_svm_options": {
@@ -12906,7 +12981,8 @@ export const options_23_0_0: ModuleOptions = {
                         "none",
                         "password",
                         "publickey",
-                        "nsswitch"
+                        "nsswitch",
+                        "totp"
                     ]
                 }
             }
@@ -13776,6 +13852,17 @@ export const options_23_0_0: ModuleOptions = {
             ],
             "type": "str",
             "version_added": "2.9.0"
+        },
+        "tiering_object_tags": {
+            "description": [
+                "This parameter specifies tags of a volume for objects stored on a FabricPool-enabled aggregate.",
+                "Each tag is a key,value pair and should be in the format \"key=value\".",
+                "A maximum of 4 tags are allowed per volume.",
+                "To remove all existing tiering object tags, specify an empty list as the parameter value."
+            ],
+            "type": "list",
+            "elements": "str",
+            "version_added": "23.1.0"
         },
         "space_slo": {
             "description": [

@@ -1,6 +1,6 @@
 import { SnippetItem } from "./snippets";
 
-export const snippets_23_0_0: SnippetItem[] = [
+export const snippets_23_1_0: SnippetItem[] = [
     {
         "label": "Create active directory account.",
         "description": "- netapp.ontap.na_ontap_active_directory",
@@ -85,6 +85,11 @@ export const snippets_23_0_0: SnippetItem[] = [
         "label": "Send message",
         "description": "- netapp.ontap.na_ontap_autosupport_invoke",
         "body": "- name: Send message\n  netapp.ontap.na_ontap_autosupport_invoke:\n    name: node1\n    autosupport_message: invoked test autosupport rest\n    uri: http://1.2.3.4/delivery_uri\n    type: test\n    hostname: '{{ netapp_hostname }}'\n    username: '{{ netapp_username }}'\n    password: '{{ netapp_password }}'\n"
+    },
+    {
+        "label": "Modify status to enable automatic update",
+        "description": "- netapp.ontap.na_ontap_autoupdate_support",
+        "body": "- name: Modify status to enable automatic update\n  netapp.ontap.na_ontap_autoupdate_support:\n    enabled: true\n    force: true\n    hostname: '{{ netapp_hostname }}'\n    username: '{{ netapp_username }}'\n    password: '{{ netapp_password }}'\n"
     },
     {
         "label": "Create BGP configuration for a node",
@@ -217,14 +222,19 @@ export const snippets_23_0_0: SnippetItem[] = [
         "body": "- name: Modify CIFS share - REST\n  netapp.ontap.na_ontap_cifs:\n    state: present\n    name: cifsShareName\n    path: /\n    vserver: vserverName\n    oplocks: true\n    change_notify: true\n    unix_symlink: local\n    comment: CIFS share description\n    hostname: '{{ netapp_hostname }}'\n    username: '{{ netapp_username }}'\n    password: '{{ netapp_password }}'\n"
     },
     {
-        "label": "Create CIFS share acl",
+        "label": "Create CIFS share ACL",
         "description": "- netapp.ontap.na_ontap_cifs_acl",
-        "body": "- name: Create CIFS share acl\n  netapp.ontap.na_ontap_cifs_acl:\n    state: present\n    share_name: cifsShareName\n    user_or_group: Everyone\n    permission: read\n    vserver: '{{ netapp_vserver }}'\n    hostname: '{{ netapp_hostname }}'\n    username: '{{ netapp_username }}'\n    password: '{{ netapp_password }}'\n"
+        "body": "- name: Create CIFS share ACL\n  netapp.ontap.na_ontap_cifs_acl:\n    state: present\n    share_name: cifsShareName\n    user_or_group: Everyone\n    permission: read\n    vserver: '{{ netapp_vserver }}'\n    hostname: '{{ netapp_hostname }}'\n    username: '{{ netapp_username }}'\n    password: '{{ netapp_password }}'\n"
     },
     {
-        "label": "Modify CIFS share acl permission",
+        "label": "Modify CIFS share ACL permission",
         "description": "- netapp.ontap.na_ontap_cifs_acl",
-        "body": "- name: Modify CIFS share acl permission\n  netapp.ontap.na_ontap_cifs_acl:\n    state: present\n    share_name: cifsShareName\n    user_or_group: Everyone\n    permission: change\n    vserver: '{{ netapp_vserver }}'\n    hostname: '{{ netapp_hostname }}'\n    username: '{{ netapp_username }}'\n    password: '{{ netapp_password }}'\n"
+        "body": "- name: Modify CIFS share ACL permission\n  netapp.ontap.na_ontap_cifs_acl:\n    state: present\n    share_name: cifsShareName\n    user_or_group: Everyone\n    permission: change\n    vserver: '{{ netapp_vserver }}'\n    hostname: '{{ netapp_hostname }}'\n    username: '{{ netapp_username }}'\n    password: '{{ netapp_password }}'\n"
+    },
+    {
+        "label": "Delete CIFS share ACL",
+        "description": "- netapp.ontap.na_ontap_cifs_acl",
+        "body": "- name: Delete CIFS share ACL\n  netapp.ontap.na_ontap_cifs_acl:\n    state: absent\n    share_name: cifsShareName\n    user_or_group: localUser\n    permission: read\n    vserver: '{{ netapp_vserver }}'\n    hostname: '{{ netapp_hostname }}'\n    username: '{{ netapp_username }}'\n    password: '{{ netapp_password }}'\n"
     },
     {
         "label": "Create CIFS local group",
@@ -399,7 +409,7 @@ export const snippets_23_0_0: SnippetItem[] = [
     {
         "label": "Create cluster peer",
         "description": "- netapp.ontap.na_ontap_cluster_peer",
-        "body": "- name: Create cluster peer\n  netapp.ontap.na_ontap_cluster_peer:\n    state: present\n    source_intercluster_lifs: 1.2.3.4,1.2.3.5\n    dest_intercluster_lifs: 1.2.3.6,1.2.3.7\n    passphrase: XXXX\n    hostname: '{{ netapp_hostname }}'\n    username: '{{ netapp_username }}'\n    password: '{{ netapp_password }}'\n    peer_options:\n      hostname: '{{ dest_netapp_hostname }}'\n    encryption_protocol_proposed: tls_psk\n"
+        "body": "- name: Create cluster peer\n  netapp.ontap.na_ontap_cluster_peer:\n    state: present\n    source_intercluster_lifs: 1.2.3.4,1.2.3.5\n    dest_intercluster_lifs: 1.2.3.6,1.2.3.7\n    passphrase: XXXX\n    local_name_for_peer: dest_local_name\n    local_name_for_source: sorce_local_name\n    hostname: '{{ netapp_hostname }}'\n    username: '{{ netapp_username }}'\n    password: '{{ netapp_password }}'\n    peer_options:\n      hostname: '{{ dest_netapp_hostname }}'\n    encryption_protocol_proposed: tls_psk\n"
     },
     {
         "label": "Delete cluster peer",
@@ -414,7 +424,7 @@ export const snippets_23_0_0: SnippetItem[] = [
     {
         "label": "Modify cluster peer - destination intercluster addresses",
         "description": "- netapp.ontap.na_ontap_cluster_peer",
-        "body": "- name: Modify cluster peer - destination intercluster addresses\n  netapp.ontap.na_ontap_cluster_peer:\n    state: present\n    source_intercluster_lifs: 1.2.3.4,1.2.3.5\n    dest_intercluster_lifs: 1.2.3.8\n    dest_cluster_name: test-dest-cluster\n    hostname: '{{ netapp_hostname }}'\n    username: '{{ netapp_username }}'\n    password: '{{ netapp_password }}'\n    peer_options:\n      hostname: '{{ dest_netapp_hostname }}'\n"
+        "body": "- name: Modify cluster peer - destination intercluster addresses\n  netapp.ontap.na_ontap_cluster_peer:\n    state: present\n    source_intercluster_lifs: 1.2.3.4,1.2.3.5\n    dest_intercluster_lifs: 1.2.3.8\n    dest_cluster_name: test-dest-cluster\n    local_name_for_peer: dest_name\n    local_name_for_source: source_name\n    hostname: '{{ netapp_hostname }}'\n    username: '{{ netapp_username }}'\n    password: '{{ netapp_password }}'\n    peer_options:\n      hostname: '{{ dest_netapp_hostname }}'\n"
     },
     {
         "label": "Run ONTAP CLI command",
@@ -719,7 +729,7 @@ export const snippets_23_0_0: SnippetItem[] = [
     {
         "label": "SP firmware upgrade with reboots (REST)",
         "description": "- netapp.ontap.na_ontap_firmware_upgrade",
-        "body": "- name: SP firmware upgrade with reboots (REST)\n  netapp.ontap.na_ontap_firmware_upgrade:\n    state: present\n    package_url: '{{ web_link }}'\n    firmware_type: service-processor\n    reboot_sp_: true\n    reboot_sp_after_download: true\n    hostname: '{{ netapp_hostname }}'\n    username: '{{ netapp_username }}'\n    password: '{{ netapp_password }}'\n"
+        "body": "- name: SP firmware upgrade with reboots (REST)\n  netapp.ontap.na_ontap_firmware_upgrade:\n    state: present\n    package_url: '{{ web_link }}'\n    firmware_type: service-processor\n    reboot_sp: true\n    reboot_sp_after_download: true\n    hostname: '{{ netapp_hostname }}'\n    username: '{{ netapp_username }}'\n    password: '{{ netapp_password }}'\n"
     },
     {
         "label": "Create FlexCache",
@@ -1272,6 +1282,11 @@ export const snippets_23_0_0: SnippetItem[] = [
         "body": "- name: Modify ndmp\n  netapp.ontap.na_ontap_ndmp:\n    vserver: ansible\n    abort_on_disk_error: true\n    authtype: plaintext,challenge\n    backup_log_enable: true\n    data_port_range: 8000-9000\n    debug_enable: true\n    debug_filter: filter\n    dump_detailed_stats: true\n    dump_logical_find: default\n    enable: true\n    fh_dir_retry_interval: 100\n    fh_node_retry_interval: 100\n    ignore_ctime_enabled: true\n    is_secure_control_connection_enabled: true\n    offset_map_enable: true\n    per_qtree_exclude_enable: true\n    preferred_interface_role: node_mgmt,intercluster\n    restore_vm_cache_size: 1000\n    secondary_debug_filter: filter\n    tcpnodelay: true\n    tcpwinsize: 10000\n    hostname: '{{ netapp_hostname }}'\n    username: '{{ netapp_username }}'\n    password: '{{ netapp_password }}'\n    https: true\n"
     },
     {
+        "label": "generate password - REST",
+        "description": "- netapp.ontap.na_ontap_ndmp",
+        "body": "- name: generate password - REST\n  netapp.ontap.na_ontap_ndmp:\n    ndmp_user: ndmp_user\n    vserver: vs0\n    hostname: '{{ netapp_hostname }}'\n    username: '{{ netapp_username }}'\n    password: '{{ netapp_password }}'\n    https: true\n"
+    },
+    {
         "label": "Create ifgrp",
         "description": "- netapp.ontap.na_ontap_net_ifgrp",
         "body": "- name: Create ifgrp\n  netapp.ontap.na_ontap_net_ifgrp:\n    state: present\n    username: '{{ netapp_username }}'\n    password: '{{ netapp_password }}'\n    hostname: '{{ netapp_hostname }}'\n    distribution_function: ip\n    name: a0c\n    ports:\n    - e0a\n    mode: multimode\n    node: '{{ vsim_node_name }}'\n"
@@ -1379,7 +1394,7 @@ export const snippets_23_0_0: SnippetItem[] = [
     {
         "label": "Modify nfs configuration - REST",
         "description": "- netapp.ontap.na_ontap_nfs",
-        "body": "- name: Modify nfs configuration - REST\n  netapp.ontap.na_ontap_nfs:\n    state: present\n    vserver: vs_hack\n    root:\n      ignore_nt_acl: true\n      skip_write_permission_check: true\n    security:\n      chown_mode: restricted\n      nt_acl_display_permission: true\n      ntfs_unix_security: fail\n      rpcsec_context_idle: 5\n    windows:\n      v3_ms_dos_client_enabled: true\n      map_unknown_uid_to_default_user: false\n      default_user: test_user\n    tcp_max_xfer_size: 16384\n    hostname: '{{ netapp_hostname }}'\n    username: '{{ netapp_username }}'\n    password: '{{ netapp_password }}'\n"
+        "body": "- name: Modify nfs configuration - REST\n  netapp.ontap.na_ontap_nfs:\n    state: present\n    vserver: vs_hack\n    root:\n      ignore_nt_acl: true\n      skip_write_permission_check: true\n    security:\n      chown_mode: restricted\n      nt_acl_display_permission: true\n      ntfs_unix_security: fail\n      rpcsec_context_idle: 5\n    windows:\n      v3_ms_dos_client_enabled: true\n      map_unknown_uid_to_default_user: false\n      default_user: test_user\n    tcp_max_xfer_size: 16384\n    nfsv3_hide_snapdir: enabled\n    hostname: '{{ netapp_hostname }}'\n    username: '{{ netapp_username }}'\n    password: '{{ netapp_password }}'\n"
     },
     {
         "label": "Delete nfs configuration",
@@ -1892,6 +1907,11 @@ export const snippets_23_0_0: SnippetItem[] = [
         "body": "- name: delete certificate\n  netapp.ontap.na_ontap_security_certificates:\n    state: absent\n    common_name: '{{ ontap_cert_root_common_name }}'\n    type: root_ca\n    name: '{{ ontap_cert_name }}'\n    svm: '{{ vserver }}'\n"
     },
     {
+        "label": "install certificate - server certificate with chain of intermediate certificates",
+        "description": "- netapp.ontap.na_ontap_security_certificates",
+        "body": "- name: install certificate - server certificate with chain of intermediate certificates\n  netapp.ontap.na_ontap_security_certificates:\n    common_name: '{{ ontap_cert_common_name }}'\n    public_certificate: '{{ ssl_certificate }}'\n    type: server\n    svm: '{{ vserver }}'\n    private_key: '-----BEGIN CERTIFICATE-----\n\n      Private Key\n\n      -----END CERTIFICATE-----'\n    intermediat_certificates:\n    - '-----BEGIN CERTIFICATE-----\n\n      Intermediate certificate1\n\n      -----END CERTIFICATE-----'\n    - '-----BEGIN CERTIFICATE-----\n\n      Intermediate certificate2\n\n      -----END CERTIFICATE-----'\n    - '-----BEGIN CERTIFICATE-----\n\n      Root certificate\n\n      -----END CERTIFICATE-----'\n"
+    },
+    {
         "label": "Modify SSL Security Config - ZAPI",
         "description": "- netapp.ontap.na_ontap_security_config",
         "body": "- name: Modify SSL Security Config - ZAPI\n  netapp.ontap.na_ontap_security_config:\n    name: ssl\n    is_fips_enabled: false\n    supported_ciphers: ALL:!LOW:!aNULL:!EXP:!eNULL:!3DES:!RC4:!SHA1\n    supported_protocols:\n    - TLSv1.2\n    - TLSv1.1\n    - TLSv1\n    hostname: '{{ netapp_hostname }}'\n    username: '{{ netapp_username }}'\n    password: '{{ netapp_password }}'\n    ontapi: '{{ ontap_info.ontap_info.ontap_version }}'\n    https: true\n    validate_certs: false\n"
@@ -2095,6 +2115,11 @@ export const snippets_23_0_0: SnippetItem[] = [
         "label": "Create SnapMirror relationship - SVM DR (creating and peering destination svm)",
         "description": "- netapp.ontap.na_ontap_snapmirror",
         "body": "- name: Create SnapMirror relationship - SVM DR (creating and peering destination\n    svm)\n  tags: create_svmdr\n  netapp.ontap.na_ontap_snapmirror:\n    state: present\n    source_endpoint: null\n    cluster: '{{ _source_cluster }}'\n    path: '{{ source_vserver + '':'' }}'\n    destination_endpoint:\n      cluster: '{{ _destination_cluster }}'\n      path: '{{ destination_vserver_SVMDR + '':'' }}'\n    create_destination:\n      enabled: true\n    hostname: '{{ destination_hostname }}'\n    username: '{{ username }}'\n    password: '{{ password }}'\n    https: true\n    validate_certs: false\n"
+    },
+    {
+        "label": "Resync SnapMirror relationship - SVM DR",
+        "description": "- netapp.ontap.na_ontap_snapmirror",
+        "body": "- name: Resync SnapMirror relationship - SVM DR\n  tags: resync_svmdr\n  netapp.ontap.na_ontap_snapmirror:\n    state: present\n    source_endpoint: null\n    cluster: '{{ _source_cluster }}'\n    path: '{{ source_vserver + '':'' }}'\n    destination_endpoint:\n      cluster: '{{ _destination_cluster }}'\n      path: '{{ destination_vserver_SVMDR + '':'' }}'\n    create_destination:\n      enabled: true\n    relationship_state: active\n    quick_resync: true\n    hostname: '{{ destination_hostname }}'\n    username: '{{ username }}'\n    password: '{{ password }}'\n    https: true\n    validate_certs: false\n"
     },
     {
         "label": "Create SnapMirror policy",
@@ -2324,7 +2349,7 @@ export const snippets_23_0_0: SnippetItem[] = [
     {
         "label": "Modify the support config_backup",
         "description": "- netapp.ontap.na_ontap_support_config_backup",
-        "body": "- name: Modify the support config_backup\n  netapp.ontap.na_ontap_support_config_backup:\n    state: present\n    hostname: '{{ netapp_hostname }}'\n    username: '{{ netapp_username }}'\n    password: '{{ netapp_password }}'\n    https: true\n    validate_certs: false\n    validate_certificate: true\n    url: '{{ backup_url }}'\n    name: ftpuser\n    feature_flags:\n      trace_apis: true\n"
+        "body": "- name: Modify the support config_backup\n  netapp.ontap.na_ontap_support_config_backup:\n    state: present\n    hostname: '{{ netapp_hostname }}'\n    username: '{{ netapp_username }}'\n    password: '{{ netapp_password }}'\n    https: true\n    validate_certs: false\n    validate_certificate: true\n    url: '{{ backup_url }}'\n    name: ftpuser\n    set_password: netapp\n    feature_flags:\n      trace_apis: true\n"
     },
     {
         "label": "Create SVM",
@@ -2424,7 +2449,7 @@ export const snippets_23_0_0: SnippetItem[] = [
     {
         "label": "Create FlexVol",
         "description": "- netapp.ontap.na_ontap_volume",
-        "body": "- name: Create FlexVol\n  netapp.ontap.na_ontap_volume:\n    state: present\n    name: ansibleVolume12\n    is_infinite: false\n    aggregate_name: ansible_aggr\n    size: 100\n    size_unit: mb\n    user_id: 1001\n    group_id: 2002\n    space_guarantee: none\n    tiering_policy: auto\n    export_policy: default\n    percent_snapshot_space: 60\n    qos_policy_group: max_performance_gold\n    vserver: ansibleVServer\n    wait_for_completion: true\n    space_slo: none\n    nvfail_enabled: false\n    comment: ansible created volume\n    hostname: '{{ netapp_hostname }}'\n    username: '{{ netapp_username }}'\n    password: '{{ netapp_password }}'\n"
+        "body": "- name: Create FlexVol\n  netapp.ontap.na_ontap_volume:\n    state: present\n    name: ansibleVolume12\n    is_infinite: false\n    aggregate_name: ansible_aggr\n    size: 100\n    size_unit: mb\n    user_id: 1001\n    group_id: 2002\n    space_guarantee: none\n    tiering_policy: auto\n    export_policy: default\n    percent_snapshot_space: 60\n    qos_policy_group: max_performance_gold\n    vserver: ansibleVServer\n    wait_for_completion: true\n    space_slo: none\n    nvfail_enabled: false\n    comment: ansible created volume\n    tiering_object_tags:\n    - tag1=one\n    - tag2=two\n    - tag3=3\n    - tag4=4\n    hostname: '{{ netapp_hostname }}'\n    username: '{{ netapp_username }}'\n    password: '{{ netapp_password }}'\n"
     },
     {
         "label": "Volume Delete",
@@ -2489,7 +2514,7 @@ export const snippets_23_0_0: SnippetItem[] = [
     {
         "label": "volume create with snaplock set.",
         "description": "- netapp.ontap.na_ontap_volume",
-        "body": "- name: volume create with snaplock set.\n  netapp.ontap.na_ontap_volume:\n    state: present\n    name: '{{ snaplock_volume }}'\n    aggregate_name: '{{ aggregate }}'\n    size: 20\n    size_unit: mb\n    space_guarantee: none\n    policy: default\n    type: rw\n    snaplock:\n      type: enterprise\n      retention: null\n      default: '{{ 60 | netapp.ontap.iso8601_duration_from_seconds }}'\n"
+        "body": "- name: volume create with snaplock set.\n  netapp.ontap.na_ontap_volume:\n    state: present\n    name: '{{ snaplock_volume }}'\n    aggregate_name: '{{ aggregate }}'\n    size: 20\n    size_unit: mb\n    space_guarantee: none\n    policy: default\n    type: rw\n    snaplock:\n      type: enterprise\n      retention:\n        default: '{{ 60 | netapp.ontap.iso8601_duration_from_seconds }}'\n"
     },
     {
         "label": "Create volume with snapshot-auto-delete options - REST",
@@ -2500,6 +2525,11 @@ export const snippets_23_0_0: SnippetItem[] = [
         "label": "Modify volume - REST",
         "description": "- netapp.ontap.na_ontap_volume",
         "body": "- name: Modify volume - REST\n  netapp.ontap.na_ontap_volume:\n    state: present\n    name: test_vol\n    aggregate_name: '{{ aggr }}'\n    snapdir_access: false\n    snapshot_auto_delete:\n      state: 'on'\n      target_free_space: 25\n"
+    },
+    {
+        "label": "Modify volume tiering onject_tags - REST",
+        "description": "- netapp.ontap.na_ontap_volume",
+        "body": "- name: Modify volume tiering onject_tags - REST\n  netapp.ontap.na_ontap_volume:\n    state: present\n    name: test_vol\n    aggregate_name: '{{ aggr }}'\n    tiering_object_tags:\n    - tag1=one\n    - tag2=two\n"
     },
     {
         "label": "Modify volume autosize",
