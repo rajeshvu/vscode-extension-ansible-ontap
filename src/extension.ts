@@ -273,6 +273,10 @@ function formatModuleMarkdown(moduleName: string, moduleOptions: ModuleOptions, 
             const choicesFormatted = option.choices.map((c: any) => `\`${c}\``).join(', ');
             mdLines.push(`  - <span style="color:#9B7EBD;">Choices:</span> ${choicesFormatted}`);
         }
+
+        if (option.version_added) {
+            mdLines.push(`  - <span style="color:#b5a45f;">Version Added:</span> ${option.version_added}`);
+        }
     }
 
     return mdLines.join('\n');
@@ -311,6 +315,9 @@ function formatOptionMarkdown(optionName: string, option: any, indentLevel: numb
         for (const [subName, subOption] of Object.entries(option.suboptions)) {
             mdLines.push(formatOptionMarkdown(subName, subOption, indentLevel + 1));
         }
+    }
+    if (option.version_added) {
+        mdLines.push(`  - <span style="color:#b5a45f;">Version Added:</span> ${option.version_added}`);
     }
     return mdLines.join('\n');
 }
