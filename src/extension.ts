@@ -3,7 +3,6 @@ import { SnippetItem, SNIPPETS, Snippets } from './data/snippets';
 import { ModuleOptions, OptionDefinition, Options, MODULE_OPTIONS } from './data/options';
 
 export async function activate(context: vscode.ExtensionContext) {
-    console.log(MODULE_OPTIONS);
     const hoverProvider = vscode.languages.registerHoverProvider(
         [
             { language: 'yaml', scheme: 'file' }, 
