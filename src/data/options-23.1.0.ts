@@ -1,6 +1,6 @@
 import { ModuleOptions } from "./options";
 
-export const options_22_14_0: ModuleOptions = {
+export const options_23_1_0: ModuleOptions = {
     "netapp.ontap.na_ontap_active_directory": {
         "state": {
             "description": [
@@ -1981,6 +1981,22 @@ export const options_22_14_0: ModuleOptions = {
             ],
             "type": "str",
             "version_added": "20.5.0"
+        },
+        "local_name_for_peer": {
+            "description": [
+                "Specifies local name of the peer Cluster in the relationship.",
+                "By default the system will generate the same name as cluster name."
+            ],
+            "type": "str",
+            "version_added": "23.1.0"
+        },
+        "local_name_for_source": {
+            "description": [
+                "Specifies local name of the source Cluster in the relationship.",
+                "By default the system will generate the same name as cluster name."
+            ],
+            "type": "str",
+            "version_added": "23.1.0"
         }
     },
     "netapp.ontap.na_ontap_command": {
@@ -6188,7 +6204,8 @@ export const options_22_14_0: ModuleOptions = {
             "description": [
                 "The name of the FlexVol the LUN should exist on.",
                 "Required if san_application_template is not present.",
-                "Not allowed if san_application_template is present."
+                "Not allowed if san_application_template is present.",
+                "Not supported for ASA r2 system."
             ],
             "type": "str"
         },
@@ -6196,7 +6213,8 @@ export const options_22_14_0: ModuleOptions = {
             "description": [
                 "Specifies the name of the Qtree that contains the new LUN.",
                 "Not allowed if san_application_template is present.",
-                "Only supported with REST."
+                "Only supported with REST.",
+                "Qtrees are not supported with ASA r2 system."
             ],
             "version_added": "22.8.0",
             "type": "str"
@@ -6292,14 +6310,16 @@ export const options_22_14_0: ModuleOptions = {
         },
         "space_reserve": {
             "description": [
-                "This can be set to \"false\" which will create a LUN without any space being reserved."
+                "This can be set to \"false\" which will create a LUN without any space being reserved.",
+                "Not supported for ASA r2 system. All LUNs are provisioned without a space reservation."
             ],
             "type": "bool",
             "default": true
         },
         "space_allocation": {
             "description": [
-                "This enables support for the SCSI Thin Provisioning features.  If the Host and file system do not support this do not enable it."
+                "This enables support for the SCSI Thin Provisioning features.  If the Host and file system do not support this do not enable it.",
+                "Not supported for ASA r2 system. All LUNs are provisioned with SCSI thin provisioning enabled."
             ],
             "type": "bool",
             "version_added": "2.7.0"
@@ -6319,7 +6339,8 @@ export const options_22_14_0: ModuleOptions = {
                 "create one or more LUNs (and the associated volume as needed).",
                 "operations at the LUN level are supported, they require to know the LUN short name.",
                 "this requires ONTAP 9.8 or higher.",
-                "The module partially supports ONTAP 9.7 for create and delete operations, but not for modify (API limitations)."
+                "The module partially supports ONTAP 9.7 for create and delete operations, but not for modify (API limitations).",
+                "Not supported with ASA r2 system."
             ],
             "type": "dict",
             "version_added": "20.12.0",
@@ -6528,7 +6549,8 @@ export const options_22_14_0: ModuleOptions = {
         },
         "path": {
             "description": [
-                "Path of the LUN.."
+                "Path of the LUN.",
+                "For ASA R2 systems, The path should match the format <name>[@<snapshot-name>]."
             ],
             "required": true,
             "type": "str"
@@ -6568,7 +6590,8 @@ export const options_22_14_0: ModuleOptions = {
         },
         "path": {
             "description": [
-                "Path of the LUN."
+                "Path of the LUN.",
+                "For ASA R2 systems, The path should match the format <name>[@<snapshot-name>]."
             ],
             "required": true,
             "type": "str"
@@ -7137,6 +7160,14 @@ export const options_22_14_0: ModuleOptions = {
                 "TCP window size."
             ],
             "type": "int"
+        },
+        "ndmp_user": {
+            "description": [
+                "The name of the NDMP user.",
+                "This field cannot be specified in a PATCH method."
+            ],
+            "type": "str",
+            "version_added": "23.0.0"
         }
     },
     "netapp.ontap.na_ontap_net_ifgrp": {
@@ -7866,6 +7897,17 @@ export const options_22_14_0: ModuleOptions = {
                     "type": "int"
                 }
             }
+        },
+        "nfsv3_hide_snapdir": {
+            "description": [
+                "Specifies whether hiding a snapshot directory under a NFSv3 mount point is enabled (support from ONTAP 9.13 onward).",
+                "Supported only with REST."
+            ],
+            "choices": [
+                "enabled",
+                "disabled"
+            ],
+            "type": "str"
         }
     },
     "netapp.ontap.na_ontap_node": {
@@ -8220,7 +8262,10 @@ export const options_22_14_0: ModuleOptions = {
         },
         "path": {
             "description": [
-                "Namespace path."
+                "Namespace path.",
+                "The name of the NVMe namespace.",
+                "NVMe namespace names are paths of the form \"/vol/<volume>[/<qtree>]/<namespace>\" where the qtree name is optional.",
+                "For ASA R2 systems, The path should match the format <name>[@<snapshot-name>]."
             ],
             "required": true,
             "type": "str"
@@ -8235,6 +8280,24 @@ export const options_22_14_0: ModuleOptions = {
             ],
             "type": "int",
             "version_added": "20.5.0"
+        },
+        "provisioning_options": {
+            "description": [
+                "Options that are applied to the operation.",
+                "This option is available only for ASA R2 systems."
+            ],
+            "type": "dict",
+            "version_added": "23.0.0",
+            "suboptions": {
+                "count": {
+                    "description": [
+                        "The number of LUNs to provision with these properties.",
+                        "Only POST requests based on space.size  are supported.",
+                        "When provided, the name is considered a prefix, and a suffix of the form _<N> is generated where N is the next available numeric index, starting with 1."
+                    ],
+                    "type": "int"
+                }
+            }
         }
     },
     "netapp.ontap.na_ontap_nvme_subsystem": {
@@ -8301,7 +8364,8 @@ export const options_22_14_0: ModuleOptions = {
         },
         "paths": {
             "description": [
-                "List of Namespace paths to be associated with the subsystem."
+                "List of Namespace paths to be associated with the subsystem.",
+                "For ASA R2 systems, The paths should match the format <name>[@<snapshot-name>]."
             ],
             "type": "list",
             "elements": "str"
@@ -9887,6 +9951,13 @@ export const options_22_14_0: ModuleOptions = {
                     ]
                 }
             }
+        },
+        "snapshot_policy": {
+            "description": [
+                "Specifies the snapshot policy for the bucket."
+            ],
+            "type": "str",
+            "version_added": "23.1.0"
         }
     },
     "netapp.ontap.na_ontap_s3_groups": {
@@ -11331,6 +11402,15 @@ export const options_22_14_0: ModuleOptions = {
                 "exclude_network_and_protocol_config"
             ],
             "version_added": "22.4.0"
+        },
+        "quick_resync": {
+            "description": [
+                "Set to true to reduce resync time by not preserving storage efficiency.",
+                "This property is applicable only for relationships with FlexVol volume endpoints and SVMDR relationships when the PATCH state is being changed to \"snapmirrored\".",
+                "Only supported with REST."
+            ],
+            "type": "bool",
+            "version_added": "23.1.0"
         }
     },
     "netapp.ontap.na_ontap_snapmirror_policy": {
@@ -11893,6 +11973,13 @@ export const options_22_14_0: ModuleOptions = {
             ],
             "default": "present",
             "type": "str"
+        },
+        "https": {
+            "description": [
+                "Enable and disable https."
+            ],
+            "type": "bool",
+            "default": true
         },
         "nodes": {
             "description": [
@@ -12595,6 +12682,15 @@ export const options_22_14_0: ModuleOptions = {
                     "type": "bool"
                 }
             }
+        },
+        "storage_limit": {
+            "description": [
+                "Specifies the maximum storage permitted on a single SVM, in bytes.",
+                "This parameter can be set to zero to disable storage-limit enforcement.",
+                "Only supported with REST, requires ONTAP 9.13.1 or later."
+            ],
+            "type": "int",
+            "version_added": "23.1.0"
         }
     },
     "netapp.ontap.na_ontap_svm_options": {
@@ -12885,7 +12981,8 @@ export const options_22_14_0: ModuleOptions = {
                         "none",
                         "password",
                         "publickey",
-                        "nsswitch"
+                        "nsswitch",
+                        "totp"
                     ]
                 }
             }
@@ -13756,6 +13853,17 @@ export const options_22_14_0: ModuleOptions = {
             "type": "str",
             "version_added": "2.9.0"
         },
+        "tiering_object_tags": {
+            "description": [
+                "This parameter specifies tags of a volume for objects stored on a FabricPool-enabled aggregate.",
+                "Each tag is a key,value pair and should be in the format \"key=value\".",
+                "A maximum of 4 tags are allowed per volume.",
+                "To remove all existing tiering object tags, specify an empty list as the parameter value."
+            ],
+            "type": "list",
+            "elements": "str",
+            "version_added": "23.1.0"
+        },
         "space_slo": {
             "description": [
                 "Specifies the space SLO type for the volume. The space SLO type is the Service Level Objective for space management for the volume.",
@@ -13801,19 +13909,81 @@ export const options_22_14_0: ModuleOptions = {
         "snapshot_auto_delete": {
             "description": [
                 "A dictionary for the auto delete options and values.",
-                "Supported options include 'state', 'commitment', 'trigger', 'target_free_space', 'delete_order', 'defer_delete', 'prefix', 'destroy_list'.",
-                "All the above mentioned options except 'destroy_list' are supported in REST for ONTAP 9.13.1 or later with ONTAP collection version 22.8.0 or later.",
-                "Option 'state' determines if the snapshot autodelete is currently enabled for the volume. Possible values are 'on' and 'off'.",
-                "Option 'commitment' determines the snapshots which snapshot autodelete is allowed to delete to get back space. Possible values are 'try', 'disrupt' and 'destroy'.",
-                "Option 'trigger' determines the condition which starts the automatic deletion of snapshots. Possible values are 'volume', 'snap_reserve' and DEPRECATED 'space_reserve'.",
-                "Option 'target_free_space' determines when snapshot autodelete should stop deleting snapshots. Depending on the trigger, snapshots are deleted till we reach the target free space percentage. Accepts int type.",
-                "Option 'delete_order' determines if the oldest or newest snapshot is deleted first. Possible values are 'newest_first' and 'oldest_first'.",
-                "Option 'defer_delete' determines which kind of snapshots to delete in the end. Possible values are 'scheduled', 'user_created', 'prefix' and 'none'.",
-                "Option 'prefix' can be set to provide the prefix string for the 'prefix' value of the 'defer_delete' option. The prefix string length can be 15 char long.",
-                "Option 'destroy_list' is a comma seperated list of services which can be destroyed if the snapshot backing that service is deleted. For 7-mode, the possible values for this option are a combination of 'lun_clone', 'vol_clone', 'cifs_share', 'file_clone' or 'none'. For cluster-mode, the possible values for this option are a combination of 'lun_clone,file_clone' (for LUN clone and/or file clone), 'lun_clone,sfsr' (for LUN clone and/or sfsr), 'vol_clone', 'cifs_share', or 'none'."
+                "All the above mentioned options except 'destroy_list' are supported in REST for ONTAP 9.13.1 or later with ONTAP collection version 22.8.0 or later."
             ],
             "type": "dict",
-            "version_added": "20.4.0"
+            "version_added": "20.4.0",
+            "suboptions": {
+                "state": {
+                    "description": "Determines if the snapshot autodelete is currently enabled for the volume.",
+                    "type": "str",
+                    "choices": [
+                        "on",
+                        "off"
+                    ]
+                },
+                "commitment": {
+                    "description": "Determines the snapshots that the snapshot autodelete is allowed to delete to get back space.",
+                    "type": "str",
+                    "choices": [
+                        "try",
+                        "disrupt",
+                        "destroy"
+                    ]
+                },
+                "trigger": {
+                    "description": [
+                        "Determines the condition which starts the automatic deletion of snapshots.",
+                        "Note - C(space_reserve) option is deprecated and may be removed in the future."
+                    ],
+                    "type": "str",
+                    "choices": [
+                        "volume",
+                        "snap_reserve",
+                        "space_reserve"
+                    ]
+                },
+                "target_free_space": {
+                    "description": [
+                        "Determines when snapshot autodelete should stop deleting snapshots.",
+                        "Depending on the trigger, snapshots are deleted until the target free space percentage is reached."
+                    ],
+                    "type": "int"
+                },
+                "delete_order": {
+                    "description": "Determines if the oldest or newest snapshot is deleted first.",
+                    "type": "str",
+                    "choices": [
+                        "newest_first",
+                        "oldest_first"
+                    ]
+                },
+                "defer_delete": {
+                    "description": "Determines what kind of snapshot to delete in the end.",
+                    "type": "str",
+                    "choices": [
+                        "scheduled",
+                        "user_created",
+                        "prefix",
+                        "none"
+                    ]
+                },
+                "prefix": {
+                    "description": [
+                        "Can be set to provide the prefix string for the 'prefix' value of the 'defer_delete' option.",
+                        "The prefix string can be 15 characters long."
+                    ],
+                    "type": "str"
+                },
+                "destroy_list": {
+                    "description": [
+                        "A comma seperated list of services which can be destroyed if the snapshot backing that service is deleted.",
+                        "For 7-mode, the possible values for this option are a combination of 'lun_clone', 'vol_clone', 'cifs_share', 'file_clone' or 'none'.",
+                        "For cluster-mode, the possible values for this option are a combination of 'lun_clone,file_clone' (for LUN clone and/or file clone), 'lun_clone,sfsr' (for LUN clone and/or sfsr), 'vol_clone', 'cifs_share', or 'none'."
+                    ],
+                    "type": "str"
+                }
+            }
         },
         "cutover_action": {
             "description": [
