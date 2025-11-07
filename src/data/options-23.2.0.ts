@@ -1,6 +1,6 @@
 import { ModuleOptions } from "./options";
 
-export const options_23_1_0: ModuleOptions = {
+export const options_23_2_0: ModuleOptions = {
     "netapp.ontap.na_ontap_active_directory": {
         "state": {
             "description": [
@@ -373,12 +373,42 @@ export const options_23_1_0: ModuleOptions = {
             "type": "list",
             "elements": "str",
             "version_added": "22.6.0"
+        },
+        "lambda_config": {
+            "description": [
+                "Configuration parameters for AWS Lambda proxy functionality.",
+                "These option and suboptions are only supported with REST."
+            ],
+            "type": "dict",
+            "version_added": "23.2.0",
+            "suboptions": {
+                "function_name": {
+                    "description": [
+                        "The name of the AWS Lambda function to invoke."
+                    ],
+                    "type": "str",
+                    "required": true
+                },
+                "aws_region": {
+                    "description": [
+                        "The name of the AWS region."
+                    ],
+                    "type": "str",
+                    "required": true
+                },
+                "aws_profile": {
+                    "description": [
+                        "The name of the AWS profile to use for authentication."
+                    ],
+                    "type": "str"
+                }
+            }
         }
     },
     "netapp.ontap.na_ontap_autosupport": {
         "state": {
             "description": [
-                "Specifies whether the AutoSupport daemon is present or absent.",
+                "Specifies whether the AutoSupport daemon is to be enabled or disabled.",
                 "When this setting is absent, delivery of all AutoSupport messages is turned off."
             ],
             "choices": [
@@ -390,9 +420,9 @@ export const options_23_1_0: ModuleOptions = {
         },
         "node_name": {
             "description": [
-                "The name of the filer that owns the AutoSupport Configuration."
+                "The name of the filer that owns the AutoSupport Configuration.",
+                "Supported only with ZAPI."
             ],
-            "required": true,
             "type": "str"
         },
         "transport": {
@@ -408,14 +438,16 @@ export const options_23_1_0: ModuleOptions = {
         },
         "noteto": {
             "description": [
-                "Specifies up to five recipients of short AutoSupport e-mail messages."
+                "Specifies up to five recipients of short AutoSupport e-mail messages.",
+                "Supported only with ZAPI."
             ],
             "type": "list",
             "elements": "str"
         },
         "post_url": {
             "description": [
-                "The URL used to deliver AutoSupport messages via HTTP POST."
+                "The URL used to deliver AutoSupport messages via HTTP POST.",
+                "Supported only with ZAPI."
             ],
             "type": "str"
         },
@@ -466,63 +498,72 @@ export const options_23_1_0: ModuleOptions = {
         },
         "hostname_in_subject": {
             "description": [
-                "Specify whether the hostname of the node is included in the subject line of the AutoSupport message."
+                "Specify whether the hostname of the node is included in the subject line of the AutoSupport message.",
+                "Supported only with ZAPI."
             ],
             "type": "bool",
             "version_added": "2.8.0"
         },
         "nht_data_enabled": {
             "description": [
-                "Specify whether the disk health data is collected as part of the AutoSupport data."
+                "Specify whether the disk health data is collected as part of the AutoSupport data.",
+                "Supported only with ZAPI."
             ],
             "type": "bool",
             "version_added": "21.5.0"
         },
         "perf_data_enabled": {
             "description": [
-                "Specify whether the performance data is collected as part of the AutoSupport data."
+                "Specify whether the performance data is collected as part of the AutoSupport data.",
+                "Supported only with ZAPI."
             ],
             "type": "bool",
             "version_added": "21.5.0"
         },
         "retry_count": {
             "description": [
-                "Specify the maximum number of delivery attempts for an AutoSupport message."
+                "Specify the maximum number of delivery attempts for an AutoSupport message.",
+                "Supported only with ZAPI."
             ],
             "type": "int",
             "version_added": "21.5.0"
         },
         "reminder_enabled": {
             "description": [
-                "Specify whether AutoSupport reminders are enabled or disabled."
+                "Specify whether AutoSupport reminders are enabled or disabled.",
+                "Supported only with ZAPI."
             ],
             "type": "bool",
             "version_added": "21.5.0"
         },
         "max_http_size": {
             "description": [
-                "Specify delivery size limit for the HTTP transport protocol (in bytes)."
+                "Specify delivery size limit for the HTTP transport protocol (in bytes).",
+                "Supported only with ZAPI."
             ],
             "type": "int",
             "version_added": "21.5.0"
         },
         "max_smtp_size": {
             "description": [
-                "Specify delivery size limit for the SMTP transport protocol (in bytes)."
+                "Specify delivery size limit for the SMTP transport protocol (in bytes).",
+                "Supported only with ZAPI."
             ],
             "type": "int",
             "version_added": "21.5.0"
         },
         "private_data_removed": {
             "description": [
-                "Specify the removal of customer-supplied data."
+                "Specify the removal of customer-supplied data.",
+                "Supported only with ZAPI."
             ],
             "type": "bool",
             "version_added": "21.5.0"
         },
         "local_collection_enabled": {
             "description": [
-                "Specify whether collection of AutoSupport data when the AutoSupport daemon is disabled."
+                "Specify whether collection of AutoSupport data when the AutoSupport daemon is disabled.",
+                "Supported only with ZAPI."
             ],
             "type": "bool",
             "version_added": "21.5.0"
@@ -536,10 +577,39 @@ export const options_23_1_0: ModuleOptions = {
         },
         "validate_digital_certificate": {
             "description": [
-                "When set to true each node will validate the digital certificates that it receives."
+                "When set to true each node will validate the digital certificates that it receives.",
+                "Supported only with ZAPI."
             ],
             "type": "bool",
             "version_added": "21.5.0"
+        },
+        "is_minimal": {
+            "description": [
+                "Specifies whether the system information is collected in compliant form, to remove private data or in complete form, to enhance diagnostics.",
+                "Supported only with REST."
+            ],
+            "type": "bool",
+            "version_added": "23.2.0"
+        },
+        "smtp_encryption": {
+            "description": [
+                "The encryption protocol used to deliver AutoSupport messages via SMTP to the configured mail_hosts.",
+                "Supported only with REST."
+            ],
+            "choices": [
+                "none",
+                "start_tls"
+            ],
+            "type": "str",
+            "version_added": "23.2.0"
+        },
+        "force": {
+            "description": [
+                "Set the force flag to true to modify some of the AutoSupport configurations that are otherwise blocked when the automatic update feature is enabled.",
+                "Without this flag set to true, an attempt to disable AutoSupport, modify the transport to SMTP, or disable the AutoSupport OnDemand feature fails if the automatic update feature is enabled."
+            ],
+            "type": "bool",
+            "version_added": "23.2.0"
         }
     },
     "netapp.ontap.na_ontap_autosupport_invoke": {
@@ -945,6 +1015,19 @@ export const options_23_1_0: ModuleOptions = {
             ],
             "type": "str",
             "version_added": "22.8.0"
+        },
+        "consistency_type": {
+            "description": [
+                "Type of consistency guarantee for the snapshot.",
+                "Only supported with REST."
+            ],
+            "choices": [
+                "crash",
+                "application"
+            ],
+            "type": "str",
+            "default": "crash",
+            "version_added": "23.2.0"
         }
     },
     "netapp.ontap.na_ontap_cifs": {
@@ -5512,6 +5595,22 @@ export const options_23_1_0: ModuleOptions = {
             ],
             "type": "str",
             "version_added": "21.22.0"
+        },
+        "vserver": {
+            "description": [
+                "name of the vserver."
+            ],
+            "type": "str",
+            "version_added": "23.2.0"
+        },
+        "interval": {
+            "description": [
+                "The interval at which the job should be run.",
+                "This is specified in an ISO-8601 duration formatted string.",
+                "This parameter does not work with cron jobs."
+            ],
+            "type": "str",
+            "version_added": "23.2.0"
         }
     },
     "netapp.ontap.na_ontap_kerberos_interface": {
@@ -6482,6 +6581,31 @@ export const options_23_1_0: ModuleOptions = {
                     "version_added": "21.7.0"
                 }
             }
+        },
+        "provisioning_options": {
+            "description": [
+                "Options that are applied to create operation.",
+                "Only supported with REST, requires ONTAP 9.16.1 or later."
+            ],
+            "type": "dict",
+            "version_added": "23.2.0",
+            "suboptions": {
+                "count": {
+                    "description": [
+                        "The number of LUNs to provision with these properties.",
+                        "When provided, the name is considered a prefix, and a suffix of the form _<N> is generated where N is the next available numeric index, starting with 1."
+                    ],
+                    "type": "int"
+                },
+                "auto": {
+                    "description": [
+                        "If the volume specified in the request does not exist, automatically provision one of appropriate size.",
+                        "If the volume does exist, resize it to accommodate the new LUN.",
+                        "Only supported on Unified ONTAP."
+                    ],
+                    "type": "bool"
+                }
+            }
         }
     },
     "netapp.ontap.na_ontap_lun_copy": {
@@ -7327,7 +7451,14 @@ export const options_23_1_0: ModuleOptions = {
         "flowcontrol_admin": {
             "description": [
                 "Specifies the user preferred flow control setting of the port.",
-                "Not supported with REST."
+                "Supported with REST for 9.16.1 and later."
+            ],
+            "choices": [
+                "none",
+                "receive",
+                "send",
+                "full",
+                "pfc"
             ],
             "type": "str"
         },
@@ -7335,7 +7466,6 @@ export const options_23_1_0: ModuleOptions = {
             "description": [
                 "Specifies the port's associated IPspace name.",
                 "The 'Cluster' ipspace is reserved for cluster ports.",
-                "Not supported with REST.",
                 "use netapp.ontap.na_ontap_ports to modify ipspace with REST."
             ],
             "type": "str"
@@ -7576,7 +7706,8 @@ export const options_23_1_0: ModuleOptions = {
         },
         "nfsv3_fsid_change": {
             "description": [
-                "status of if NFSv3 clients see change in FSID as they traverse filesystems."
+                "status of if NFSv3 clients see change in FSID as they traverse filesystems.",
+                "REST support added in collection version 23.2.0 and requires ONTAP 9.11.0 or later."
             ],
             "choices": [
                 "enabled",
@@ -7587,7 +7718,8 @@ export const options_23_1_0: ModuleOptions = {
         },
         "nfsv4_fsid_change": {
             "description": [
-                "status of if NFSv4 clients see change in FSID as they traverse filesystems."
+                "status of if NFSv4 clients see change in FSID as they traverse filesystems.",
+                "REST support added in collection version 23.2.0 and requires ONTAP 9.13.1 or later."
             ],
             "choices": [
                 "enabled",
@@ -7727,7 +7859,8 @@ export const options_23_1_0: ModuleOptions = {
         },
         "nfsv40_referrals": {
             "description": [
-                "status for NFS v4.0 referrals."
+                "status for NFS v4.0 referrals.",
+                "REST support added in collection version 23.2.0 and requires ONTAP 9.13.1 or later."
             ],
             "choices": [
                 "enabled",
@@ -7738,7 +7871,8 @@ export const options_23_1_0: ModuleOptions = {
         },
         "nfsv41_referrals": {
             "description": [
-                "status for NFS v4.1 referrals."
+                "status for NFS v4.1 referrals.",
+                "REST support added in collection version 23.2.0 and requires ONTAP 9.13.1 or later."
             ],
             "choices": [
                 "enabled",
@@ -7907,7 +8041,121 @@ export const options_23_1_0: ModuleOptions = {
                 "enabled",
                 "disabled"
             ],
-            "type": "str"
+            "type": "str",
+            "version_added": "23.1.0"
+        },
+        "nfsv3_mount_root_only": {
+            "description": [
+                "Specifies whether the SVM allows MOUNT protocol calls only from privileged ports (port numbers less than 1024).",
+                "Supported only with REST."
+            ],
+            "choices": [
+                "enabled",
+                "disabled"
+            ],
+            "type": "str",
+            "version_added": "23.2.0"
+        },
+        "nfsv3_ejukebox_enabled": {
+            "description": [
+                "Specifies whether NFSv3 EJUKEBOX error is enabled.",
+                "Supported only with REST."
+            ],
+            "choices": [
+                "enabled",
+                "disabled"
+            ],
+            "type": "str",
+            "version_added": "23.2.0"
+        },
+        "nfsv3_connection_drop": {
+            "description": [
+                "Specifies whether the dropping of a connection when an NFSv3 request is dropped is enabled.",
+                "Supported only with REST."
+            ],
+            "choices": [
+                "enabled",
+                "disabled"
+            ],
+            "type": "str",
+            "version_added": "23.2.0"
+        },
+        "nfsv3_64bit_identifiers_enabled": {
+            "description": [
+                "Specifies whether 64-bit support for NFSv3 FSIDs and file IDs is enabled.",
+                "Supported only with REST."
+            ],
+            "choices": [
+                "enabled",
+                "disabled"
+            ],
+            "type": "str",
+            "version_added": "23.2.0"
+        },
+        "nfsv4_64bit_identifiers_enabled": {
+            "description": [
+                "Specifies whether 64-bit support for NFSv4.x FSIDs and file IDs is enabled.",
+                "Supported only with REST."
+            ],
+            "choices": [
+                "enabled",
+                "disabled"
+            ],
+            "type": "str",
+            "version_added": "23.2.0"
+        },
+        "nfsv42_xattrs_enabled": {
+            "description": [
+                "Specifies whether NFSv4.2 or later extended attributes is enabled.",
+                "Supported only with REST."
+            ],
+            "choices": [
+                "enabled",
+                "disabled"
+            ],
+            "type": "str",
+            "version_added": "23.2.0"
+        },
+        "nfsv42_seclabel_enabled": {
+            "description": [
+                "Specifies whether NFSv4.2 or later security label is enabled.",
+                "Supported only with REST."
+            ],
+            "choices": [
+                "enabled",
+                "disabled"
+            ],
+            "type": "str",
+            "version_added": "23.2.0"
+        },
+        "nfsv40_acl_preserve": {
+            "description": [
+                "Specifies if the NFSv4 ACL is preserved or dropped when chmod is performed.",
+                "In unified security style, this parameter also specifies if NTFS file permissions are preserved or dropped when chmod, chgrp, or chown are performed.",
+                "Supported only with REST."
+            ],
+            "choices": [
+                "enabled",
+                "disabled"
+            ],
+            "type": "str",
+            "version_added": "23.2.0"
+        },
+        "nfsv4_grace_seconds": {
+            "description": [
+                "Specifies the grace period for clients to reclaim file locks after a server failure.",
+                "Supported only with REST."
+            ],
+            "type": "int",
+            "version_added": "23.2.0"
+        },
+        "nfsv4_lease_seconds": {
+            "description": [
+                "Specifies the lease seconds of the NFSv4 clients. If it is inactive for more than the time displayed, all of the file lock states on a node might be lost",
+                "Supported only with REST."
+            ],
+            "type": "int",
+            "version_added": "23.2.0"
         }
     },
     "netapp.ontap.na_ontap_node": {
@@ -9119,7 +9367,6 @@ export const options_23_1_0: ModuleOptions = {
         "quota_target": {
             "description": [
                 "The quota target of the type specified.",
-                "Required to create or modify a rule.",
                 "users and group takes quota_target value in REST.",
                 "For default user and group quota rules, the quota_target must be specified as \"\"."
             ],
@@ -9136,8 +9383,7 @@ export const options_23_1_0: ModuleOptions = {
         },
         "type": {
             "description": [
-                "The type of quota rule",
-                "Required to create or modify a rule."
+                "The type of quota rule."
             ],
             "choices": [
                 "user",
@@ -9404,6 +9650,8 @@ export const options_23_1_0: ModuleOptions = {
                 "Either the REST API or the ZAPI info name can be given. Possible values for this argument include",
                 "application/applications or application_info",
                 "application/consistency-groups",
+                "application/consistency-groups/metrics B(Requires the owning_resource to be set)",
+                "application/consistency-groups/snapshots B(Requires the owning_resource to be set)",
                 "application/templates or application_template_info",
                 "cloud/targets or cloud_targets_info",
                 "cluster",
@@ -9657,11 +9905,13 @@ export const options_23_1_0: ModuleOptions = {
             "description": [
                 "Some resources cannot be accessed directly.  You need to select them based on the owner or parent.  For instance, volume for a snapshot.",
                 "The following subsets require an owning resource, and the following suboptions when uuid is not present.",
+                "<application/consistency-groups/metrics> B(cg_name) is the consistency group name, B(svm_name) is the owning vserver name for the consistency group.",
+                "<application/consistency-groups/snapshots> B(cg_name) is the consistency group name, B(svm_name) is the owning vserver name for the consistency group.",
                 "<storage/volumes/snapshots>  B(volume_name) is the volume name, B(svm_name) is the owning vserver name for the volume.",
                 "<protocols/nfs/export-policies/rules> B(policy_name) is the name of the policy, B(svm_name) is the owning vserver name for the policy, B(rule_index) is the rule index.",
-                "<protocols/vscan/on-access-policies> B(svm_name) is the owning vserver name for the vscan",
-                "<protocols/vscan/on-demand-policies> B(svm_name) is the owning vserver name for the vscan",
-                "<protocols/vscan/scanner-pools> B(svm_name) is the owning vserver name for the vscan"
+                "<protocols/vscan/on-access-policies> B(svm_name) is the owning vserver name for the vscan.",
+                "<protocols/vscan/on-demand-policies> B(svm_name) is the owning vserver name for the vscan.",
+                "<protocols/vscan/scanner-pools> B(svm_name) is the owning vserver name for the vscan."
             ],
             "type": "dict",
             "version_added": "21.19.0"
@@ -10773,6 +11023,17 @@ export const options_23_1_0: ModuleOptions = {
                 "Default value is 2."
             ],
             "type": "int"
+        },
+        "host_key_algorithms": {
+            "description": [
+                "Enables the specified host key algorithms for the Vserver. It replaces all existing host key algorithms with the specified settings.",
+                "The host key algorithm \"ssh_ed25519\" can be configured only in non-FIPS mode.",
+                "Requires ONTAP 9.16.1 and later.",
+                "Example list [ \"ecdsa_sha2_nistp256\", \"ssh_rsa\", \"ssh_ed25519\" ]"
+            ],
+            "type": "list",
+            "elements": "str",
+            "version_added": "23.2.0"
         }
     },
     "netapp.ontap.na_ontap_service_policy": {
@@ -11723,6 +11984,14 @@ export const options_23_1_0: ModuleOptions = {
             ],
             "type": "str",
             "version_added": "21.8.0"
+        },
+        "snaplock_expiry_time": {
+            "description": [
+                "SnapLock expiry time for the snapshot, if the snapshot is taken on a SnapLock volume.",
+                "Only supported with REST, requires ONTAP 9.15.1 or later."
+            ],
+            "type": "str",
+            "version_added": "23.2.0"
         }
     },
     "netapp.ontap.na_ontap_snapshot_policy": {
@@ -12028,7 +12297,7 @@ export const options_23_1_0: ModuleOptions = {
         "validate_after_download": {
             "description": [
                 "By default validation is not run after download, as it is already done in the update step.",
-                "This option is useful when using C(download_only), for instance when updating a MetroCluster system."
+                "For MetroCluster systems, the C(download_only) parameter should be run first on one of the sites of the MetroCluster. After the job completes, update the other sites."
             ],
             "default": false,
             "type": "bool",
@@ -12691,6 +12960,31 @@ export const options_23_1_0: ModuleOptions = {
             ],
             "type": "int",
             "version_added": "23.1.0"
+        },
+        "storage_limit_threshold_alert": {
+            "description": [
+                "Specifies at what percentage of storage capacity an alert message is sent.",
+                "The default value is 90.",
+                "Only supported with REST, requires ONTAP 9.13.1 or later."
+            ],
+            "type": "int",
+            "version_added": "23.2.0"
+        },
+        "auto_enable_analytics": {
+            "description": [
+                "Specifies whether file system analytics is automatically enabled on volumes that are created in the SVM.",
+                "Only supported with REST, requires ONTAP 9.12.1 or later."
+            ],
+            "type": "bool",
+            "version_added": "23.2.0"
+        },
+        "auto_enable_activity_tracking": {
+            "description": [
+                "Specifies whether volume activity tracking is automatically enabled on volumes that are created in the SVM.",
+                "Only supported with REST, requires ONTAP 9.12.1 or later."
+            ],
+            "type": "bool",
+            "version_added": "23.2.0"
         }
     },
     "netapp.ontap.na_ontap_svm_options": {
@@ -13040,7 +13334,7 @@ export const options_23_1_0: ModuleOptions = {
             "description": [
                 "The name of the vserver to use.",
                 "Required with ZAPI.",
-                "With REST, ignore this option for creating cluster scoped interface."
+                "With REST, ignore this option for creating cluster scoped user account."
             ],
             "aliases": [
                 "svm"
@@ -13544,6 +13838,9 @@ export const options_23_1_0: ModuleOptions = {
                 "Percentage in size change to trigger a resize.",
                 "When this parameter is greater than 0, a difference in size between what is expected and what is configured is ignored if it is below the threshold.",
                 "For instance, the nas application allocates a larger size than specified to account for overhead.",
+                "When using C(nas_application_template), if the overhead size difference is within the threshold, the module updates the size parameter to match the allocated size for idempotency in subsequent runs.",
+                "If the difference exceeds the threshold, the volume will be resized to the requested size.",
+                "For regular volumes (without nas_application_template), size differences within the threshold are ignored without parameter updates.",
                 "Set this to 0 for an exact match."
             ],
             "type": "int",
@@ -14219,6 +14516,36 @@ export const options_23_1_0: ModuleOptions = {
             ],
             "type": "bool",
             "version_added": "22.13.0"
+        },
+        "lambda_config": {
+            "description": [
+                "Configuration parameters for AWS Lambda proxy functionality.",
+                "These option and suboptions are only supported with REST."
+            ],
+            "type": "dict",
+            "version_added": "23.2.0",
+            "suboptions": {
+                "function_name": {
+                    "description": [
+                        "The name of the AWS Lambda function to invoke."
+                    ],
+                    "type": "str",
+                    "required": true
+                },
+                "aws_region": {
+                    "description": [
+                        "The name of the AWS region."
+                    ],
+                    "type": "str",
+                    "required": true
+                },
+                "aws_profile": {
+                    "description": [
+                        "The name of the AWS profile to use for authentication."
+                    ],
+                    "type": "str"
+                }
+            }
         }
     },
     "netapp.ontap.na_ontap_volume_autosize": {
@@ -14260,7 +14587,8 @@ export const options_23_1_0: ModuleOptions = {
             "description": [
                 "Specify the flexible volume's increment size using the following format < number > [k|m|g|t]",
                 "The amount is the absolute size to set.",
-                "The trailing 'k', 'm', 'g', and 't' indicates the desired units, namely 'kilobytes', 'megabytes', 'gigabytes', and 'terabytes' (respectively)."
+                "The trailing 'k', 'm', 'g', and 't' indicates the desired units, namely 'kilobytes', 'megabytes', 'gigabytes', and 'terabytes' (respectively).",
+                "Not supported with REST."
             ],
             "type": "str"
         },
@@ -14287,7 +14615,8 @@ export const options_23_1_0: ModuleOptions = {
         "reset": {
             "description": [
                 "Sets the values of maximum_size, increment_size, minimum_size, grow_threshold_percent, shrink_threshold_percent and mode to their defaults",
-                "If reset paramater is present system will always perform reset action, so idempotency is not supported."
+                "If reset paramater is present system will always perform reset action, so idempotency is not supported.",
+                "Not supported with REST."
             ],
             "type": "bool"
         },
@@ -14400,6 +14729,25 @@ export const options_23_1_0: ModuleOptions = {
                 "Split clone volume from parent volume."
             ],
             "type": "bool"
+        },
+        "time_out": {
+            "version_added": "23.2.0",
+            "description": [
+                "With C(wait_for_completion) set, specifies time to wait for clone/split operation in seconds.",
+                "Only supported with REST."
+            ],
+            "type": "int",
+            "default": 180
+        },
+        "wait_for_completion": {
+            "version_added": "23.2.0",
+            "description": [
+                "Set this parameter to 'true' for synchronous execution.",
+                "For asynchronous, execution exits as soon as the request is sent, and the operation continues in the background.",
+                "Only supported with REST."
+            ],
+            "type": "bool",
+            "default": true
         }
     },
     "netapp.ontap.na_ontap_volume_efficiency": {

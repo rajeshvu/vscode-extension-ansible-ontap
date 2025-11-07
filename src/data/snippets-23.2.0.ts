@@ -1,6 +1,6 @@
 import { SnippetItem } from "./snippets";
 
-export const snippets_23_1_0: SnippetItem[] = [
+export const snippets_23_2_0: SnippetItem[] = [
     {
         "label": "Create active directory account.",
         "description": "- netapp.ontap.na_ontap_active_directory",
@@ -62,24 +62,39 @@ export const snippets_23_1_0: SnippetItem[] = [
         "body": "- name: Delete Aggregates\n  netapp.ontap.na_ontap_aggregate:\n    state: absent\n    service_state: offline\n    unmount_volumes: true\n    name: ansibleAggr\n    hostname: '{{ netapp_hostname }}'\n    username: '{{ netapp_username }}'\n    password: '{{ netapp_password }}'\n"
     },
     {
-        "label": "Enable autosupport",
+        "label": "Enable autosupport - ZAPI",
         "description": "- netapp.ontap.na_ontap_autosupport",
-        "body": "- name: Enable autosupport\n  netapp.ontap.na_ontap_autosupport:\n    hostname: '{{ netapp_hostname }}'\n    username: '{{ netapp_username }}'\n    password: '{{ netapp_password }}'\n    state: present\n    node_name: test\n    transport: https\n    noteto: abc@def.com,def@ghi.com\n    mail_hosts: 1.2.3.4,5.6.7.8\n    support: false\n    post_url: url/1.0/post\n"
+        "body": "- name: Enable autosupport - ZAPI\n  netapp.ontap.na_ontap_autosupport:\n    hostname: '{{ netapp_hostname }}'\n    username: '{{ netapp_username }}'\n    password: '{{ netapp_password }}'\n    state: present\n    node_name: test\n    transport: https\n    noteto: abc@def.com,def@ghi.com\n    mail_hosts: 1.2.3.4,5.6.7.8\n    support: false\n    post_url: url/1.0/post\n"
     },
     {
-        "label": "Modify autosupport proxy_url with password",
+        "label": "Modify autosupport proxy_url with password - ZAPI",
         "description": "- netapp.ontap.na_ontap_autosupport",
-        "body": "- name: Modify autosupport proxy_url with password\n  netapp.ontap.na_ontap_autosupport:\n    hostname: '{{ netapp_hostname }}'\n    username: '{{ netapp_username }}'\n    password: '{{ netapp_password }}'\n    state: present\n    node_name: test\n    transport: https\n    proxy_url: username:password@host.com:8000\n"
+        "body": "- name: Modify autosupport proxy_url with password - ZAPI\n  netapp.ontap.na_ontap_autosupport:\n    hostname: '{{ netapp_hostname }}'\n    username: '{{ netapp_username }}'\n    password: '{{ netapp_password }}'\n    state: present\n    node_name: test\n    transport: https\n    proxy_url: username:password@host.com:8000\n"
     },
     {
-        "label": "Modify autosupport proxy_url without password",
+        "label": "Modify autosupport proxy_url without password - ZAPI",
         "description": "- netapp.ontap.na_ontap_autosupport",
-        "body": "- name: Modify autosupport proxy_url without password\n  netapp.ontap.na_ontap_autosupport:\n    hostname: '{{ netapp_hostname }}'\n    username: '{{ netapp_username }}'\n    password: '{{ netapp_password }}'\n    state: present\n    node_name: test\n    transport: https\n    proxy_url: username@host.com:8000\n"
+        "body": "- name: Modify autosupport proxy_url without password - ZAPI\n  netapp.ontap.na_ontap_autosupport:\n    hostname: '{{ netapp_hostname }}'\n    username: '{{ netapp_username }}'\n    password: '{{ netapp_password }}'\n    state: present\n    node_name: test\n    transport: https\n    proxy_url: username@host.com:8000\n"
     },
     {
-        "label": "Disable autosupport",
+        "label": "Disable autosupport - ZAPI",
         "description": "- netapp.ontap.na_ontap_autosupport",
-        "body": "- name: Disable autosupport\n  netapp.ontap.na_ontap_autosupport:\n    hostname: '{{ netapp_hostname }}'\n    username: '{{ netapp_username }}'\n    password: '{{ netapp_password }}'\n    state: absent\n    node_name: test\n"
+        "body": "- name: Disable autosupport - ZAPI\n  netapp.ontap.na_ontap_autosupport:\n    hostname: '{{ netapp_hostname }}'\n    username: '{{ netapp_username }}'\n    password: '{{ netapp_password }}'\n    state: absent\n    node_name: test\n"
+    },
+    {
+        "label": "Enable autosupport - REST",
+        "description": "- netapp.ontap.na_ontap_autosupport",
+        "body": "- name: Enable autosupport - REST\n  netapp.ontap.na_ontap_autosupport:\n    hostname: '{{ netapp_hostname }}'\n    username: '{{ netapp_username }}'\n    password: '{{ netapp_password }}'\n    transport: https\n    mail_hosts: 1.2.3.4,5.6.7.8\n    proxy_url: proxyhost.local.com\n    to_addresses: rst@xyz.com\n    from_address: testmail1@abc.com\n    ondemand_enabled: true\n    support: true\n    state: present\n    force: true\n    is_minimal: true\n    smtp_encryption: none\n    partner_addresses: test2@xyz.com\n"
+    },
+    {
+        "label": "Modify autosupport - REST",
+        "description": "- netapp.ontap.na_ontap_autosupport",
+        "body": "- name: Modify autosupport - REST\n  netapp.ontap.na_ontap_autosupport:\n    hostname: '{{ netapp_hostname }}'\n    username: '{{ netapp_username }}'\n    password: '{{ netapp_password }}'\n    transport: smtp\n    mail_hosts: 1.2.3.4:25\n    proxy_url: proxyhost.local.com\n    to_addresses: rst@xyz.com,mymail@abc.com\n    from_address: testmail@abc.com\n    ondemand_enabled: false\n    support: false\n    state: present\n    is_minimal: false\n    smtp_encryption: start_tls\n    partner_addresses: test1@xyz.com\n    force: true\n"
+    },
+    {
+        "label": "Disable autosupport - REST",
+        "description": "- netapp.ontap.na_ontap_autosupport",
+        "body": "- name: Disable autosupport - REST\n  netapp.ontap.na_ontap_autosupport:\n    hostname: '{{ netapp_hostname }}'\n    username: '{{ netapp_username }}'\n    password: '{{ netapp_password }}'\n    state: absent\n"
     },
     {
         "label": "Send message",
@@ -997,6 +1012,11 @@ export const snippets_23_1_0: SnippetItem[] = [
         "body": "- name: Create Job for 11.30PM at 10th of January when using REST and February when\n    using ZAPI !!!\n  netapp.ontap.na_ontap_job_schedule:\n    state: present\n    name: jobName\n    job_minutes: 30\n    job_hours: 23\n    job_days_of_month: 10\n    job_months: 1\n    hostname: '{{ netapp_hostname }}'\n    username: '{{ netapp_username }}'\n    password: '{{ netapp_password }}'\n"
     },
     {
+        "label": "Create Interval Job using REST",
+        "description": "- netapp.ontap.na_ontap_job_schedule",
+        "body": "- name: Create Interval Job using REST\n  netapp.ontap.na_ontap_job_schedule:\n    state: present\n    name: jobName\n    interval: P1DT2H3M4S\n    hostname: '{{ netapp_hostname }}'\n    username: '{{ netapp_username }}'\n    password: '{{ netapp_password }}'\n"
+    },
+    {
         "label": "Delete Job",
         "description": "- netapp.ontap.na_ontap_job_schedule",
         "body": "- name: Delete Job\n  netapp.ontap.na_ontap_job_schedule:\n    state: absent\n    name: jobName\n    hostname: '{{ netapp_hostname }}'\n    username: '{{ netapp_username }}'\n    password: '{{ netapp_password }}'\n"
@@ -1135,6 +1155,11 @@ export const snippets_23_1_0: SnippetItem[] = [
         "label": "Convert existing volume to SAN application",
         "description": "- netapp.ontap.na_ontap_lun",
         "body": "- name: Convert existing volume to SAN application\n  netapp.ontap.na_ontap_lun:\n    state: present\n    name: someVolume\n    size: 22\n    size_unit: mb\n    os_type: linux\n    space_reserve: false\n    san_application_template:\n      name: san-ansibleLUN\n      igroup_name: testme_igroup\n      lun_count: 3\n      protection_type: null\n      local_policy: default\n      scope: application\n    hostname: '{{ netapp_hostname }}'\n    username: '{{ netapp_username }}'\n    password: '{{ netapp_password }}'\n"
+    },
+    {
+        "label": "Create LUNs",
+        "description": "- netapp.ontap.na_ontap_lun",
+        "body": "- name: Create LUNs\n  netapp.ontap.na_ontap_lun:\n    state: present\n    name: ansibleLUN\n    flexvol_name: ansibleVolume\n    vserver: ansibleVServer\n    size: 5\n    size_unit: mb\n    os_type: linux\n    provisioning_options:\n      count: 2\n    hostname: '{{ netapp_hostname }}'\n    username: '{{ netapp_username }}'\n    password: '{{ netapp_password }}'\n"
     },
     {
         "label": "Copy LUN",
@@ -1329,7 +1354,7 @@ export const snippets_23_1_0: SnippetItem[] = [
     {
         "label": "Modify Net Port",
         "description": "- netapp.ontap.na_ontap_net_port",
-        "body": "- name: Modify Net Port\n  netapp.ontap.na_ontap_net_port:\n    state: present\n    username: '{{ netapp_username }}'\n    password: '{{ netapp_password }}'\n    hostname: '{{ netapp_hostname }}'\n    node: '{{ node_name }}'\n    ports: e0d,e0c\n    autonegotiate_admin: true\n    up_admin: true\n    mtu: 1500\n"
+        "body": "- name: Modify Net Port\n  netapp.ontap.na_ontap_net_port:\n    state: present\n    username: '{{ netapp_username }}'\n    password: '{{ netapp_password }}'\n    hostname: '{{ netapp_hostname }}'\n    node: '{{ node_name }}'\n    ports: e0d,e0c\n    autonegotiate_admin: true\n    up_admin: true\n    mtu: 1500\n    flowcontrol_admin: full\n    ipspace: test_ipspace\n"
     },
     {
         "label": "Create route",
@@ -2247,9 +2272,14 @@ export const snippets_23_1_0: SnippetItem[] = [
         "body": "- name: Delete SNMP traphost\n  netapp.ontap.na_ontap_snmp_traphosts:\n    state: absent\n    host: example1.com\n    hostname: '{{ netapp_hostname }}'\n    username: '{{ netapp_username }}'\n    password: '{{ netapp_password }}'\n"
     },
     {
-        "label": "ONTAP software update",
+        "label": "start ONTAP software update Precheck on Metrocluster DR Site B",
         "description": "- netapp.ontap.na_ontap_software_update",
-        "body": "- name: ONTAP software update\n  netapp.ontap.na_ontap_software_update:\n    state: present\n    nodes: vsim1\n    package_url: '{{ url }}'\n    package_version: '{{ version_name }}'\n    ignore_validation_warning: true\n    download_only: true\n    hostname: '{{ netapp_hostname }}'\n    username: '{{ netapp_username }}'\n    password: '{{ netapp_password }}'\n"
+        "body": "- name: start ONTAP software update Precheck on Metrocluster DR Site B\n  netapp.ontap.na_ontap_software_update:\n    state: present\n    nodes: '{{ nodes }}'\n    package_url: '{{ url }}'\n    download_only: true\n    validate_after_download: true\n    package_version: 9.16.1P4\n    ignore_validation_warning: true\n    timeout: 36000\n    hostname: '{{ netapp_hostname }}'\n    username: '{{ netapp_username }}'\n    password: '{{ netapp_password }}'\n"
+    },
+    {
+        "label": "start ONTAP software update on DR Site A",
+        "description": "- netapp.ontap.na_ontap_software_update",
+        "body": "- name: start ONTAP software update on DR Site A\n  netapp.ontap.na_ontap_software_update:\n    state: present\n    nodes: '{{ nodes }}'\n    package_url: '{{ url }}'\n    package_version: 9.16.1P4\n    ignore_validation_warning: true\n    timeout: 36000\n    hostname: '{{ netapp_hostname }}'\n    username: '{{ netapp_username }}'\n    password: '{{ netapp_password }}'\n"
     },
     {
         "label": "run ontap cli command using SSH",
@@ -2542,9 +2572,14 @@ export const snippets_23_1_0: SnippetItem[] = [
         "body": "- name: Reset volume autosize\n  netapp.ontap.na_ontap_volume_autosize:\n    hostname: '{{ netapp_hostname }}'\n    username: '{{ netapp_username }}'\n    password: '{{ netapp_password }}'\n    volume: ansibleVolumesize12\n    reset: true\n    vserver: ansible_vserver\n"
     },
     {
-        "label": "create volume clone",
+        "label": "Create volume clone - ZAPI",
         "description": "- netapp.ontap.na_ontap_volume_clone",
-        "body": "- name: create volume clone\n  netapp.ontap.na_ontap_volume_clone:\n    state: present\n    hostname: '{{ netapp_hostname }}'\n    username: '{{ netapp_username }}'\n    password: '{{ netapp_password }}'\n    vserver: ansibleSVM\n    parent_volume: normal_volume\n    name: clone_volume_7\n    space_reserve: none\n    parent_snapshot: backup1\n    junction_path: /clone_volume_7\n    uid: 1\n    gid: 1\n"
+        "body": "- name: Create volume clone - ZAPI\n  netapp.ontap.na_ontap_volume_clone:\n    state: present\n    vserver: ansibleSVM\n    parent_volume: source_volume\n    name: cloned_volume\n    space_reserve: none\n    parent_snapshot: backup1\n    junction_path: /cloned_volume\n    uid: 1\n    gid: 1\n    hostname: '{{ netapp_hostname }}'\n    username: '{{ netapp_username }}'\n    password: '{{ netapp_password }}'\n    https: true\n    validate_certs: '{{ validate_certs }}'\n    use_rest: never\n"
+    },
+    {
+        "label": "Split an existing volume clone - REST",
+        "description": "- netapp.ontap.na_ontap_volume_clone",
+        "body": "- name: Split an existing volume clone - REST\n  netapp.ontap.na_ontap_volume_clone:\n    state: present\n    vserver: ansibleSVM\n    parent_volume: source_volume\n    name: cloned_volume\n    split: true\n    wait_for_completion: true\n    time_out: 90\n    hostname: '{{ netapp_hostname }}'\n    username: '{{ netapp_username }}'\n    password: '{{ netapp_password }}'\n    https: true\n    validate_certs: '{{ validate_certs }}'\n    use_rest: always\n"
     },
     {
         "label": "Enable Volume efficiency",
