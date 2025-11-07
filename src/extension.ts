@@ -29,7 +29,8 @@ export async function activate(context: vscode.ExtensionContext) {
             { language: 'yaml', scheme: 'file' },
             { language: 'yaml', scheme: 'untitled' }
         ],
-        new SnippetTaskCompletionProvider()
+        new SnippetTaskCompletionProvider(),
+        ':', ' '
     );
     context.subscriptions.push(taskCompletionProvider);    
 
@@ -101,26 +102,33 @@ class SnippetTaskCompletionProvider implements vscode.CompletionItemProvider {
     provideCompletionItems(document: vscode.TextDocument, position: vscode.Position): vscode.ProviderResult<vscode.CompletionItem[]> {
         const line = document.lineAt(position);
         const lineText = line.text;
-        const lineIsNewTask = /^\s*(ontap:)\s*/.test(lineText);
+        const match = /^\s*ontap:\s*(.*)$/i.exec(lineText);
 
-        if (!lineIsNewTask) {
+        if (!match) {
             return undefined;
         }
 
+        const query = match[1].trim().toLowerCase();
         const completionItems: vscode.CompletionItem[] = [];
         const uniqueLabels = new Set<string>();
-
-        const replaceRange = new vscode.Range(new vscode.Position(line.lineNumber,0), position);
+        const replaceRange = new vscode.Range(new vscode.Position(line.lineNumber, 0), position);
 
         for (const item of SNIPPETS) {
             for (const snippet of item.snippets) {
-                if (!uniqueLabels.has(snippet.label)) {
+                // Show all snippets if query is empty after trimming, otherwise filter
+                if (
+                    !uniqueLabels.has(snippet.label) &&
+                    (
+                        query.length === 0 ||
+                        snippet.label.toLowerCase().includes(query) ||
+                        (snippet.description && snippet.description.toLowerCase().includes(query))
+                    )
+                ) {
                     const completionItem = new vscode.CompletionItem(
                         snippet.label,
                         vscode.CompletionItemKind.Snippet
                     );
-
-                    completionItem.filterText = 'ontap:'+ snippet.label;
+                    completionItem.filterText = 'ontap:' + snippet.label;
                     completionItem.range = replaceRange;
                     completionItem.insertText = new vscode.SnippetString(snippet.body);
                     completionItem.detail = snippet.description;
