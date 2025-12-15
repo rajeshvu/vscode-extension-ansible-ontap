@@ -1,6 +1,6 @@
 import { SnippetItem } from "./snippets";
 
-export const snippets_23_2_0: SnippetItem[] = [
+export const snippets_23_3_0: SnippetItem[] = [
     {
         "label": "Create active directory account.",
         "description": "- netapp.ontap.na_ontap_active_directory",
@@ -547,6 +547,11 @@ export const snippets_23_2_0: SnippetItem[] = [
         "body": "- name: Modify EMS filter add rule\n  netapp.ontap.na_ontap_ems_filter:\n    state: present\n    name: carchi_ems\n    rules:\n    - index: 1\n      type: include\n      message_criteria:\n        severities: error\n        name_pattern: callhome.*\n    - index: 2\n      type: include\n      message_criteria:\n        severities: EMERGENCY\n    - index: 3\n      type: include\n      message_criteria:\n        severities: ALERT\n"
     },
     {
+        "label": "Create EMS filter with parameter criteria",
+        "description": "- netapp.ontap.na_ontap_ems_filter",
+        "body": "- name: Create EMS filter with parameter criteria\n  netapp.ontap.na_ontap_ems_filter:\n    state: present\n    name: param_filter\n    rules:\n    - index: 1\n      type: include\n      message_criteria:\n        severities: error\n      parameter_criteria:\n      - name_pattern: volume\n        value_pattern: vol0*\n      - name_pattern: node\n        value_pattern: cluster-01\n"
+    },
+    {
         "label": "Delete EMS Filter",
         "description": "- netapp.ontap.na_ontap_ems_filter",
         "body": "- name: Delete EMS Filter\n  netapp.ontap.na_ontap_ems_filter:\n    state: absent\n    name: carchi_ems\n"
@@ -702,9 +707,14 @@ export const snippets_23_2_0: SnippetItem[] = [
         "body": "- name: Enable firewall and logging on a node\n  netapp.ontap.na_ontap_firewall_policy:\n    node: test-vsim1\n    enable: enable\n    logging: enable\n    hostname: '{{ netapp hostname }}'\n    username: '{{ netapp username }}'\n    password: '{{ netapp password }}'\n"
     },
     {
-        "label": "Any firmware upgrade - REST",
+        "label": "Firmware upgrade using REST - node parameter ignored when using REST with package_url",
         "description": "- netapp.ontap.na_ontap_firmware_upgrade",
-        "body": "- name: Any firmware upgrade - REST\n  netapp.ontap.na_ontap_firmware_upgrade:\n    state: present\n    package_url: '{{ web_link }}'\n    hostname: '{{ netapp_hostname }}'\n    username: '{{ netapp_username }}'\n    password: '{{ netapp_password }}'\n"
+        "body": "- name: Firmware upgrade using REST - node parameter ignored when using REST with\n    package_url\n  netapp.ontap.na_ontap_firmware_upgrade:\n    state: present\n    package_url: '{{ web_link }}'\n    node: node1\n    hostname: '{{ netapp_hostname }}'\n    username: '{{ netapp_username }}'\n    password: '{{ netapp_password }}'\n"
+    },
+    {
+        "label": "Firmware upgrade using ZAPI - node parameter is used to target specific node",
+        "description": "- netapp.ontap.na_ontap_firmware_upgrade",
+        "body": "- name: Firmware upgrade using ZAPI - node parameter is used to target specific node\n  netapp.ontap.na_ontap_firmware_upgrade:\n    state: present\n    package_url: '{{ web_link }}'\n    node: node1\n    use_rest: never\n    hostname: '{{ netapp_hostname }}'\n    username: '{{ netapp_username }}'\n    password: '{{ netapp_password }}'\n"
     },
     {
         "label": "Firmware upgrade, confirm successful download",
@@ -1680,6 +1690,11 @@ export const snippets_23_2_0: SnippetItem[] = [
         "label": "modify Qtrees unix_permissions using string format.",
         "description": "- netapp.ontap.na_ontap_qtree",
         "body": "- name: modify Qtrees unix_permissions using string format.\n  netapp.ontap.na_ontap_qtree:\n    state: present\n    name: ansibleQTree_rename\n    flexvol_name: ansibleVolume\n    vserver: ansibleVServer\n    unix_permissions: sstrwxrwxrwx\n    hostname: '{{ netapp_hostname }}'\n    username: '{{ netapp_username }}'\n    password: '{{ netapp_password }}'\n"
+    },
+    {
+        "label": "Create Qtree with NTFS security style.",
+        "description": "- netapp.ontap.na_ontap_qtree",
+        "body": "- name: Create Qtree with NTFS security style.\n  netapp.ontap.na_ontap_qtree:\n    state: present\n    name: ntfsQTree\n    flexvol_name: ansibleVolume\n    security_style: ntfs\n    vserver: ansibleVServer\n    hostname: '{{ netapp_hostname }}'\n    username: '{{ netapp_username }}'\n    password: '{{ netapp_password }}'\n"
     },
     {
         "label": "delete Qtrees.",

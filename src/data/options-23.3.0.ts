@@ -1,6 +1,6 @@
 import { ModuleOptions } from "./options";
 
-export const options_23_2_0: ModuleOptions = {
+export const options_23_3_0: ModuleOptions = {
     "netapp.ontap.na_ontap_active_directory": {
         "state": {
             "description": [
@@ -1019,14 +1019,14 @@ export const options_23_2_0: ModuleOptions = {
         "consistency_type": {
             "description": [
                 "Type of consistency guarantee for the snapshot.",
-                "Only supported with REST."
+                "Only supported with REST.",
+                "If not specified, ONTAP uses its default consistency type."
             ],
             "choices": [
                 "crash",
                 "application"
             ],
             "type": "str",
-            "default": "crash",
             "version_added": "23.2.0"
         }
     },
@@ -2617,6 +2617,22 @@ export const options_23_2_0: ModuleOptions = {
                             "type": "str"
                         }
                     }
+                },
+                "parameter_criteria": {
+                    "description": "Parameter criteria for EMS filter, used to match specific parameters in EMS messages.",
+                    "type": "list",
+                    "elements": "dict",
+                    "version_added": "23.3.0",
+                    "suboptions": {
+                        "name_pattern": {
+                            "description": "Name pattern for parameter matching",
+                            "type": "str"
+                        },
+                        "value_pattern": {
+                            "description": "Value pattern for parameter matching",
+                            "type": "str"
+                        }
+                    }
                 }
             }
         }
@@ -3773,9 +3789,10 @@ export const options_23_2_0: ModuleOptions = {
         "node": {
             "description": [
                 "Node on which the device is located.",
-                "Not required if package_url is present and force_disruptive_update is False.",
-                "If this option is not given, the firmware will be downloaded on all nodes in the cluster,",
-                "and the resources will be updated in background on all nodes, except for service processor.",
+                "With REST, this parameter is ignored when package_url is provided but it is used with ZAPI. not required if package_url is present and force_disruptive_update is False.",
+                "With REST, if this option is not given, the firmware will be downloaded on all nodes in the cluster and the resources will be updated in background on all nodes, except for service processor.",
+                "with ZAPI, this parameter is used to specify the target node for firmware download.",
+                "with ZAPI, if not specified firmware will be downloaded on all nodes in the cluster (using '*').",
                 "For service processor, the upgrade will happen automatically when each node is rebooted."
             ],
             "type": "str"
@@ -5367,6 +5384,36 @@ export const options_23_2_0: ModuleOptions = {
             ],
             "type": "int",
             "version_added": "22.1.0"
+        },
+        "lambda_config": {
+            "description": [
+                "Configuration parameters for AWS Lambda proxy functionality.",
+                "These option and suboptions are only supported with REST."
+            ],
+            "type": "dict",
+            "version_added": "23.3.0",
+            "suboptions": {
+                "function_name": {
+                    "description": [
+                        "The name of the AWS Lambda function to invoke."
+                    ],
+                    "type": "str",
+                    "required": true
+                },
+                "aws_region": {
+                    "description": [
+                        "The name of the AWS region."
+                    ],
+                    "type": "str",
+                    "required": true
+                },
+                "aws_profile": {
+                    "description": [
+                        "The name of the AWS profile to use for authentication."
+                    ],
+                    "type": "str"
+                }
+            }
         }
     },
     "netapp.ontap.na_ontap_ipspace": {
@@ -5531,7 +5578,7 @@ export const options_23_2_0: ModuleOptions = {
         "job_minutes": {
             "description": [
                 "The minute(s) of each hour when the job should be run. Job Manager cron scheduling minute.",
-                "1 represents all minutes. Range is [-1..59]",
+                "C(-1) represents all minutes. Range is [-1..59]",
                 "Required for create."
             ],
             "type": "list",
@@ -5541,7 +5588,7 @@ export const options_23_2_0: ModuleOptions = {
             "version_added": "2.8.0",
             "description": [
                 "The hour(s) of the day when the job should be run. Job Manager cron scheduling hour.",
-                "1 represents all hours. Range is [-1..23]"
+                "C(-1) represents all hours. Range is [-1..23]"
             ],
             "type": "list",
             "elements": "int"
@@ -5550,7 +5597,7 @@ export const options_23_2_0: ModuleOptions = {
             "version_added": "2.8.0",
             "description": [
                 "The month(s) when the job should be run. Job Manager cron scheduling month.",
-                "1 represents all months. Range is [-1..12], 0 and 12 may or may not be supported, see C(month_offset)"
+                "C(-1) represents all months. Range is [-1..12], 0 and 12 may or may not be supported, see C(month_offset)"
             ],
             "type": "list",
             "elements": "int"
@@ -5559,7 +5606,7 @@ export const options_23_2_0: ModuleOptions = {
             "version_added": "2.8.0",
             "description": [
                 "The day(s) of the month when the job should be run. Job Manager cron scheduling day of month.",
-                "1 represents all days of a month from 1 to 31. Range is [-1..31]"
+                "C(-1) represents all days of a month from 1 to 31. Range is [-1..31]"
             ],
             "type": "list",
             "elements": "int"
@@ -5568,7 +5615,7 @@ export const options_23_2_0: ModuleOptions = {
             "version_added": "2.8.0",
             "description": [
                 "The day(s) in the week when the job should be run. Job Manager cron scheduling day of week.",
-                "Zero represents Sunday. -1 represents all days of a week. Range is [-1..6]"
+                "Zero represents Sunday. C(-1) represents all days of a week. Range is [-1..6]"
             ],
             "type": "list",
             "elements": "int"
@@ -6606,6 +6653,36 @@ export const options_23_2_0: ModuleOptions = {
                     "type": "bool"
                 }
             }
+        },
+        "lambda_config": {
+            "description": [
+                "Configuration parameters for AWS Lambda proxy functionality.",
+                "These option and suboptions are only supported with REST."
+            ],
+            "type": "dict",
+            "version_added": "23.3.0",
+            "suboptions": {
+                "function_name": {
+                    "description": [
+                        "The name of the AWS Lambda function to invoke."
+                    ],
+                    "type": "str",
+                    "required": true
+                },
+                "aws_region": {
+                    "description": [
+                        "The name of the AWS region."
+                    ],
+                    "type": "str",
+                    "required": true
+                },
+                "aws_profile": {
+                    "description": [
+                        "The name of the AWS profile to use for authentication."
+                    ],
+                    "type": "str"
+                }
+            }
         }
     },
     "netapp.ontap.na_ontap_lun_copy": {
@@ -7329,6 +7406,11 @@ export const options_23_2_0: ModuleOptions = {
         "mode": {
             "description": [
                 "Specifies the link policy for the ifgrp."
+            ],
+            "choices": [
+                "multimode",
+                "multimode_lacp",
+                "singlemode"
             ],
             "type": "str"
         },
@@ -9284,7 +9366,9 @@ export const options_23_2_0: ModuleOptions = {
             "description": [
                 "File permissions bits of the qtree.",
                 "Accepts either octal or string format.",
-                "Examples 0777, 777 in octal and ---rwxrwxrwx, sstrwxrwxrwx, rwxrwxrwx in string format."
+                "Examples 0777, 777 in octal and ---rwxrwxrwx, sstrwxrwxrwx, rwxrwxrwx in string format.",
+                "Optional parameter. Only relevant for Unix and mixed security styles.",
+                "Ignored when security_style is set to 'ntfs'."
             ],
             "version_added": "2.9.0",
             "type": "str"
@@ -9324,6 +9408,8 @@ export const options_23_2_0: ModuleOptions = {
         "unix_user": {
             "description": [
                 "The user set as owner of the qtree.",
+                "Optional parameter. Only relevant for Unix and mixed security styles.",
+                "Ignored when security_style is set to 'ntfs'.",
                 "Only supported with REST and ONTAP 9.9 or later."
             ],
             "type": "str",
@@ -9332,6 +9418,8 @@ export const options_23_2_0: ModuleOptions = {
         "unix_group": {
             "description": [
                 "The group set as owner of the qtree.",
+                "Optional parameter. Only relevant for Unix and mixed security styles.",
+                "Ignored when security_style is set to 'ntfs'.",
                 "Only supported with REST and ONTAP 9.9 or later."
             ],
             "type": "str",
@@ -11992,6 +12080,36 @@ export const options_23_2_0: ModuleOptions = {
             ],
             "type": "str",
             "version_added": "23.2.0"
+        },
+        "lambda_config": {
+            "description": [
+                "Configuration parameters for AWS Lambda proxy functionality.",
+                "These option and suboptions are only supported with REST."
+            ],
+            "type": "dict",
+            "version_added": "23.3.0",
+            "suboptions": {
+                "function_name": {
+                    "description": [
+                        "The name of the AWS Lambda function to invoke."
+                    ],
+                    "type": "str",
+                    "required": true
+                },
+                "aws_region": {
+                    "description": [
+                        "The name of the AWS region."
+                    ],
+                    "type": "str",
+                    "required": true
+                },
+                "aws_profile": {
+                    "description": [
+                        "The name of the AWS profile to use for authentication."
+                    ],
+                    "type": "str"
+                }
+            }
         }
     },
     "netapp.ontap.na_ontap_snapshot_policy": {
@@ -12985,6 +13103,36 @@ export const options_23_2_0: ModuleOptions = {
             ],
             "type": "bool",
             "version_added": "23.2.0"
+        },
+        "lambda_config": {
+            "description": [
+                "Configuration parameters for AWS Lambda proxy functionality.",
+                "These option and suboptions are only supported with REST."
+            ],
+            "type": "dict",
+            "version_added": "23.3.0",
+            "suboptions": {
+                "function_name": {
+                    "description": [
+                        "The name of the AWS Lambda function to invoke."
+                    ],
+                    "type": "str",
+                    "required": true
+                },
+                "aws_region": {
+                    "description": [
+                        "The name of the AWS region."
+                    ],
+                    "type": "str",
+                    "required": true
+                },
+                "aws_profile": {
+                    "description": [
+                        "The name of the AWS profile to use for authentication."
+                    ],
+                    "type": "str"
+                }
+            }
         }
     },
     "netapp.ontap.na_ontap_svm_options": {
