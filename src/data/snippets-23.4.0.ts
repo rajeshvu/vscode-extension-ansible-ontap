@@ -1,6 +1,6 @@
 import { SnippetItem } from "./snippets";
 
-export const snippets_23_3_0: SnippetItem[] = [
+export const snippets_23_4_0: SnippetItem[] = [
     {
         "label": "Create active directory account.",
         "description": "- netapp.ontap.na_ontap_active_directory",
@@ -100,6 +100,11 @@ export const snippets_23_3_0: SnippetItem[] = [
         "label": "Send message",
         "description": "- netapp.ontap.na_ontap_autosupport_invoke",
         "body": "- name: Send message\n  netapp.ontap.na_ontap_autosupport_invoke:\n    name: node1\n    autosupport_message: invoked test autosupport rest\n    uri: http://1.2.3.4/delivery_uri\n    type: test\n    hostname: '{{ netapp_hostname }}'\n    username: '{{ netapp_username }}'\n    password: '{{ netapp_password }}'\n"
+    },
+    {
+        "label": "Modify the automatic update setting for security category",
+        "description": "- netapp.ontap.na_ontap_autoupdate_config",
+        "body": "- name: Modify the automatic update setting for security category\n  netapp.ontap.na_ontap_autoupdate_config:\n    state: present\n    category: security\n    action: automatic\n    hostname: '{{ netapp_hostname }}'\n    username: '{{ netapp_username }}'\n    password: '{{ netapp_password }}'\n    https: true\n    validate_certs: '{{ validate_certs }}'\n"
     },
     {
         "label": "Modify status to enable automatic update",
@@ -210,6 +215,46 @@ export const snippets_23_3_0: SnippetItem[] = [
         "label": "Delete broadcast-domain ports",
         "description": "- netapp.ontap.na_ontap_broadcast_domain_ports",
         "body": "- name: Delete broadcast-domain ports\n  netapp.ontap.na_ontap_broadcast_domain_ports:\n    state: absent\n    hostname: '{{ netapp_hostname }}'\n    username: '{{ netapp_username }}'\n    password: '{{ netapp_password }}'\n    broadcast_domain: 123kevin\n    ports: khutton-vsim1:e0d-13\n"
+    },
+    {
+        "label": "Creating a single consistency group with a new SAN volume",
+        "description": "- netapp.ontap.na_ontap_cg",
+        "body": "- name: Creating a single consistency group with a new SAN volume\n  netapp.ontap.na_ontap_cg:\n    state: present\n    vserver: svm1\n    name: test_cg1\n    volumes:\n    - name: test_vol1\n      size: 50\n      size_unit: mb\n      provisioning_options:\n        action: create\n    hostname: '{{ netapp_hostname }}'\n    username: '{{ netapp_username }}'\n    password: '{{ netapp_password }}'\n    https: true\n    validate_certs: '{{ validate_certs }}'\n"
+    },
+    {
+        "label": "Adding an existing volume to an existing consistency group",
+        "description": "- netapp.ontap.na_ontap_cg",
+        "body": "- name: Adding an existing volume to an existing consistency group\n  netapp.ontap.na_ontap_cg:\n    state: present\n    vserver: svm1\n    name: test_cg1\n    volumes:\n    - name: test_vol2\n      provisioning_options:\n        action: add\n    hostname: '{{ netapp_hostname }}'\n    username: '{{ netapp_username }}'\n    password: '{{ netapp_password }}'\n    https: true\n    validate_certs: '{{ validate_certs }}'\n"
+    },
+    {
+        "label": "Adding LUNs to an existing volume in an existing consistency group",
+        "description": "- netapp.ontap.na_ontap_cg",
+        "body": "- name: Adding LUNs to an existing volume in an existing consistency group\n  netapp.ontap.na_ontap_cg:\n    state: present\n    vserver: svm1\n    name: test_cg1\n    luns:\n    - name: /vol/test_vol2/new_lun\n      size: 5\n      size_unit: mb\n      os_type: linux\n      provisioning_options:\n        action: create\n      lun_maps:\n      - igroup_name: new_igroup1\n        igroup_initiators:\n        - iqn.1995-08.com.example:new-initiator1\n        os_type: linux\n    hostname: '{{ netapp_hostname }}'\n    username: '{{ netapp_username }}'\n    password: '{{ netapp_password }}'\n    https: true\n    validate_certs: '{{ validate_certs }}'\n"
+    },
+    {
+        "label": "Adding namespaces to an existing volume in an existing consistency group",
+        "description": "- netapp.ontap.na_ontap_cg",
+        "body": "- name: Adding namespaces to an existing volume in an existing consistency group\n  netapp.ontap.na_ontap_cg:\n    state: present\n    vserver: svm1\n    name: test_cg1\n    namespaces:\n    - name: /vol/test_vol2/new_namespace\n      size: 5\n      size_unit: mb\n      os_type: linux\n      provisioning_options:\n        action: create\n    hostname: '{{ netapp_hostname }}'\n    username: '{{ netapp_username }}'\n    password: '{{ netapp_password }}'\n    https: true\n    validate_certs: '{{ validate_certs }}'\n"
+    },
+    {
+        "label": "Deleting a CG (consistency group)",
+        "description": "- netapp.ontap.na_ontap_cg",
+        "body": "- name: Deleting a CG (consistency group)\n  netapp.ontap.na_ontap_cg:\n    state: absent\n    vserver: svm1\n    name: test_cg1\n    hostname: '{{ netapp_hostname }}'\n    username: '{{ netapp_username }}'\n    password: '{{ netapp_password }}'\n    https: true\n    validate_certs: '{{ validate_certs }}'\n"
+    },
+    {
+        "label": "Creating a parent CG with two child consistency groups with existing SAN volumes",
+        "description": "- netapp.ontap.na_ontap_cg",
+        "body": "- name: Creating a parent CG with two child consistency groups with existing SAN volumes\n  netapp.ontap.na_ontap_cg:\n    state: present\n    vserver: svm1\n    name: parent_cg\n    consistency_groups:\n    - name: child_1\n      volumes:\n      - name: test_vol1\n        provisioning_options:\n          action: add\n    - name: child_2\n      volumes:\n      - name: test_vol2\n        provisioning_options:\n          action: add\n    hostname: '{{ netapp_hostname }}'\n    username: '{{ netapp_username }}'\n    password: '{{ netapp_password }}'\n    https: true\n    validate_certs: '{{ validate_certs }}'\n"
+    },
+    {
+        "label": "Removing a child consistency group from nested CG",
+        "description": "- netapp.ontap.na_ontap_cg",
+        "body": "- name: Removing a child consistency group from nested CG\n  netapp.ontap.na_ontap_cg:\n    state: present\n    vserver: svm1\n    name: parent_cg\n    consistency_groups:\n    - name: child_2\n      provisioning_options:\n        action: remove\n        name: new_single_cg\n    hostname: '{{ netapp_hostname }}'\n    username: '{{ netapp_username }}'\n    password: '{{ netapp_password }}'\n    https: true\n    validate_certs: '{{ validate_certs }}'\n"
+    },
+    {
+        "label": "Creating a parent CG with a new child CG with existing volumes",
+        "description": "- netapp.ontap.na_ontap_cg",
+        "body": "- name: Creating a parent CG with a new child CG with existing volumes\n  netapp.ontap.na_ontap_cg:\n    state: present\n    vserver: svm1\n    name: parent_cg\n    consistency_groups:\n    - name: child_1\n      provisioning_options:\n        action: create\n      volumes:\n      - name: test_vol1\n        provisioning_options:\n          action: add\n    hostname: '{{ netapp_hostname }}'\n    username: '{{ netapp_username }}'\n    password: '{{ netapp_password }}'\n    https: true\n    validate_certs: '{{ validate_certs }}'\n"
     },
     {
         "label": "Create CIFS share - ZAPI",
@@ -1064,7 +1109,7 @@ export const snippets_23_3_0: SnippetItem[] = [
     {
         "label": "Create LDAP client",
         "description": "- netapp.ontap.na_ontap_ldap_client",
-        "body": "- name: Create LDAP client\n  netapp.ontap.na_ontap_ldap_client:\n    state: present\n    vserver: vserver1\n    servers: ldap1.example.company.com,ldap2.example.company.com\n    base_dn: dc=example,dc=company,dc=com\n"
+        "body": "- name: Create LDAP client\n  netapp.ontap.na_ontap_ldap_client:\n    state: present\n    vserver: vserver1\n    servers: ldap1.example.company.com,ldap2.example.company.com\n    base_dn: dc=example,dc=company,dc=com\n    group_dn: ou=group,dc=ds,dc=eng,dc=netapp,dc=com\n    user_dn: ou=people,dc=ds,dc=eng,dc=netapp,dc=com\n"
     },
     {
         "label": "Modify LDAP client",
@@ -1154,7 +1199,7 @@ export const snippets_23_3_0: SnippetItem[] = [
     {
         "label": "Resize LUN",
         "description": "- netapp.ontap.na_ontap_lun",
-        "body": "- name: Resize LUN\n  netapp.ontap.na_ontap_lun:\n    state: present\n    name: ansibleLUN\n    force_resize: true\n    flexvol_name: ansibleVolume\n    vserver: ansibleVServer\n    size: 5\n    size_unit: gb\n    hostname: '{{ netapp_hostname }}'\n    username: '{{ netapp_username }}'\n    password: '{{ netapp_password }}'\n"
+        "body": "- name: Resize LUN\n  netapp.ontap.na_ontap_lun:\n    state: present\n    name: ansibleLUN\n    force_resize: true\n    volume_name: ansibleVolume\n    vserver: ansibleVServer\n    size: 5\n    size_unit: gb\n    hostname: '{{ netapp_hostname }}'\n    username: '{{ netapp_username }}'\n    password: '{{ netapp_password }}'\n"
     },
     {
         "label": "Create LUNs using SAN application",
@@ -1684,7 +1729,7 @@ export const snippets_23_3_0: SnippetItem[] = [
     {
         "label": "Rename Qtrees.",
         "description": "- netapp.ontap.na_ontap_qtree",
-        "body": "- name: Rename Qtrees.\n  netapp.ontap.na_ontap_qtree:\n    state: present\n    from_name: ansibleQTree\n    name: ansibleQTree_rename\n    flexvol_name: ansibleVolume\n    vserver: ansibleVServer\n    hostname: '{{ netapp_hostname }}'\n    username: '{{ netapp_username }}'\n    password: '{{ netapp_password }}'\n"
+        "body": "- name: Rename Qtrees.\n  netapp.ontap.na_ontap_qtree:\n    state: present\n    from_name: ansibleQTree\n    name: ansibleQTree_rename\n    volume_name: ansibleVolume\n    vserver: ansibleVServer\n    hostname: '{{ netapp_hostname }}'\n    username: '{{ netapp_username }}'\n    password: '{{ netapp_password }}'\n"
     },
     {
         "label": "modify Qtrees unix_permissions using string format.",
@@ -2092,9 +2137,29 @@ export const snippets_23_3_0: SnippetItem[] = [
         "body": "- name: Modify service policy at cluster level\n  netapp.ontap.na_ontap_service_policy:\n    state: present\n    name: '{{ service_policy_name }}'\n    ipspace: ansibleIpspace\n    scope: cluster\n    services:\n    - management_core\n    - management_autosupport\n    - management_ems\n"
     },
     {
-        "label": "Modify Service Processor Network, enable dhcp.",
+        "label": "Modify Service Processor Network, enable dhcp - ipv4.",
         "description": "- netapp.ontap.na_ontap_service_processor_network",
-        "body": "- name: Modify Service Processor Network, enable dhcp.\n  netapp.ontap.na_ontap_service_processor_network:\n    state: present\n    address_type: ipv4\n    is_enabled: true\n    dhcp: v4\n    node: '{{ netapp_node }}'\n    username: '{{ netapp_username }}'\n    password: '{{ netapp_password }}'\n    hostname: '{{ netapp_hostname }}'\n"
+        "body": "- name: Modify Service Processor Network, enable dhcp - ipv4.\n  netapp.ontap.na_ontap_service_processor_network:\n    state: present\n    address_type: ipv4\n    is_enabled: true\n    dhcp: v4\n    node: '{{ netapp_node }}'\n    username: '{{ netapp_username }}'\n    password: '{{ netapp_password }}'\n    hostname: '{{ netapp_hostname }}'\n"
+    },
+    {
+        "label": "Enable Service Processor Network configuration - ipv4.",
+        "description": "- netapp.ontap.na_ontap_service_processor_network",
+        "body": "- name: Enable Service Processor Network configuration - ipv4.\n  netapp.ontap.na_ontap_service_processor_network:\n    state: present\n    address_type: ipv4\n    is_enabled: true\n    dhcp: None\n    ip_address: 10.10.10.1\n    netmask: 0.0.0.0\n    gateway_ip_address: 10.10.1.1\n    wait_for_completion: true\n    node: '{{ netapp_node }}'\n    username: '{{ netapp_username }}'\n    password: '{{ netapp_password }}'\n    hostname: '{{ netapp_hostname }}'\n"
+    },
+    {
+        "label": "Disable Service Processor Network configuration - ipv4.",
+        "description": "- netapp.ontap.na_ontap_service_processor_network",
+        "body": "- name: Disable Service Processor Network configuration - ipv4.\n  netapp.ontap.na_ontap_service_processor_network:\n    state: present\n    address_type: ipv4\n    is_enabled: false\n    wait_for_completion: true\n    node: '{{ netapp_node }}'\n    username: '{{ netapp_username }}'\n    password: '{{ netapp_password }}'\n    hostname: '{{ netapp_hostname }}'\n"
+    },
+    {
+        "label": "Enable Service Processor Network configuration - ipv6.",
+        "description": "- netapp.ontap.na_ontap_service_processor_network",
+        "body": "- name: Enable Service Processor Network configuration - ipv6.\n  netapp.ontap.na_ontap_service_processor_network:\n    state: present\n    address_type: ipv6\n    is_enabled: true\n    ip_address: FD20:8B1E:B058:2014:25BE:67F9:0748:6D6B\n    prefix_length: 64\n    gateway_ip_address: FD20:8B1E:B058:2014:0000:0000:0000:0001\n    wait_for_completion: true\n    node: '{{ netapp_node }}'\n    username: '{{ netapp_username }}'\n    password: '{{ netapp_password }}'\n    hostname: '{{ netapp_hostname }}'\n"
+    },
+    {
+        "label": "Disable Service Processor Network configuration - ipv6.",
+        "description": "- netapp.ontap.na_ontap_service_processor_network",
+        "body": "- name: Disable Service Processor Network configuration - ipv6.\n  netapp.ontap.na_ontap_service_processor_network:\n    state: present\n    address_type: ipv6\n    is_enabled: false\n    wait_for_completion: true\n    node: '{{ netapp_node }}'\n    username: '{{ netapp_username }}'\n    password: '{{ netapp_password }}'\n    hostname: '{{ netapp_hostname }}'\n"
     },
     {
         "label": "Set node compliance clock",
@@ -2104,7 +2169,7 @@ export const snippets_23_3_0: SnippetItem[] = [
     {
         "label": "Create ONTAP/ONTAP SnapMirror",
         "description": "- netapp.ontap.na_ontap_snapmirror",
-        "body": "- name: Create ONTAP/ONTAP SnapMirror\n  netapp.ontap.na_ontap_snapmirror:\n    state: present\n    source_volume: test_src\n    destination_volume: test_dest\n    source_vserver: ansible_src\n    destination_vserver: ansible_dest\n    schedule: hourly\n    policy: MirrorAllSnapshots\n    max_transfer_rate: 1000\n    initialize: false\n    hostname: '{{ destination_cluster_hostname }}'\n    username: '{{ destination_cluster_username }}'\n    password: '{{ destination_cluster_password }}'\n"
+        "body": "- name: Create ONTAP/ONTAP SnapMirror\n  netapp.ontap.na_ontap_snapmirror:\n    state: present\n    source_volume: test_src\n    destination_volume: test_dest\n    source_vserver: ansible_src\n    destination_vserver: ansible_dest\n    schedule: hourly\n    policy: MirrorAllSnapshots\n    max_transfer_rate: 1000\n    initialize: false\n    wait_for_completion: true\n    time_out: 90\n    hostname: '{{ destination_cluster_hostname }}'\n    username: '{{ destination_cluster_username }}'\n    password: '{{ destination_cluster_password }}'\n"
     },
     {
         "label": "Create ONTAP/ONTAP vserver SnapMirror",
@@ -2164,37 +2229,37 @@ export const snippets_23_3_0: SnippetItem[] = [
     {
         "label": "Create SnapMirror policy",
         "description": "- netapp.ontap.na_ontap_snapmirror_policy",
-        "body": "- name: Create SnapMirror policy\n  netapp.ontap.na_ontap_snapmirror_policy:\n    state: present\n    vserver: SVM1\n    policy_name: ansible_policy\n    policy_type: mirror_vault\n    comment: created by ansible\n    transfer_schedule: daily\n    hostname: '{{ netapp_hostname }}'\n    username: '{{ netapp_username }}'\n    password: '{{ netapp_password }}'\n    https: true\n    validate_certs: false\n"
+        "body": "- name: Create SnapMirror policy\n  netapp.ontap.na_ontap_snapmirror_policy:\n    state: present\n    vserver: SVM1\n    policy_name: ansible_policy\n    policy_type: async_mirror\n    copy_latest_source_snapshot: true\n    comment: created by ansible\n    transfer_schedule: daily\n    hostname: '{{ netapp_hostname }}'\n    username: '{{ netapp_username }}'\n    password: '{{ netapp_password }}'\n    https: true\n    validate_certs: false\n"
     },
     {
         "label": "Modify SnapMirror policy",
         "description": "- netapp.ontap.na_ontap_snapmirror_policy",
-        "body": "- name: Modify SnapMirror policy\n  netapp.ontap.na_ontap_snapmirror_policy:\n    state: present\n    vserver: SVM1\n    policy_name: ansible_policy\n    policy_type: async_mirror\n    transfer_priority: low\n    transfer_schedule: weekly\n    hostname: '{{ netapp_hostname }}'\n    username: '{{ netapp_username }}'\n    password: '{{ netapp_password }}'\n    https: true\n    validate_certs: false\n"
+        "body": "- name: Modify SnapMirror policy\n  netapp.ontap.na_ontap_snapmirror_policy:\n    state: present\n    vserver: SVM1\n    policy_name: ansible_policy\n    policy_type: async_mirror\n    copy_latest_source_snapshot: true\n    transfer_priority: low\n    transfer_schedule: weekly\n    hostname: '{{ netapp_hostname }}'\n    username: '{{ netapp_username }}'\n    password: '{{ netapp_password }}'\n    https: true\n    validate_certs: false\n"
     },
     {
         "label": "Create SnapMirror policy with basic rules",
         "description": "- netapp.ontap.na_ontap_snapmirror_policy",
-        "body": "- name: Create SnapMirror policy with basic rules\n  netapp.ontap.na_ontap_snapmirror_policy:\n    state: present\n    vserver: SVM1\n    policy_name: ansible_policy\n    policy_type: async_mirror\n    snapmirror_label:\n    - daily\n    - weekly\n    - monthly\n    keep:\n    - 7\n    - 5\n    - 12\n    hostname: '{{ netapp_hostname }}'\n    username: '{{ netapp_username }}'\n    password: '{{ netapp_password }}'\n    https: true\n    validate_certs: false\n"
+        "body": "- name: Create SnapMirror policy with basic rules\n  netapp.ontap.na_ontap_snapmirror_policy:\n    state: present\n    vserver: SVM1\n    policy_name: snapmirror_policy\n    policy_type: async\n    snapmirror_label:\n    - daily\n    - weekly\n    - monthly\n    keep:\n    - 7\n    - 5\n    - 12\n    hostname: '{{ netapp_hostname }}'\n    username: '{{ netapp_username }}'\n    password: '{{ netapp_password }}'\n    https: true\n    validate_certs: false\n"
     },
     {
-        "label": "Create SnapMirror policy with rules and schedules (no schedule for daily rule)",
+        "label": "Modify SnapMirror policy with rules and schedules (no schedule for daily rule)",
         "description": "- netapp.ontap.na_ontap_snapmirror_policy",
-        "body": "- name: Create SnapMirror policy with rules and schedules (no schedule for daily rule)\n  netapp.ontap.na_ontap_snapmirror_policy:\n    state: present\n    vserver: SVM1\n    policy_name: ansible_policy\n    policy_type: mirror_vault\n    snapmirror_label:\n    - daily\n    - weekly\n    - monthly\n    keep:\n    - 7\n    - 5\n    - 12\n    schedule:\n    - ''\n    - weekly\n    - monthly\n    prefix:\n    - ''\n    - ''\n    - monthly_mv\n    hostname: '{{ netapp_hostname }}'\n    username: '{{ netapp_username }}'\n    password: '{{ netapp_password }}'\n    https: true\n    validate_certs: false\n"
+        "body": "- name: Modify SnapMirror policy with rules and schedules (no schedule for daily rule)\n  netapp.ontap.na_ontap_snapmirror_policy:\n    state: present\n    vserver: SVM1\n    policy_name: snapmirror_policy\n    policy_type: mirror_vault\n    snapmirror_label:\n    - daily\n    - weekly\n    - monthly\n    keep:\n    - 7\n    - 5\n    - 12\n    schedule:\n    - ''\n    - weekly\n    - monthly\n    prefix:\n    - ''\n    - ''\n    - monthly_mv\n    hostname: '{{ netapp_hostname }}'\n    username: '{{ netapp_username }}'\n    password: '{{ netapp_password }}'\n    https: true\n    validate_certs: false\n"
     },
     {
         "label": "Modify SnapMirror policy with rules, remove existing schedules and prefixes",
         "description": "- netapp.ontap.na_ontap_snapmirror_policy",
-        "body": "- name: Modify SnapMirror policy with rules, remove existing schedules and prefixes\n  netapp.ontap.na_ontap_snapmirror_policy:\n    state: present\n    vserver: SVM1\n    policy_name: ansible_policy\n    policy_type: mirror_vault\n    snapmirror_label:\n    - daily\n    - weekly\n    - monthly\n    keep:\n    - 7\n    - 5\n    - 12\n    schedule:\n    - ''\n    - ''\n    - ''\n    prefix:\n    - ''\n    - ''\n    - ''\n    hostname: '{{ netapp_hostname }}'\n    username: '{{ netapp_username }}'\n    password: '{{ netapp_password }}'\n    https: true\n    validate_certs: false\n"
+        "body": "- name: Modify SnapMirror policy with rules, remove existing schedules and prefixes\n  netapp.ontap.na_ontap_snapmirror_policy:\n    state: present\n    vserver: SVM1\n    policy_name: snapmirror_policy\n    policy_type: mirror_vault\n    snapmirror_label:\n    - daily\n    - weekly\n    - monthly\n    keep:\n    - 7\n    - 5\n    - 12\n    schedule:\n    - ''\n    - ''\n    - ''\n    prefix:\n    - ''\n    - ''\n    - ''\n    hostname: '{{ netapp_hostname }}'\n    username: '{{ netapp_username }}'\n    password: '{{ netapp_password }}'\n    https: true\n    validate_certs: false\n"
     },
     {
         "label": "Modify SnapMirror policy, delete all rules (excludes builtin rules)",
         "description": "- netapp.ontap.na_ontap_snapmirror_policy",
-        "body": "- name: Modify SnapMirror policy, delete all rules (excludes builtin rules)\n  netapp.ontap.na_ontap_snapmirror_policy:\n    state: present\n    vserver: SVM1\n    policy_name: ansible_policy\n    policy_type: mirror_vault\n    snapmirror_label: []\n    hostname: '{{ netapp_hostname }}'\n    username: '{{ netapp_username }}'\n    password: '{{ netapp_password }}'\n    https: true\n    validate_certs: false\n"
+        "body": "- name: Modify SnapMirror policy, delete all rules (excludes builtin rules)\n  netapp.ontap.na_ontap_snapmirror_policy:\n    state: present\n    vserver: SVM1\n    policy_name: snapmirror_policy\n    policy_type: mirror_vault\n    snapmirror_label: []\n    hostname: '{{ netapp_hostname }}'\n    username: '{{ netapp_username }}'\n    password: '{{ netapp_password }}'\n    https: true\n    validate_certs: false\n"
     },
     {
         "label": "Delete SnapMirror policy",
         "description": "- netapp.ontap.na_ontap_snapmirror_policy",
-        "body": "- name: Delete SnapMirror policy\n  netapp.ontap.na_ontap_snapmirror_policy:\n    state: absent\n    vserver: SVM1\n    policy_type: async_mirror\n    policy_name: ansible_policy\n    hostname: '{{ netapp_hostname }}'\n    username: '{{ netapp_username }}'\n    password: '{{ netapp_password }}'\n    https: true\n    validate_certs: false\n"
+        "body": "- name: Delete SnapMirror policy\n  netapp.ontap.na_ontap_snapmirror_policy:\n    state: absent\n    vserver: SVM1\n    policy_name: ansible_policy\n    hostname: '{{ netapp_hostname }}'\n    username: '{{ netapp_username }}'\n    password: '{{ netapp_password }}'\n    https: true\n    validate_certs: false\n"
     },
     {
         "label": "Create SnapShot",
@@ -2490,6 +2555,16 @@ export const snippets_23_3_0: SnippetItem[] = [
         "label": "Modify user role REST in ONTAP 9.11.1",
         "description": "- netapp.ontap.na_ontap_user_role",
         "body": "- name: Modify user role REST in ONTAP 9.11.1\n  netapp.ontap.na_ontap_user_role:\n    state: present\n    privileges:\n    - path: /api/cluster/jobs\n      access: readonly\n    - path: /api/storage/volumes\n      access: readonly\n    vserver: ansibleSVM\n    name: carchi-test-role\n    hostname: '{{ netapp_hostname }}'\n    username: '{{ netapp_username }}'\n    password: '{{ netapp_password }}'\n"
+    },
+    {
+        "label": "Create user role REST in ONTAP 9.11.1+ with query",
+        "description": "- netapp.ontap.na_ontap_user_role",
+        "body": "- name: Create user role REST in ONTAP 9.11.1+ with query\n  netapp.ontap.na_ontap_user_role:\n    state: present\n    privileges:\n    - path: job schedule interval\n      access: all\n      query: -days <1 -hours >12\n    vserver: ansibleSVM\n    name: carchi-test-role\n    hostname: '{{ netapp_hostname }}'\n    username: '{{ netapp_username }}'\n    password: '{{ netapp_password }}'\n"
+    },
+    {
+        "label": "Modify user role REST in ONTAP 9.11.1+ with query",
+        "description": "- netapp.ontap.na_ontap_user_role",
+        "body": "- name: Modify user role REST in ONTAP 9.11.1+ with query\n  netapp.ontap.na_ontap_user_role:\n    state: present\n    privileges:\n    - path: job schedule interval\n      access: readonly\n      query: -days <1 -hours >8\n    vserver: ansibleSVM\n    name: carchi-test-role\n    hostname: '{{ netapp_hostname }}'\n    username: '{{ netapp_username }}'\n    password: '{{ netapp_password }}'\n"
     },
     {
         "label": "Create FlexVol",

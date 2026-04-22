@@ -1,6 +1,6 @@
 import { ModuleOptions } from "./options";
 
-export const options_23_3_0: ModuleOptions = {
+export const options_23_4_0: ModuleOptions = {
     "netapp.ontap.na_ontap_active_directory": {
         "state": {
             "description": [
@@ -650,6 +650,39 @@ export const options_23_3_0: ModuleOptions = {
             "type": "str"
         }
     },
+    "netapp.ontap.na_ontap_autoupdate_config": {
+        "state": {
+            "description": [
+                "Update the configuration, only present is supported."
+            ],
+            "type": "str",
+            "choices": [
+                "present"
+            ],
+            "default": "present"
+        },
+        "category": {
+            "description": [
+                "Specifies the category for the configuration row.",
+                "Examples - firmware, sp_fw, system, security."
+            ],
+            "type": "str",
+            "required": true
+        },
+        "action": {
+            "description": [
+                "Specifies the action to be taken by the alert source as specified by the user."
+            ],
+            "type": "str",
+            "choices": [
+                "confirm",
+                "dismiss",
+                "automatic"
+            ],
+            "default": "confirm",
+            "required": false
+        }
+    },
     "netapp.ontap.na_ontap_autoupdate_support": {
         "enabled": {
             "description": [
@@ -944,6 +977,562 @@ export const options_23_3_0: ModuleOptions = {
             "elements": "str"
         }
     },
+    "netapp.ontap.na_ontap_cg": {
+        "state": {
+            "description": [
+                "Specifies whether to create, modify, or delete a consistency group."
+            ],
+            "type": "str",
+            "choices": [
+                "present",
+                "absent"
+            ],
+            "default": "present"
+        },
+        "name": {
+            "description": [
+                "Specifies the name of the consistency group. The consistency group name must be unique within an SVM."
+            ],
+            "type": "str",
+            "required": true
+        },
+        "vserver": {
+            "description": [
+                "Specifies the SVM in which the consistency group is located."
+            ],
+            "type": "str",
+            "required": true
+        },
+        "volumes": {
+            "description": [
+                "List of volumes to be included in the consistency group.",
+                "The volumes array can be used to create new volumes in the consistency group, add existing volumes to the consistency group.",
+                "A volume can only be associated with one direct parent consistency group.",
+                "Removing all volumes from a consistency group will automatically delete the consistency group."
+            ],
+            "type": "list",
+            "elements": "dict",
+            "suboptions": {
+                "name": {
+                    "description": [
+                        "Specifies the name of the volume."
+                    ],
+                    "type": "str",
+                    "required": true
+                },
+                "size": {
+                    "description": [
+                        "Specifies the provisioned size of the volume in C(size_unit)."
+                    ],
+                    "type": "int"
+                },
+                "size_unit": {
+                    "description": [
+                        "The unit used to interpret the size parameter."
+                    ],
+                    "type": "str",
+                    "choices": [
+                        "bytes",
+                        "b",
+                        "kb",
+                        "mb",
+                        "gb",
+                        "tb",
+                        "pb",
+                        "eb",
+                        "zb",
+                        "yb"
+                    ]
+                },
+                "provisioning_options": {
+                    "description": [
+                        "Options that are applied to the operation.",
+                        "Module is not idempotent when 'count' option is set as the name is considered a prefix, and a suffix of the form _<N> is generated where N is the next available numeric index, starting with 1."
+                    ],
+                    "type": "dict",
+                    "suboptions": {
+                        "action": {
+                            "description": "Operation to perform on the volume.",
+                            "type": "str",
+                            "choices": [
+                                "create",
+                                "add",
+                                "remove"
+                            ]
+                        },
+                        "count": {
+                            "description": "Number of elements to perform the operation on.",
+                            "type": "int"
+                        }
+                    }
+                },
+                "qos_policy": {
+                    "description": [
+                        "The QoS policy for this volume.",
+                        "Only supported when provisioning new objects."
+                    ],
+                    "type": "str"
+                },
+                "snapshot_policy": {
+                    "description": [
+                        "The snapshot policy for this volume."
+                    ],
+                    "type": "str"
+                }
+            }
+        },
+        "luns": {
+            "description": [
+                "The LUNs array can be used to create or modify LUNs in a consistency group on a new or existing volume that is a member of the consistency group."
+            ],
+            "type": "list",
+            "elements": "dict",
+            "suboptions": {
+                "name": {
+                    "description": [
+                        "The fully qualified path name of the LUN composed of the \"/vol\" prefix, the volume name, the qtree name (optional), and the base name of the LUN.",
+                        "Example, /vol/volume1/lun1 or /vol/volume1/qtree1/lun1."
+                    ],
+                    "type": "str",
+                    "required": true
+                },
+                "size": {
+                    "description": [
+                        "Specifies the provisioned size in C(size_unit)."
+                    ],
+                    "type": "int"
+                },
+                "size_unit": {
+                    "description": [
+                        "The unit used to interpret the size parameter."
+                    ],
+                    "type": "str",
+                    "choices": [
+                        "bytes",
+                        "b",
+                        "kb",
+                        "mb",
+                        "gb",
+                        "tb",
+                        "pb",
+                        "eb",
+                        "zb",
+                        "yb"
+                    ]
+                },
+                "provisioning_options": {
+                    "description": [
+                        "Options that are applied to the operation.",
+                        "Module is not idempotent when 'count' option is set as the name is considered a prefix, and a suffix of the form _<N> is generated where N is the next available numeric index, starting with 1."
+                    ],
+                    "type": "dict",
+                    "suboptions": {
+                        "action": {
+                            "description": "Operation to perform.",
+                            "type": "str",
+                            "choices": [
+                                "create"
+                            ]
+                        },
+                        "count": {
+                            "description": "Number of elements to perform the operation on.",
+                            "type": "int"
+                        }
+                    }
+                },
+                "os_type": {
+                    "description": [
+                        "The os type for the LUN."
+                    ],
+                    "type": "str"
+                },
+                "lun_maps": {
+                    "description": "An array of LUN maps.",
+                    "type": "list",
+                    "elements": "dict",
+                    "suboptions": {
+                        "igroup_name": {
+                            "description": "The name of the initiator group.",
+                            "type": "str"
+                        },
+                        "igroup_initiators": {
+                            "description": "Lists of the initiators that are members of the group.",
+                            "type": "list",
+                            "elements": "str"
+                        },
+                        "os_type": {
+                            "description": "The os type for the initiator groups.",
+                            "type": "str"
+                        }
+                    }
+                }
+            }
+        },
+        "namespaces": {
+            "description": [
+                "The namespaces array can be used to create or modify namespaces in a consistency group."
+            ],
+            "type": "list",
+            "elements": "dict",
+            "suboptions": {
+                "name": {
+                    "description": [
+                        "The name of the NVMe namespace, of the form \"/vol/<volume>[/<qtree>]/<namespace>\" where the qtree name is optional.",
+                        "Example, /vol/volume1/namespace1 or /vol/volume1/qtree1/namespace1."
+                    ],
+                    "type": "str",
+                    "required": true
+                },
+                "size": {
+                    "description": [
+                        "Specifies the provisioned size in C(size_unit)."
+                    ],
+                    "type": "int"
+                },
+                "size_unit": {
+                    "description": [
+                        "The unit used to interpret the size parameter."
+                    ],
+                    "type": "str",
+                    "choices": [
+                        "bytes",
+                        "b",
+                        "kb",
+                        "mb",
+                        "gb",
+                        "tb",
+                        "pb",
+                        "eb",
+                        "zb",
+                        "yb"
+                    ]
+                },
+                "os_type": {
+                    "description": [
+                        "The os type for the namespace."
+                    ],
+                    "type": "str"
+                },
+                "provisioning_options": {
+                    "description": [
+                        "Options that are applied to the operation.",
+                        "Module is not idempotent when 'count' option is set as the name is considered a prefix, and a suffix of the form _<N> is generated where N is the next available numeric index, starting with 1."
+                    ],
+                    "type": "dict",
+                    "suboptions": {
+                        "action": {
+                            "description": "Operation to perform.",
+                            "type": "str",
+                            "choices": [
+                                "create"
+                            ]
+                        },
+                        "count": {
+                            "description": "Number of elements to perform the operation on.",
+                            "type": "int"
+                        }
+                    }
+                }
+            }
+        },
+        "consistency_groups": {
+            "description": [
+                "List of consistency groups to be included in the consistency group."
+            ],
+            "type": "list",
+            "elements": "dict",
+            "suboptions": {
+                "name": {
+                    "description": [
+                        "Specifies the name of the consistency group."
+                    ],
+                    "type": "str",
+                    "required": true
+                },
+                "provisioning_options": {
+                    "description": [
+                        "Options that are applied to the operation."
+                    ],
+                    "type": "dict",
+                    "suboptions": {
+                        "action": {
+                            "description": "Operation to perform.",
+                            "type": "str",
+                            "choices": [
+                                "create",
+                                "add",
+                                "remove"
+                            ]
+                        },
+                        "name": {
+                            "description": [
+                                "New name for consistency group. Required to resolve naming collisions.",
+                                "Requires ONTAP 9.13.1 or later."
+                            ],
+                            "type": "str"
+                        }
+                    }
+                },
+                "volumes": {
+                    "description": [
+                        "List of volumes to be included in the consistency group.",
+                        "The volumes array can be used to create new volumes in the consistency group, add existing volumes to the consistency group.",
+                        "A volume can only be associated with one direct parent consistency group."
+                    ],
+                    "type": "list",
+                    "elements": "dict",
+                    "suboptions": {
+                        "name": {
+                            "description": [
+                                "Specifies the name of the volume."
+                            ],
+                            "type": "str",
+                            "required": true
+                        },
+                        "size": {
+                            "description": [
+                                "Specifies the provisioned size of the volume in C(size_unit)."
+                            ],
+                            "type": "int"
+                        },
+                        "size_unit": {
+                            "description": [
+                                "The unit used to interpret the size parameter."
+                            ],
+                            "type": "str",
+                            "choices": [
+                                "bytes",
+                                "b",
+                                "kb",
+                                "mb",
+                                "gb",
+                                "tb",
+                                "pb",
+                                "eb",
+                                "zb",
+                                "yb"
+                            ]
+                        },
+                        "provisioning_options": {
+                            "description": [
+                                "Options that are applied to the operation.",
+                                "Module is not idempotent when 'count' option is set as the name is considered a prefix, and a suffix of the form _<N> is generated where N is the next available numeric index, starting with 1."
+                            ],
+                            "type": "dict",
+                            "suboptions": {
+                                "action": {
+                                    "description": "Operation to perform on the volume.",
+                                    "type": "str",
+                                    "choices": [
+                                        "create",
+                                        "add",
+                                        "remove"
+                                    ]
+                                },
+                                "count": {
+                                    "description": "Number of elements to perform the operation on.",
+                                    "type": "int"
+                                }
+                            }
+                        },
+                        "qos_policy": {
+                            "description": [
+                                "The QoS policy for this volume.",
+                                "Only supported when provisioning new objects."
+                            ],
+                            "type": "str"
+                        },
+                        "snapshot_policy": {
+                            "description": [
+                                "The snapshot policy for this volume."
+                            ],
+                            "type": "str"
+                        }
+                    }
+                },
+                "luns": {
+                    "description": [
+                        "The LUNs array can be used to create or modify LUNs in a consistency group on a new or existing volume that is a member of the consistency group."
+                    ],
+                    "type": "list",
+                    "elements": "dict",
+                    "suboptions": {
+                        "name": {
+                            "description": [
+                                "The fully qualified path name of the LUN composed of the \"/vol\" prefix, the volume name, the qtree name (optional), and the base name of the LUN.",
+                                "Example, /vol/volume1/lun1 or /vol/volume1/qtree1/lun1."
+                            ],
+                            "type": "str",
+                            "required": true
+                        },
+                        "size": {
+                            "description": [
+                                "Specifies the provisioned size in C(size_unit)."
+                            ],
+                            "type": "int"
+                        },
+                        "size_unit": {
+                            "description": [
+                                "The unit used to interpret the size parameter."
+                            ],
+                            "type": "str",
+                            "choices": [
+                                "bytes",
+                                "b",
+                                "kb",
+                                "mb",
+                                "gb",
+                                "tb",
+                                "pb",
+                                "eb",
+                                "zb",
+                                "yb"
+                            ]
+                        },
+                        "provisioning_options": {
+                            "description": [
+                                "Options that are applied to the operation.",
+                                "Module is not idempotent when 'count' option is set as the name is considered a prefix, and a suffix of the form _<N> is generated where N is the next available numeric index, starting with 1."
+                            ],
+                            "type": "dict",
+                            "suboptions": {
+                                "action": {
+                                    "description": "Operation to perform.",
+                                    "type": "str",
+                                    "choices": [
+                                        "create"
+                                    ]
+                                },
+                                "count": {
+                                    "description": "Number of elements to perform the operation on.",
+                                    "type": "int"
+                                }
+                            }
+                        },
+                        "os_type": {
+                            "description": [
+                                "The os type for the LUN."
+                            ],
+                            "type": "str"
+                        },
+                        "lun_maps": {
+                            "description": "An array of LUN maps.",
+                            "type": "list",
+                            "elements": "dict",
+                            "suboptions": {
+                                "igroup_name": {
+                                    "description": "The name of the initiator group.",
+                                    "type": "str"
+                                },
+                                "igroup_initiators": {
+                                    "description": "Lists of the initiators that are members of the group.",
+                                    "type": "list",
+                                    "elements": "str"
+                                },
+                                "os_type": {
+                                    "description": "The os type for the initiator groups.",
+                                    "type": "str"
+                                }
+                            }
+                        }
+                    }
+                },
+                "namespaces": {
+                    "description": [
+                        "The namespaces array can be used to create or modify namespaces in a consistency group."
+                    ],
+                    "type": "list",
+                    "elements": "dict",
+                    "suboptions": {
+                        "name": {
+                            "description": [
+                                "The name of the NVMe namespace, of the form \"/vol/<volume>[/<qtree>]/<namespace>\" where the qtree name is optional.",
+                                "Example, /vol/volume1/namespace1 or /vol/volume1/qtree1/namespace1."
+                            ],
+                            "type": "str",
+                            "required": true
+                        },
+                        "size": {
+                            "description": [
+                                "Specifies the provisioned size in C(size_unit)."
+                            ],
+                            "type": "int"
+                        },
+                        "size_unit": {
+                            "description": [
+                                "The unit used to interpret the size parameter."
+                            ],
+                            "type": "str",
+                            "choices": [
+                                "bytes",
+                                "b",
+                                "kb",
+                                "mb",
+                                "gb",
+                                "tb",
+                                "pb",
+                                "eb",
+                                "zb",
+                                "yb"
+                            ]
+                        },
+                        "os_type": {
+                            "description": [
+                                "The os type for the namespace."
+                            ],
+                            "type": "str"
+                        },
+                        "provisioning_options": {
+                            "description": [
+                                "Options that are applied to the operation.",
+                                "Module is not idempotent when 'count' option is set as the name is considered a prefix, and a suffix of the form _<N> is generated where N is the next available numeric index, starting with 1."
+                            ],
+                            "type": "dict",
+                            "suboptions": {
+                                "action": {
+                                    "description": "Operation to perform.",
+                                    "type": "str",
+                                    "choices": [
+                                        "create"
+                                    ]
+                                },
+                                "count": {
+                                    "description": "Number of elements to perform the operation on.",
+                                    "type": "int"
+                                }
+                            }
+                        }
+                    }
+                },
+                "qos_policy": {
+                    "description": [
+                        "Specifies the QoS policy for the consistency group.",
+                        "Only supported when provisioning new objects."
+                    ],
+                    "type": "str"
+                },
+                "snapshot_policy": {
+                    "description": [
+                        "Specifies the snapshot policy for the consistency group."
+                    ],
+                    "type": "str"
+                }
+            }
+        },
+        "qos_policy": {
+            "description": [
+                "Specifies the QoS policy for the consistency group.",
+                "Only supported when provisioning new objects."
+            ],
+            "type": "str"
+        },
+        "snapshot_policy": {
+            "description": [
+                "Specifies the snapshot policy for the consistency group."
+            ],
+            "type": "str"
+        }
+    },
     "netapp.ontap.na_ontap_cg_snapshot": {
         "state": {
             "description": [
@@ -1225,6 +1814,36 @@ export const options_23_3_0: ModuleOptions = {
             ],
             "type": "str",
             "version_added": "22.11.0"
+        },
+        "lambda_config": {
+            "description": [
+                "Configuration parameters for AWS Lambda proxy functionality.",
+                "These option and suboptions are only supported with REST."
+            ],
+            "type": "dict",
+            "version_added": "23.4.0",
+            "suboptions": {
+                "function_name": {
+                    "description": [
+                        "The name of the AWS Lambda function to invoke."
+                    ],
+                    "type": "str",
+                    "required": true
+                },
+                "aws_region": {
+                    "description": [
+                        "The name of the AWS region."
+                    ],
+                    "type": "str",
+                    "required": true
+                },
+                "aws_profile": {
+                    "description": [
+                        "The name of the AWS profile to use for authentication."
+                    ],
+                    "type": "str"
+                }
+            }
         }
     },
     "netapp.ontap.na_ontap_cifs_acl": {
@@ -1287,6 +1906,36 @@ export const options_23_3_0: ModuleOptions = {
                 "unix_group"
             ],
             "version_added": "21.17.0"
+        },
+        "lambda_config": {
+            "description": [
+                "Configuration parameters for AWS Lambda proxy functionality.",
+                "These option and suboptions are only supported with REST."
+            ],
+            "type": "dict",
+            "version_added": "23.4.0",
+            "suboptions": {
+                "function_name": {
+                    "description": [
+                        "The name of the AWS Lambda function to invoke."
+                    ],
+                    "type": "str",
+                    "required": true
+                },
+                "aws_region": {
+                    "description": [
+                        "The name of the AWS region."
+                    ],
+                    "type": "str",
+                    "required": true
+                },
+                "aws_profile": {
+                    "description": [
+                        "The name of the AWS profile to use for authentication."
+                    ],
+                    "type": "str"
+                }
+            }
         }
     },
     "netapp.ontap.na_ontap_cifs_local_group": {
@@ -1327,6 +1976,36 @@ export const options_23_3_0: ModuleOptions = {
                 "Description for the local group."
             ],
             "type": "str"
+        },
+        "lambda_config": {
+            "description": [
+                "Configuration parameters for AWS Lambda proxy functionality.",
+                "These option and suboptions are only supported with REST."
+            ],
+            "type": "dict",
+            "version_added": "23.4.0",
+            "suboptions": {
+                "function_name": {
+                    "description": [
+                        "The name of the AWS Lambda function to invoke."
+                    ],
+                    "type": "str",
+                    "required": true
+                },
+                "aws_region": {
+                    "description": [
+                        "The name of the AWS region."
+                    ],
+                    "type": "str",
+                    "required": true
+                },
+                "aws_profile": {
+                    "description": [
+                        "The name of the AWS profile to use for authentication."
+                    ],
+                    "type": "str"
+                }
+            }
         }
     },
     "netapp.ontap.na_ontap_cifs_local_group_member": {
@@ -1361,6 +2040,36 @@ export const options_23_3_0: ModuleOptions = {
             ],
             "required": true,
             "type": "str"
+        },
+        "lambda_config": {
+            "description": [
+                "Configuration parameters for AWS Lambda proxy functionality.",
+                "These option and suboptions are only supported with REST."
+            ],
+            "type": "dict",
+            "version_added": "23.4.0",
+            "suboptions": {
+                "function_name": {
+                    "description": [
+                        "The name of the AWS Lambda function to invoke."
+                    ],
+                    "type": "str",
+                    "required": true
+                },
+                "aws_region": {
+                    "description": [
+                        "The name of the AWS region."
+                    ],
+                    "type": "str",
+                    "required": true
+                },
+                "aws_profile": {
+                    "description": [
+                        "The name of the AWS profile to use for authentication."
+                    ],
+                    "type": "str"
+                }
+            }
         }
     },
     "netapp.ontap.na_ontap_cifs_local_user": {
@@ -1420,6 +2129,36 @@ export const options_23_3_0: ModuleOptions = {
             ],
             "type": "bool",
             "default": false
+        },
+        "lambda_config": {
+            "description": [
+                "Configuration parameters for AWS Lambda proxy functionality.",
+                "These option and suboptions are only supported with REST."
+            ],
+            "type": "dict",
+            "version_added": "23.4.0",
+            "suboptions": {
+                "function_name": {
+                    "description": [
+                        "The name of the AWS Lambda function to invoke."
+                    ],
+                    "type": "str",
+                    "required": true
+                },
+                "aws_region": {
+                    "description": [
+                        "The name of the AWS region."
+                    ],
+                    "type": "str",
+                    "required": true
+                },
+                "aws_profile": {
+                    "description": [
+                        "The name of the AWS profile to use for authentication."
+                    ],
+                    "type": "str"
+                }
+            }
         }
     },
     "netapp.ontap.na_ontap_cifs_local_user_modify": {
@@ -1477,6 +2216,36 @@ export const options_23_3_0: ModuleOptions = {
             ],
             "required": true,
             "type": "str"
+        },
+        "lambda_config": {
+            "description": [
+                "Configuration parameters for AWS Lambda proxy functionality.",
+                "These option and suboptions are only supported with REST."
+            ],
+            "type": "dict",
+            "version_added": "23.4.0",
+            "suboptions": {
+                "function_name": {
+                    "description": [
+                        "The name of the AWS Lambda function to invoke."
+                    ],
+                    "type": "str",
+                    "required": true
+                },
+                "aws_region": {
+                    "description": [
+                        "The name of the AWS region."
+                    ],
+                    "type": "str",
+                    "required": true
+                },
+                "aws_profile": {
+                    "description": [
+                        "The name of the AWS profile to use for authentication."
+                    ],
+                    "type": "str"
+                }
+            }
         }
     },
     "netapp.ontap.na_ontap_cifs_privileges": {
@@ -1517,6 +2286,36 @@ export const options_23_3_0: ModuleOptions = {
             ],
             "type": "list",
             "elements": "str"
+        },
+        "lambda_config": {
+            "description": [
+                "Configuration parameters for AWS Lambda proxy functionality.",
+                "These option and suboptions are only supported with REST."
+            ],
+            "type": "dict",
+            "version_added": "23.4.0",
+            "suboptions": {
+                "function_name": {
+                    "description": [
+                        "The name of the AWS Lambda function to invoke."
+                    ],
+                    "type": "str",
+                    "required": true
+                },
+                "aws_region": {
+                    "description": [
+                        "The name of the AWS region."
+                    ],
+                    "type": "str",
+                    "required": true
+                },
+                "aws_profile": {
+                    "description": [
+                        "The name of the AWS profile to use for authentication."
+                    ],
+                    "type": "str"
+                }
+            }
         }
     },
     "netapp.ontap.na_ontap_cifs_server": {
@@ -1748,6 +2547,36 @@ export const options_23_3_0: ModuleOptions = {
             ],
             "type": "bool",
             "version_added": "22.10.0"
+        },
+        "lambda_config": {
+            "description": [
+                "Configuration parameters for AWS Lambda proxy functionality.",
+                "These option and suboptions are only supported with REST."
+            ],
+            "type": "dict",
+            "version_added": "23.4.0",
+            "suboptions": {
+                "function_name": {
+                    "description": [
+                        "The name of the AWS Lambda function to invoke."
+                    ],
+                    "type": "str",
+                    "required": true
+                },
+                "aws_region": {
+                    "description": [
+                        "The name of the AWS region."
+                    ],
+                    "type": "str",
+                    "required": true
+                },
+                "aws_profile": {
+                    "description": [
+                        "The name of the AWS profile to use for authentication."
+                    ],
+                    "type": "str"
+                }
+            }
         }
     },
     "netapp.ontap.na_ontap_cifs_unix_symlink_mapping": {
@@ -1815,6 +2644,36 @@ export const options_23_3_0: ModuleOptions = {
             ],
             "type": "bool",
             "default": false
+        },
+        "lambda_config": {
+            "description": [
+                "Configuration parameters for AWS Lambda proxy functionality.",
+                "These option and suboptions are only supported with REST."
+            ],
+            "type": "dict",
+            "version_added": "23.4.0",
+            "suboptions": {
+                "function_name": {
+                    "description": [
+                        "The name of the AWS Lambda function to invoke."
+                    ],
+                    "type": "str",
+                    "required": true
+                },
+                "aws_region": {
+                    "description": [
+                        "The name of the AWS region."
+                    ],
+                    "type": "str",
+                    "required": true
+                },
+                "aws_profile": {
+                    "description": [
+                        "The name of the AWS profile to use for authentication."
+                    ],
+                    "type": "str"
+                }
+            }
         }
     },
     "netapp.ontap.na_ontap_cli_timeout": {
@@ -2080,6 +2939,36 @@ export const options_23_3_0: ModuleOptions = {
             ],
             "type": "str",
             "version_added": "23.1.0"
+        },
+        "lambda_config": {
+            "description": [
+                "Configuration parameters for AWS Lambda proxy functionality.",
+                "These option and suboptions are only supported with REST."
+            ],
+            "type": "dict",
+            "version_added": "23.4.0",
+            "suboptions": {
+                "function_name": {
+                    "description": [
+                        "The name of the AWS Lambda function to invoke."
+                    ],
+                    "type": "str",
+                    "required": true
+                },
+                "aws_region": {
+                    "description": [
+                        "The name of the AWS region."
+                    ],
+                    "type": "str",
+                    "required": true
+                },
+                "aws_profile": {
+                    "description": [
+                        "The name of the AWS profile to use for authentication."
+                    ],
+                    "type": "str"
+                }
+            }
         }
     },
     "netapp.ontap.na_ontap_command": {
@@ -4796,6 +5685,36 @@ export const options_23_3_0: ModuleOptions = {
             ],
             "required": true,
             "type": "str"
+        },
+        "lambda_config": {
+            "description": [
+                "Configuration parameters for AWS Lambda proxy functionality.",
+                "These option and suboptions are only supported with REST."
+            ],
+            "type": "dict",
+            "version_added": "23.4.0",
+            "suboptions": {
+                "function_name": {
+                    "description": [
+                        "The name of the AWS Lambda function to invoke."
+                    ],
+                    "type": "str",
+                    "required": true
+                },
+                "aws_region": {
+                    "description": [
+                        "The name of the AWS region."
+                    ],
+                    "type": "str",
+                    "required": true
+                },
+                "aws_profile": {
+                    "description": [
+                        "The name of the AWS profile to use for authentication."
+                    ],
+                    "type": "str"
+                }
+            }
         }
     },
     "netapp.ontap.na_ontap_igroup_initiator": {
@@ -4842,6 +5761,36 @@ export const options_23_3_0: ModuleOptions = {
             ],
             "required": true,
             "type": "str"
+        },
+        "lambda_config": {
+            "description": [
+                "Configuration parameters for AWS Lambda proxy functionality.",
+                "These option and suboptions are only supported with REST."
+            ],
+            "type": "dict",
+            "version_added": "23.4.0",
+            "suboptions": {
+                "function_name": {
+                    "description": [
+                        "The name of the AWS Lambda function to invoke."
+                    ],
+                    "type": "str",
+                    "required": true
+                },
+                "aws_region": {
+                    "description": [
+                        "The name of the AWS region."
+                    ],
+                    "type": "str",
+                    "required": true
+                },
+                "aws_profile": {
+                    "description": [
+                        "The name of the AWS profile to use for authentication."
+                    ],
+                    "type": "str"
+                }
+            }
         }
     },
     "netapp.ontap.na_ontap_info": {
@@ -6053,6 +7002,20 @@ export const options_23_3_0: ModuleOptions = {
             ],
             "type": "bool",
             "version_added": "22.0.0"
+        },
+        "group_dn": {
+            "description": [
+                "Specifies the group Distinguished Name (DN) that is used as the starting point in the LDAP directory tree for group lookups."
+            ],
+            "type": "str",
+            "version_added": "23.4.0"
+        },
+        "user_dn": {
+            "description": [
+                "Specifies the user Distinguished Name (DN) that is used as the starting point in the LDAP directory tree for user lookups."
+            ],
+            "type": "str",
+            "version_added": "23.4.0"
         }
     },
     "netapp.ontap.na_ontap_license": {
@@ -6353,7 +7316,10 @@ export const options_23_3_0: ModuleOptions = {
                 "Not allowed if san_application_template is present.",
                 "Not supported for ASA r2 system."
             ],
-            "type": "str"
+            "type": "str",
+            "aliases": [
+                "volume_name"
+            ]
         },
         "qtree_name": {
             "description": [
@@ -6400,7 +7366,8 @@ export const options_23_3_0: ModuleOptions = {
         },
         "force_resize": {
             "description": [
-                "Forcibly reduce the size. This is required for reducing the size of the LUN to avoid accidentally reducing the LUN size."
+                "Forcibly reduce the size. This is required for reducing the size of the LUN to avoid accidentally reducing the LUN size.",
+                "Not supported with REST."
             ],
             "type": "bool"
         },
@@ -6416,7 +7383,8 @@ export const options_23_3_0: ModuleOptions = {
             "description": [
                 "If \"true\", override checks that prevent a LUN from being destroyed while it is fenced.",
                 "If \"false\", attempting to destroy a fenced LUN will fail.",
-                "The default if not specified is \"false\". This field is available in Data ONTAP 8.2 and later."
+                "The default if not specified is \"false\". This field is available in Data ONTAP 8.2 and later.",
+                "Not supported with REST."
             ],
             "type": "bool"
         },
@@ -6727,6 +7695,36 @@ export const options_23_3_0: ModuleOptions = {
                 "with REST, this option value must match C(destination_vserver) when present."
             ],
             "type": "str"
+        },
+        "lambda_config": {
+            "description": [
+                "Configuration parameters for AWS Lambda proxy functionality.",
+                "These option and suboptions are only supported with REST."
+            ],
+            "type": "dict",
+            "version_added": "23.4.0",
+            "suboptions": {
+                "function_name": {
+                    "description": [
+                        "The name of the AWS Lambda function to invoke."
+                    ],
+                    "type": "str",
+                    "required": true
+                },
+                "aws_region": {
+                    "description": [
+                        "The name of the AWS region."
+                    ],
+                    "type": "str",
+                    "required": true
+                },
+                "aws_profile": {
+                    "description": [
+                        "The name of the AWS profile to use for authentication."
+                    ],
+                    "type": "str"
+                }
+            }
         }
     },
     "netapp.ontap.na_ontap_lun_map": {
@@ -6768,6 +7766,36 @@ export const options_23_3_0: ModuleOptions = {
                 "LUN ID assigned for the map."
             ],
             "type": "str"
+        },
+        "lambda_config": {
+            "description": [
+                "Configuration parameters for AWS Lambda proxy functionality.",
+                "These option and suboptions are only supported with REST."
+            ],
+            "type": "dict",
+            "version_added": "23.4.0",
+            "suboptions": {
+                "function_name": {
+                    "description": [
+                        "The name of the AWS Lambda function to invoke."
+                    ],
+                    "type": "str",
+                    "required": true
+                },
+                "aws_region": {
+                    "description": [
+                        "The name of the AWS region."
+                    ],
+                    "type": "str",
+                    "required": true
+                },
+                "aws_profile": {
+                    "description": [
+                        "The name of the AWS profile to use for authentication."
+                    ],
+                    "type": "str"
+                }
+            }
         }
     },
     "netapp.ontap.na_ontap_lun_map_reporting_nodes": {
@@ -6811,6 +7839,36 @@ export const options_23_3_0: ModuleOptions = {
             ],
             "type": "list",
             "elements": "str"
+        },
+        "lambda_config": {
+            "description": [
+                "Configuration parameters for AWS Lambda proxy functionality.",
+                "These option and suboptions are only supported with REST."
+            ],
+            "type": "dict",
+            "version_added": "23.4.0",
+            "suboptions": {
+                "function_name": {
+                    "description": [
+                        "The name of the AWS Lambda function to invoke."
+                    ],
+                    "type": "str",
+                    "required": true
+                },
+                "aws_region": {
+                    "description": [
+                        "The name of the AWS region."
+                    ],
+                    "type": "str",
+                    "required": true
+                },
+                "aws_profile": {
+                    "description": [
+                        "The name of the AWS profile to use for authentication."
+                    ],
+                    "type": "str"
+                }
+            }
         }
     },
     "netapp.ontap.na_ontap_mav_approval_group": {
@@ -8238,6 +9296,35 @@ export const options_23_3_0: ModuleOptions = {
             ],
             "type": "int",
             "version_added": "23.2.0"
+        },
+        "credential_cache": {
+            "description": [
+                "This option can be set or modified when using REST.",
+                "If not specified in POST, ONTAP uses default values for the TTLs.",
+                "It requires ONTAP 9.11.0 or later."
+            ],
+            "type": "dict",
+            "version_added": "23.4.0",
+            "suboptions": {
+                "positive_ttl": {
+                    "description": [
+                        "Specifies the age in milliseconds, of the positive cached credentials after which they are cleared from the cache."
+                    ],
+                    "type": "int"
+                },
+                "transient_error_ttl": {
+                    "description": [
+                        "Specifies the age in milliseconds, of the cached entries during a transient error situation."
+                    ],
+                    "type": "int"
+                },
+                "negative_ttl": {
+                    "description": [
+                        "Specifies the age in milliseconds, of the negative cached credentials after which they are cleared from the cache."
+                    ],
+                    "type": "int"
+                }
+            }
         }
     },
     "netapp.ontap.na_ontap_node": {
@@ -9323,7 +10410,10 @@ export const options_23_3_0: ModuleOptions = {
                 "The name of the FlexVol the qtree should exist on."
             ],
             "required": true,
-            "type": "str"
+            "type": "str",
+            "aliases": [
+                "volume_name"
+            ]
         },
         "vserver": {
             "description": [
@@ -10296,6 +11386,36 @@ export const options_23_3_0: ModuleOptions = {
             ],
             "type": "str",
             "version_added": "23.1.0"
+        },
+        "lambda_config": {
+            "description": [
+                "Configuration parameters for AWS Lambda proxy functionality.",
+                "These option and suboptions are only supported with REST."
+            ],
+            "type": "dict",
+            "version_added": "23.4.0",
+            "suboptions": {
+                "function_name": {
+                    "description": [
+                        "The name of the AWS Lambda function to invoke."
+                    ],
+                    "type": "str",
+                    "required": true
+                },
+                "aws_region": {
+                    "description": [
+                        "The name of the AWS region."
+                    ],
+                    "type": "str",
+                    "required": true
+                },
+                "aws_profile": {
+                    "description": [
+                        "The name of the AWS profile to use for authentication."
+                    ],
+                    "type": "str"
+                }
+            }
         }
     },
     "netapp.ontap.na_ontap_s3_groups": {
@@ -10348,6 +11468,36 @@ export const options_23_3_0: ModuleOptions = {
             "suboptions": {
                 "name": {
                     "description": "policy name",
+                    "type": "str"
+                }
+            }
+        },
+        "lambda_config": {
+            "description": [
+                "Configuration parameters for AWS Lambda proxy functionality.",
+                "These option and suboptions are only supported with REST."
+            ],
+            "type": "dict",
+            "version_added": "23.4.0",
+            "suboptions": {
+                "function_name": {
+                    "description": [
+                        "The name of the AWS Lambda function to invoke."
+                    ],
+                    "type": "str",
+                    "required": true
+                },
+                "aws_region": {
+                    "description": [
+                        "The name of the AWS region."
+                    ],
+                    "type": "str",
+                    "required": true
+                },
+                "aws_profile": {
+                    "description": [
+                        "The name of the AWS profile to use for authentication."
+                    ],
                     "type": "str"
                 }
             }
@@ -10433,6 +11583,36 @@ export const options_23_3_0: ModuleOptions = {
                     "required": true
                 }
             }
+        },
+        "lambda_config": {
+            "description": [
+                "Configuration parameters for AWS Lambda proxy functionality.",
+                "These option and suboptions are only supported with REST."
+            ],
+            "type": "dict",
+            "version_added": "23.4.0",
+            "suboptions": {
+                "function_name": {
+                    "description": [
+                        "The name of the AWS Lambda function to invoke."
+                    ],
+                    "type": "str",
+                    "required": true
+                },
+                "aws_region": {
+                    "description": [
+                        "The name of the AWS region."
+                    ],
+                    "type": "str",
+                    "required": true
+                },
+                "aws_profile": {
+                    "description": [
+                        "The name of the AWS profile to use for authentication."
+                    ],
+                    "type": "str"
+                }
+            }
         }
     },
     "netapp.ontap.na_ontap_s3_services": {
@@ -10510,6 +11690,36 @@ export const options_23_3_0: ModuleOptions = {
                 "name of https certificate to use for the service"
             ],
             "type": "str"
+        },
+        "lambda_config": {
+            "description": [
+                "Configuration parameters for AWS Lambda proxy functionality.",
+                "These option and suboptions are only supported with REST."
+            ],
+            "type": "dict",
+            "version_added": "23.4.0",
+            "suboptions": {
+                "function_name": {
+                    "description": [
+                        "The name of the AWS Lambda function to invoke."
+                    ],
+                    "type": "str",
+                    "required": true
+                },
+                "aws_region": {
+                    "description": [
+                        "The name of the AWS region."
+                    ],
+                    "type": "str",
+                    "required": true
+                },
+                "aws_profile": {
+                    "description": [
+                        "The name of the AWS profile to use for authentication."
+                    ],
+                    "type": "str"
+                }
+            }
         }
     },
     "netapp.ontap.na_ontap_s3_users": {
@@ -10558,6 +11768,36 @@ export const options_23_3_0: ModuleOptions = {
             ],
             "type": "bool",
             "version_added": "22.13.0"
+        },
+        "lambda_config": {
+            "description": [
+                "Configuration parameters for AWS Lambda proxy functionality.",
+                "These option and suboptions are only supported with REST."
+            ],
+            "type": "dict",
+            "version_added": "23.4.0",
+            "suboptions": {
+                "function_name": {
+                    "description": [
+                        "The name of the AWS Lambda function to invoke."
+                    ],
+                    "type": "str",
+                    "required": true
+                },
+                "aws_region": {
+                    "description": [
+                        "The name of the AWS region."
+                    ],
+                    "type": "str",
+                    "required": true
+                },
+                "aws_profile": {
+                    "description": [
+                        "The name of the AWS profile to use for authentication."
+                    ],
+                    "type": "str"
+                }
+            }
         }
     },
     "netapp.ontap.na_ontap_security_certificates": {
@@ -11256,8 +12496,6 @@ export const options_23_3_0: ModuleOptions = {
         "is_enabled": {
             "description": [
                 "Specify whether to enable or disable the service processor network.",
-                "Required with ZAPI.",
-                "Disable service processor network status not supported in REST.",
                 "Setting C(ip_address), C(netmask) or C(prefix_length), C(gateway_ip_address) will enable sp network in REST."
             ],
             "type": "bool"
@@ -11460,7 +12698,8 @@ export const options_23_3_0: ModuleOptions = {
         "max_transfer_rate": {
             "description": [
                 "Specifies the upper bound, in kilobytes per second, at which data is transferred.",
-                "Default is unlimited, it can be explicitly set to 0 as unlimited."
+                "Default is unlimited, it can be explicitly set to 0 as unlimited.",
+                "Not supported with REST."
             ],
             "type": "int",
             "version_added": "2.9.0"
@@ -11515,7 +12754,8 @@ export const options_23_3_0: ModuleOptions = {
             "description": [
                 "Specifies whether or not the identity of the source Vserver is replicated to the destination Vserver.",
                 "If this parameter is set to true, the source Vserver's configuration will additionally be replicated to the destination.",
-                "If the parameter is set to false, then only the source Vserver's volumes and RBAC configuration are replicated to the destination."
+                "If the parameter is set to false, then only the source Vserver's volumes and RBAC configuration are replicated to the destination.",
+                "Not supported with REST."
             ],
             "type": "bool",
             "version_added": "2.9.0"
@@ -11760,6 +13000,55 @@ export const options_23_3_0: ModuleOptions = {
             ],
             "type": "bool",
             "version_added": "23.1.0"
+        },
+        "time_out": {
+            "version_added": "23.4.0",
+            "description": [
+                "With C(wait_for_completion) set, specifies time to wait for snapmirror operation in seconds.",
+                "Only supported with REST."
+            ],
+            "type": "int",
+            "default": 30
+        },
+        "wait_for_completion": {
+            "version_added": "23.4.0",
+            "description": [
+                "Set this parameter to 'true' for synchronous execution.",
+                "For asynchronous, execution exits as soon as the request is sent, and the operation continues in the background.",
+                "Only supported with REST."
+            ],
+            "type": "bool",
+            "default": true
+        },
+        "lambda_config": {
+            "description": [
+                "Configuration parameters for AWS Lambda proxy functionality.",
+                "These option and suboptions are only supported with REST."
+            ],
+            "type": "dict",
+            "version_added": "23.4.0",
+            "suboptions": {
+                "function_name": {
+                    "description": [
+                        "The name of the AWS Lambda function to invoke."
+                    ],
+                    "type": "str",
+                    "required": true
+                },
+                "aws_region": {
+                    "description": [
+                        "The name of the AWS region."
+                    ],
+                    "type": "str",
+                    "required": true
+                },
+                "aws_profile": {
+                    "description": [
+                        "The name of the AWS profile to use for authentication."
+                    ],
+                    "type": "str"
+                }
+            }
         }
     },
     "netapp.ontap.na_ontap_snapmirror_policy": {
@@ -14775,6 +16064,36 @@ export const options_23_3_0: ModuleOptions = {
                 "Range between 0 and 100"
             ],
             "type": "int"
+        },
+        "lambda_config": {
+            "description": [
+                "Configuration parameters for AWS Lambda proxy functionality.",
+                "These option and suboptions are only supported with REST."
+            ],
+            "type": "dict",
+            "version_added": "23.4.0",
+            "suboptions": {
+                "function_name": {
+                    "description": [
+                        "The name of the AWS Lambda function to invoke."
+                    ],
+                    "type": "str",
+                    "required": true
+                },
+                "aws_region": {
+                    "description": [
+                        "The name of the AWS region."
+                    ],
+                    "type": "str",
+                    "required": true
+                },
+                "aws_profile": {
+                    "description": [
+                        "The name of the AWS profile to use for authentication."
+                    ],
+                    "type": "str"
+                }
+            }
         }
     },
     "netapp.ontap.na_ontap_volume_clone": {
@@ -14896,6 +16215,36 @@ export const options_23_3_0: ModuleOptions = {
             ],
             "type": "bool",
             "default": true
+        },
+        "lambda_config": {
+            "description": [
+                "Configuration parameters for AWS Lambda proxy functionality.",
+                "These option and suboptions are only supported with REST."
+            ],
+            "type": "dict",
+            "version_added": "23.4.0",
+            "suboptions": {
+                "function_name": {
+                    "description": [
+                        "The name of the AWS Lambda function to invoke."
+                    ],
+                    "type": "str",
+                    "required": true
+                },
+                "aws_region": {
+                    "description": [
+                        "The name of the AWS region."
+                    ],
+                    "type": "str",
+                    "required": true
+                },
+                "aws_profile": {
+                    "description": [
+                        "The name of the AWS profile to use for authentication."
+                    ],
+                    "type": "str"
+                }
+            }
         }
     },
     "netapp.ontap.na_ontap_volume_efficiency": {
@@ -15067,6 +16416,55 @@ export const options_23_3_0: ModuleOptions = {
             ],
             "type": "str",
             "version_added": "21.14.0"
+        },
+        "time_out": {
+            "version_added": "23.4.0",
+            "description": [
+                "With C(wait_for_completion) set, specifies time to wait for volume efficiency operation in seconds.",
+                "Only supported with REST."
+            ],
+            "type": "int",
+            "default": 120
+        },
+        "wait_for_completion": {
+            "version_added": "23.4.0",
+            "description": [
+                "Set this parameter to 'true' for synchronous execution.",
+                "For asynchronous, execution exits as soon as the request is sent, and the operation continues in the background.",
+                "Only supported with REST."
+            ],
+            "type": "bool",
+            "default": true
+        },
+        "lambda_config": {
+            "description": [
+                "Configuration parameters for AWS Lambda proxy functionality.",
+                "These option and suboptions are only supported with REST."
+            ],
+            "type": "dict",
+            "version_added": "23.4.0",
+            "suboptions": {
+                "function_name": {
+                    "description": [
+                        "The name of the AWS Lambda function to invoke."
+                    ],
+                    "type": "str",
+                    "required": true
+                },
+                "aws_region": {
+                    "description": [
+                        "The name of the AWS region."
+                    ],
+                    "type": "str",
+                    "required": true
+                },
+                "aws_profile": {
+                    "description": [
+                        "The name of the AWS profile to use for authentication."
+                    ],
+                    "type": "str"
+                }
+            }
         }
     },
     "netapp.ontap.na_ontap_volume_snaplock": {
@@ -15542,7 +16940,7 @@ export const options_23_3_0: ModuleOptions = {
         },
         "log": {
             "description": [
-                "Specifies events for which auditing is enabled on the SVM."
+                "Specifies the configuration options for audit log files."
             ],
             "type": "dict",
             "suboptions": {
@@ -15851,6 +17249,36 @@ export const options_23_3_0: ModuleOptions = {
                 "Optional if this is same as source password."
             ],
             "type": "str"
+        },
+        "lambda_config": {
+            "description": [
+                "Configuration parameters for AWS Lambda proxy functionality.",
+                "These option and suboptions are only supported with REST."
+            ],
+            "type": "dict",
+            "version_added": "23.4.0",
+            "suboptions": {
+                "function_name": {
+                    "description": [
+                        "The name of the AWS Lambda function to invoke."
+                    ],
+                    "type": "str",
+                    "required": true
+                },
+                "aws_region": {
+                    "description": [
+                        "The name of the AWS region."
+                    ],
+                    "type": "str",
+                    "required": true
+                },
+                "aws_profile": {
+                    "description": [
+                        "The name of the AWS profile to use for authentication."
+                    ],
+                    "type": "str"
+                }
+            }
         }
     },
     "netapp.ontap.na_ontap_vserver_peer_permissions": {
