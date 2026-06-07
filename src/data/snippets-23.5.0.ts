@@ -1,6 +1,6 @@
 import { SnippetItem } from "./snippets";
 
-export const snippets_23_4_0: SnippetItem[] = [
+export const snippets_23_5_0: SnippetItem[] = [
     {
         "label": "Create active directory account.",
         "description": "- netapp.ontap.na_ontap_active_directory",
@@ -505,6 +505,11 @@ export const snippets_23_4_0: SnippetItem[] = [
         "label": "Check import netapp-lib",
         "description": "- netapp.ontap.na_ontap_debug",
         "body": "- name: Check import netapp-lib\n  netapp.ontap.na_ontap_debug:\n    hostname: '{{ netapp_hostname }}'\n    username: '{{ netapp_username }}'\n    password: '{{ netapp_password }}'\n"
+    },
+    {
+        "label": "Debug vserver",
+        "description": "- netapp.ontap.na_ontap_debug",
+        "body": "- name: Debug vserver\n  netapp.ontap.na_ontap_debug:\n    hostname: '{{ netapp_hostname }}'\n    username: '{{ netapp_username }}'\n    password: '{{ netapp_password }}'\n    vserver: ansibleSVM\n"
     },
     {
         "label": "Assign specified total disks to node",
@@ -1567,9 +1572,9 @@ export const snippets_23_4_0: SnippetItem[] = [
         "body": "- name: Create NVME Namespace\n  netapp.ontap.na_ontap_nvme_namespace:\n    state: present\n    ostype: linux\n    path: /vol/ansible/test\n    size: 5\n    size_unit: mb\n    vserver: '{{ vserver }}'\n    hostname: '{{ netapp_hostname }}'\n    username: '{{ netapp_username }}'\n    password: '{{ netapp_password }}'\n"
     },
     {
-        "label": "Create NVME Namespace ASA R2 system",
+        "label": "Create NVME Namespace ASA r2 system",
         "description": "- netapp.ontap.na_ontap_nvme_namespace",
-        "body": "- name: Create NVME Namespace ASA R2 system\n  netapp.ontap.na_ontap_nvme_namespace:\n    state: present\n    ostype: linux\n    path: /vol/ansible/test\n    size: 5\n    size_unit: mb\n    provisioning_options:\n      count: 2\n    vserver: '{{ vserver }}'\n    hostname: '{{ netapp_hostname }}'\n    username: '{{ netapp_username }}'\n    password: '{{ netapp_password }}'\n"
+        "body": "- name: Create NVME Namespace ASA r2 system\n  netapp.ontap.na_ontap_nvme_namespace:\n    state: present\n    ostype: linux\n    path: /vol/ansible/test\n    size: 5\n    size_unit: mb\n    provisioning_options:\n      count: 2\n    vserver: '{{ vserver }}'\n    hostname: '{{ netapp_hostname }}'\n    username: '{{ netapp_username }}'\n    password: '{{ netapp_password }}'\n"
     },
     {
         "label": "Modify NVME Namespace",
@@ -1960,6 +1965,11 @@ export const snippets_23_4_0: SnippetItem[] = [
         "label": "create certificate",
         "description": "- netapp.ontap.na_ontap_security_certificates",
         "body": "- name: create certificate\n  netapp.ontap.na_ontap_security_certificates:\n    common_name: '{{ ontap_cert_root_common_name }}'\n    name: '{{ ontap_cert_name }}'\n    type: root_ca\n    svm: '{{ vserver }}'\n    expiry_time: P365DT\n"
+    },
+    {
+        "label": "Create Certificate Signing Request",
+        "description": "- netapp.ontap.na_ontap_security_certificates",
+        "body": "- name: Create Certificate Signing Request\n  tags: sign_request\n  netapp.ontap.na_ontap_security_certificates:\n    generate_csr: true\n    subject_name: C=US,O=NTAP,CN=test.domain.com\n    security_strength: 128\n    hash_function: sha256\n    algorithm: rsa\n    name: test_cert\n    key_usages: digitalsignature,keyencipherment\n    extended_key_usages: serverauth,clientauth\n    subject_alternatives:\n      dns:\n      - main.example.com\n      - www.example.com\n      - api.example.com\n      email:\n      - admin@example.com\n      - security@example.com\n      ip:\n      - 192.168.1.100\n      - 10.0.0.50\n      uri:\n      - https://example.com\n      - https://api.example.com\n"
     },
     {
         "label": "sign certificate using newly create certificate",

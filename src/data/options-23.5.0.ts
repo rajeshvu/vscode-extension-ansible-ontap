@@ -1,6 +1,6 @@
 import { ModuleOptions } from "./options";
 
-export const options_23_4_0: ModuleOptions = {
+export const options_23_5_0: ModuleOptions = {
     "netapp.ontap.na_ontap_active_directory": {
         "state": {
             "description": [
@@ -3039,6 +3039,36 @@ export const options_23_4_0: ModuleOptions = {
             ],
             "required": false,
             "type": "str"
+        },
+        "lambda_config": {
+            "description": [
+                "Configuration parameters for AWS Lambda proxy functionality.",
+                "These option and suboptions are only supported with REST."
+            ],
+            "type": "dict",
+            "version_added": "23.5.0",
+            "suboptions": {
+                "function_name": {
+                    "description": [
+                        "The name of the AWS Lambda function to invoke."
+                    ],
+                    "type": "str",
+                    "required": true
+                },
+                "aws_region": {
+                    "description": [
+                        "The name of the AWS region."
+                    ],
+                    "type": "str",
+                    "required": true
+                },
+                "aws_profile": {
+                    "description": [
+                        "The name of the AWS profile to use for authentication."
+                    ],
+                    "type": "str"
+                }
+            }
         }
     },
     "netapp.ontap.na_ontap_disks": {
@@ -3166,6 +3196,36 @@ export const options_23_4_0: ModuleOptions = {
                 "With REST, requires ONTAP 9.9.1 or later and ignored for cluster DNS operations."
             ],
             "version_added": "2.8.0"
+        },
+        "lambda_config": {
+            "description": [
+                "Configuration parameters for AWS Lambda proxy functionality.",
+                "These option and suboptions are only supported with REST."
+            ],
+            "type": "dict",
+            "version_added": "23.5.0",
+            "suboptions": {
+                "function_name": {
+                    "description": [
+                        "The name of the AWS Lambda function to invoke."
+                    ],
+                    "type": "str",
+                    "required": true
+                },
+                "aws_region": {
+                    "description": [
+                        "The name of the AWS region."
+                    ],
+                    "type": "str",
+                    "required": true
+                },
+                "aws_profile": {
+                    "description": [
+                        "The name of the AWS profile to use for authentication."
+                    ],
+                    "type": "str"
+                }
+            }
         }
     },
     "netapp.ontap.na_ontap_domain_tunnel": {
@@ -3186,6 +3246,36 @@ export const options_23_4_0: ModuleOptions = {
             ],
             "required": true,
             "type": "str"
+        },
+        "lambda_config": {
+            "description": [
+                "Configuration parameters for AWS Lambda proxy functionality.",
+                "These option and suboptions are only supported with REST."
+            ],
+            "type": "dict",
+            "version_added": "23.5.0",
+            "suboptions": {
+                "function_name": {
+                    "description": [
+                        "The name of the AWS Lambda function to invoke."
+                    ],
+                    "type": "str",
+                    "required": true
+                },
+                "aws_region": {
+                    "description": [
+                        "The name of the AWS region."
+                    ],
+                    "type": "str",
+                    "required": true
+                },
+                "aws_profile": {
+                    "description": [
+                        "The name of the AWS profile to use for authentication."
+                    ],
+                    "type": "str"
+                }
+            }
         }
     },
     "netapp.ontap.na_ontap_efficiency_policy": {
@@ -3270,6 +3360,36 @@ export const options_23_4_0: ModuleOptions = {
             ],
             "type": "int",
             "version_added": "19.11.0"
+        },
+        "lambda_config": {
+            "description": [
+                "Configuration parameters for AWS Lambda proxy functionality.",
+                "These option and suboptions are only supported with REST."
+            ],
+            "type": "dict",
+            "version_added": "23.5.0",
+            "suboptions": {
+                "function_name": {
+                    "description": [
+                        "The name of the AWS Lambda function to invoke."
+                    ],
+                    "type": "str",
+                    "required": true
+                },
+                "aws_region": {
+                    "description": [
+                        "The name of the AWS region."
+                    ],
+                    "type": "str",
+                    "required": true
+                },
+                "aws_profile": {
+                    "description": [
+                        "The name of the AWS profile to use for authentication."
+                    ],
+                    "type": "str"
+                }
+            }
         }
     },
     "netapp.ontap.na_ontap_ems_config": {
@@ -3558,6 +3678,36 @@ export const options_23_4_0: ModuleOptions = {
             "description": [
                 "Name of the vserver to use."
             ]
+        },
+        "lambda_config": {
+            "description": [
+                "Configuration parameters for AWS Lambda proxy functionality.",
+                "These option and suboptions are only supported with REST."
+            ],
+            "type": "dict",
+            "version_added": "23.5.0",
+            "suboptions": {
+                "function_name": {
+                    "description": [
+                        "The name of the AWS Lambda function to invoke."
+                    ],
+                    "type": "str",
+                    "required": true
+                },
+                "aws_region": {
+                    "description": [
+                        "The name of the AWS region."
+                    ],
+                    "type": "str",
+                    "required": true
+                },
+                "aws_profile": {
+                    "description": [
+                        "The name of the AWS profile to use for authentication."
+                    ],
+                    "type": "str"
+                }
+            }
         }
     },
     "netapp.ontap.na_ontap_export_policy_rule": {
@@ -3736,6 +3886,36 @@ export const options_23_4_0: ModuleOptions = {
             ],
             "type": "bool",
             "version_added": "22.0.0"
+        },
+        "lambda_config": {
+            "description": [
+                "Configuration parameters for AWS Lambda proxy functionality.",
+                "These option and suboptions are only supported with REST."
+            ],
+            "type": "dict",
+            "version_added": "23.5.0",
+            "suboptions": {
+                "function_name": {
+                    "description": [
+                        "The name of the AWS Lambda function to invoke."
+                    ],
+                    "type": "str",
+                    "required": true
+                },
+                "aws_region": {
+                    "description": [
+                        "The name of the AWS region."
+                    ],
+                    "type": "str",
+                    "required": true
+                },
+                "aws_profile": {
+                    "description": [
+                        "The name of the AWS profile to use for authentication."
+                    ],
+                    "type": "str"
+                }
+            }
         }
     },
     "netapp.ontap.na_ontap_fcp": {
@@ -5136,6 +5316,36 @@ export const options_23_4_0: ModuleOptions = {
                 "Only supported with REST and requires ONTAP 9.9 or later."
             ],
             "type": "bool"
+        },
+        "lambda_config": {
+            "description": [
+                "Configuration parameters for AWS Lambda proxy functionality.",
+                "These option and suboptions are only supported with REST."
+            ],
+            "type": "dict",
+            "version_added": "23.5.0",
+            "suboptions": {
+                "function_name": {
+                    "description": [
+                        "The name of the AWS Lambda function to invoke."
+                    ],
+                    "type": "str",
+                    "required": true
+                },
+                "aws_region": {
+                    "description": [
+                        "The name of the AWS region."
+                    ],
+                    "type": "str",
+                    "required": true
+                },
+                "aws_profile": {
+                    "description": [
+                        "The name of the AWS profile to use for authentication."
+                    ],
+                    "type": "str"
+                }
+            }
         }
     },
     "netapp.ontap.na_ontap_fpolicy_event": {
@@ -6429,6 +6639,36 @@ export const options_23_4_0: ModuleOptions = {
                 "This option is REST only."
             ],
             "version_added": "22.2.0"
+        },
+        "lambda_config": {
+            "description": [
+                "Configuration parameters for AWS Lambda proxy functionality.",
+                "These option and suboptions are only supported with REST."
+            ],
+            "type": "dict",
+            "version_added": "23.5.0",
+            "suboptions": {
+                "function_name": {
+                    "description": [
+                        "The name of the AWS Lambda function to invoke."
+                    ],
+                    "type": "str",
+                    "required": true
+                },
+                "aws_region": {
+                    "description": [
+                        "The name of the AWS region."
+                    ],
+                    "type": "str",
+                    "required": true
+                },
+                "aws_profile": {
+                    "description": [
+                        "The name of the AWS profile to use for authentication."
+                    ],
+                    "type": "str"
+                }
+            }
         }
     },
     "netapp.ontap.na_ontap_iscsi_security": {
@@ -6503,6 +6743,36 @@ export const options_23_4_0: ModuleOptions = {
                 "Can not be modified. If want to change password, delete and re-create the initiator."
             ],
             "type": "str"
+        },
+        "lambda_config": {
+            "description": [
+                "Configuration parameters for AWS Lambda proxy functionality.",
+                "These option and suboptions are only supported with REST."
+            ],
+            "type": "dict",
+            "version_added": "23.5.0",
+            "suboptions": {
+                "function_name": {
+                    "description": [
+                        "The name of the AWS Lambda function to invoke."
+                    ],
+                    "type": "str",
+                    "required": true
+                },
+                "aws_region": {
+                    "description": [
+                        "The name of the AWS region."
+                    ],
+                    "type": "str",
+                    "required": true
+                },
+                "aws_profile": {
+                    "description": [
+                        "The name of the AWS profile to use for authentication."
+                    ],
+                    "type": "str"
+                }
+            }
         }
     },
     "netapp.ontap.na_ontap_job_schedule": {
@@ -6607,6 +6877,36 @@ export const options_23_4_0: ModuleOptions = {
             ],
             "type": "str",
             "version_added": "23.2.0"
+        },
+        "lambda_config": {
+            "description": [
+                "Configuration parameters for AWS Lambda proxy functionality.",
+                "These option and suboptions are only supported with REST."
+            ],
+            "type": "dict",
+            "version_added": "23.5.0",
+            "suboptions": {
+                "function_name": {
+                    "description": [
+                        "The name of the AWS Lambda function to invoke."
+                    ],
+                    "type": "str",
+                    "required": true
+                },
+                "aws_region": {
+                    "description": [
+                        "The name of the AWS region."
+                    ],
+                    "type": "str",
+                    "required": true
+                },
+                "aws_profile": {
+                    "description": [
+                        "The name of the AWS profile to use for authentication."
+                    ],
+                    "type": "str"
+                }
+            }
         }
     },
     "netapp.ontap.na_ontap_kerberos_interface": {
@@ -7016,6 +7316,36 @@ export const options_23_4_0: ModuleOptions = {
             ],
             "type": "str",
             "version_added": "23.4.0"
+        },
+        "lambda_config": {
+            "description": [
+                "Configuration parameters for AWS Lambda proxy functionality.",
+                "These option and suboptions are only supported with REST."
+            ],
+            "type": "dict",
+            "version_added": "23.5.0",
+            "suboptions": {
+                "function_name": {
+                    "description": [
+                        "The name of the AWS Lambda function to invoke."
+                    ],
+                    "type": "str",
+                    "required": true
+                },
+                "aws_region": {
+                    "description": [
+                        "The name of the AWS region."
+                    ],
+                    "type": "str",
+                    "required": true
+                },
+                "aws_profile": {
+                    "description": [
+                        "The name of the AWS profile to use for authentication."
+                    ],
+                    "type": "str"
+                }
+            }
         }
     },
     "netapp.ontap.na_ontap_license": {
@@ -7178,6 +7508,36 @@ export const options_23_4_0: ModuleOptions = {
             ],
             "required": true,
             "type": "str"
+        },
+        "lambda_config": {
+            "description": [
+                "Configuration parameters for AWS Lambda proxy functionality.",
+                "These option and suboptions are only supported with REST."
+            ],
+            "type": "dict",
+            "version_added": "23.5.0",
+            "suboptions": {
+                "function_name": {
+                    "description": [
+                        "The name of the AWS Lambda function to invoke."
+                    ],
+                    "type": "str",
+                    "required": true
+                },
+                "aws_region": {
+                    "description": [
+                        "The name of the AWS region."
+                    ],
+                    "type": "str",
+                    "required": true
+                },
+                "aws_profile": {
+                    "description": [
+                        "The name of the AWS profile to use for authentication."
+                    ],
+                    "type": "str"
+                }
+            }
         }
     },
     "netapp.ontap.na_ontap_login_messages": {
@@ -7749,7 +8109,7 @@ export const options_23_4_0: ModuleOptions = {
         "path": {
             "description": [
                 "Path of the LUN.",
-                "For ASA R2 systems, The path should match the format <name>[@<snapshot-name>]."
+                "For ASA r2 systems, The path should match the format <name>[@<snapshot-name>]."
             ],
             "required": true,
             "type": "str"
@@ -7820,7 +8180,7 @@ export const options_23_4_0: ModuleOptions = {
         "path": {
             "description": [
                 "Path of the LUN.",
-                "For ASA R2 systems, The path should match the format <name>[@<snapshot-name>]."
+                "For ASA r2 systems, The path should match the format <name>[@<snapshot-name>]."
             ],
             "required": true,
             "type": "str"
@@ -8246,6 +8606,36 @@ export const options_23_4_0: ModuleOptions = {
                 "Requires ONTAP version 9.7 or later."
             ],
             "type": "int"
+        },
+        "lambda_config": {
+            "description": [
+                "Configuration parameters for AWS Lambda proxy functionality.",
+                "These option and suboptions are only supported with REST."
+            ],
+            "type": "dict",
+            "version_added": "23.5.0",
+            "suboptions": {
+                "function_name": {
+                    "description": [
+                        "The name of the AWS Lambda function to invoke."
+                    ],
+                    "type": "str",
+                    "required": true
+                },
+                "aws_region": {
+                    "description": [
+                        "The name of the AWS region."
+                    ],
+                    "type": "str",
+                    "required": true
+                },
+                "aws_profile": {
+                    "description": [
+                        "The name of the AWS profile to use for authentication."
+                    ],
+                    "type": "str"
+                }
+            }
         }
     },
     "netapp.ontap.na_ontap_name_service_switch": {
@@ -8288,6 +8678,36 @@ export const options_23_4_0: ModuleOptions = {
             ],
             "type": "list",
             "elements": "str"
+        },
+        "lambda_config": {
+            "description": [
+                "Configuration parameters for AWS Lambda proxy functionality.",
+                "These option and suboptions are only supported with REST."
+            ],
+            "type": "dict",
+            "version_added": "23.5.0",
+            "suboptions": {
+                "function_name": {
+                    "description": [
+                        "The name of the AWS Lambda function to invoke."
+                    ],
+                    "type": "str",
+                    "required": true
+                },
+                "aws_region": {
+                    "description": [
+                        "The name of the AWS region."
+                    ],
+                    "type": "str",
+                    "required": true
+                },
+                "aws_profile": {
+                    "description": [
+                        "The name of the AWS profile to use for authentication."
+                    ],
+                    "type": "str"
+                }
+            }
         }
     },
     "netapp.ontap.na_ontap_ndmp": {
@@ -9325,6 +9745,36 @@ export const options_23_4_0: ModuleOptions = {
                     "type": "int"
                 }
             }
+        },
+        "lambda_config": {
+            "description": [
+                "Configuration parameters for AWS Lambda proxy functionality.",
+                "These option and suboptions are only supported with REST."
+            ],
+            "type": "dict",
+            "version_added": "23.5.0",
+            "suboptions": {
+                "function_name": {
+                    "description": [
+                        "The name of the AWS Lambda function to invoke."
+                    ],
+                    "type": "str",
+                    "required": true
+                },
+                "aws_region": {
+                    "description": [
+                        "The name of the AWS region."
+                    ],
+                    "type": "str",
+                    "required": true
+                },
+                "aws_profile": {
+                    "description": [
+                        "The name of the AWS profile to use for authentication."
+                    ],
+                    "type": "str"
+                }
+            }
         }
     },
     "netapp.ontap.na_ontap_node": {
@@ -9682,7 +10132,7 @@ export const options_23_4_0: ModuleOptions = {
                 "Namespace path.",
                 "The name of the NVMe namespace.",
                 "NVMe namespace names are paths of the form \"/vol/<volume>[/<qtree>]/<namespace>\" where the qtree name is optional.",
-                "For ASA R2 systems, The path should match the format <name>[@<snapshot-name>]."
+                "For ASA r2 systems, The path should match the format <name>[@<snapshot-name>]."
             ],
             "required": true,
             "type": "str"
@@ -9701,7 +10151,7 @@ export const options_23_4_0: ModuleOptions = {
         "provisioning_options": {
             "description": [
                 "Options that are applied to the operation.",
-                "This option is available only for ASA R2 systems."
+                "This option is available only for ASA r2 systems."
             ],
             "type": "dict",
             "version_added": "23.0.0",
@@ -9782,7 +10232,7 @@ export const options_23_4_0: ModuleOptions = {
         "paths": {
             "description": [
                 "List of Namespace paths to be associated with the subsystem.",
-                "For ASA R2 systems, The paths should match the format <name>[@<snapshot-name>]."
+                "For ASA r2 systems, The paths should match the format <name>[@<snapshot-name>]."
             ],
             "type": "list",
             "elements": "str"
@@ -10376,6 +10826,36 @@ export const options_23_4_0: ModuleOptions = {
                     "version_added": "22.8.0"
                 }
             }
+        },
+        "lambda_config": {
+            "description": [
+                "Configuration parameters for AWS Lambda proxy functionality.",
+                "These option and suboptions are only supported with REST."
+            ],
+            "type": "dict",
+            "version_added": "23.5.0",
+            "suboptions": {
+                "function_name": {
+                    "description": [
+                        "The name of the AWS Lambda function to invoke."
+                    ],
+                    "type": "str",
+                    "required": true
+                },
+                "aws_region": {
+                    "description": [
+                        "The name of the AWS region."
+                    ],
+                    "type": "str",
+                    "required": true
+                },
+                "aws_profile": {
+                    "description": [
+                        "The name of the AWS profile to use for authentication."
+                    ],
+                    "type": "str"
+                }
+            }
         }
     },
     "netapp.ontap.na_ontap_qtree": {
@@ -10514,6 +10994,36 @@ export const options_23_4_0: ModuleOptions = {
             ],
             "type": "str",
             "version_added": "21.21.0"
+        },
+        "lambda_config": {
+            "description": [
+                "Configuration parameters for AWS Lambda proxy functionality.",
+                "These option and suboptions are only supported with REST."
+            ],
+            "type": "dict",
+            "version_added": "23.5.0",
+            "suboptions": {
+                "function_name": {
+                    "description": [
+                        "The name of the AWS Lambda function to invoke."
+                    ],
+                    "type": "str",
+                    "required": true
+                },
+                "aws_region": {
+                    "description": [
+                        "The name of the AWS region."
+                    ],
+                    "type": "str",
+                    "required": true
+                },
+                "aws_profile": {
+                    "description": [
+                        "The name of the AWS profile to use for authentication."
+                    ],
+                    "type": "str"
+                }
+            }
         }
     },
     "netapp.ontap.na_ontap_quotas": {
@@ -10651,6 +11161,36 @@ export const options_23_4_0: ModuleOptions = {
             ],
             "type": "str",
             "version_added": "20.12.0"
+        },
+        "lambda_config": {
+            "description": [
+                "Configuration parameters for AWS Lambda proxy functionality.",
+                "These option and suboptions are only supported with REST."
+            ],
+            "type": "dict",
+            "version_added": "23.5.0",
+            "suboptions": {
+                "function_name": {
+                    "description": [
+                        "The name of the AWS Lambda function to invoke."
+                    ],
+                    "type": "str",
+                    "required": true
+                },
+                "aws_region": {
+                    "description": [
+                        "The name of the AWS region."
+                    ],
+                    "type": "str",
+                    "required": true
+                },
+                "aws_profile": {
+                    "description": [
+                        "The name of the AWS profile to use for authentication."
+                    ],
+                    "type": "str"
+                }
+            }
         }
     },
     "netapp.ontap.na_ontap_quota_policy": {
@@ -10773,6 +11313,36 @@ export const options_23_4_0: ModuleOptions = {
             ],
             "type": "str",
             "version_added": "21.24.0"
+        },
+        "lambda_config": {
+            "description": [
+                "Configuration parameters for AWS Lambda proxy functionality.",
+                "These option and suboptions are only supported with REST."
+            ],
+            "type": "dict",
+            "version_added": "23.5.0",
+            "suboptions": {
+                "function_name": {
+                    "description": [
+                        "The name of the AWS Lambda function to invoke."
+                    ],
+                    "type": "str",
+                    "required": true
+                },
+                "aws_region": {
+                    "description": [
+                        "The name of the AWS region."
+                    ],
+                    "type": "str",
+                    "required": true
+                },
+                "aws_profile": {
+                    "description": [
+                        "The name of the AWS profile to use for authentication."
+                    ],
+                    "type": "str"
+                }
+            }
         }
     },
     "netapp.ontap.na_ontap_rest_cli": {
@@ -11109,6 +11679,36 @@ export const options_23_4_0: ModuleOptions = {
             ],
             "default": true,
             "type": "bool"
+        },
+        "lambda_config": {
+            "description": [
+                "Configuration parameters for AWS Lambda proxy functionality.",
+                "These option and suboptions are only supported with REST."
+            ],
+            "type": "dict",
+            "version_added": "23.5.0",
+            "suboptions": {
+                "function_name": {
+                    "description": [
+                        "The name of the AWS Lambda function to invoke."
+                    ],
+                    "type": "str",
+                    "required": true
+                },
+                "aws_region": {
+                    "description": [
+                        "The name of the AWS region."
+                    ],
+                    "type": "str",
+                    "required": true
+                },
+                "aws_profile": {
+                    "description": [
+                        "The name of the AWS profile to use for authentication."
+                    ],
+                    "type": "str"
+                }
+            }
         }
     },
     "netapp.ontap.na_ontap_s3_buckets": {
@@ -11750,9 +12350,24 @@ export const options_23_4_0: ModuleOptions = {
         },
         "comment": {
             "description": [
-                "comment about the user"
+                "Comment about the user."
             ],
             "type": "str"
+        },
+        "access_key": {
+            "description": [
+                "The access key for the S3 user."
+            ],
+            "type": "str",
+            "version_added": "23.5.0"
+        },
+        "secret_key": {
+            "description": [
+                "The secret key for the S3 user.",
+                "Requires ONTAP 9.16.1 or later."
+            ],
+            "type": "str",
+            "version_added": "23.5.0"
         },
         "regenerate_keys": {
             "description": [
@@ -11894,10 +12509,18 @@ export const options_23_4_0: ModuleOptions = {
         },
         "hash_function": {
             "description": [
-                "Hashing function. Can be provided when creating a self-signed certificate or when signing a certificate.",
-                "Allowed values for create and sign are sha256, sha224, sha384, sha512."
+                "Hashing function. Can be provided when creating a self-signed certificate, when signing a certificate, or when generating a certificate signing request.",
+                "Allowed values are sha1, sha224, sha256, sha384, and sha512."
             ],
-            "type": "str"
+            "type": "str",
+            "default": "sha256",
+            "choices": [
+                "sha1",
+                "sha224",
+                "sha256",
+                "sha384",
+                "sha512"
+            ]
         },
         "intermediate_certificates": {
             "description": [
@@ -11915,6 +12538,123 @@ export const options_23_4_0: ModuleOptions = {
             "type": "bool",
             "default": true,
             "version_added": "20.8.0"
+        },
+        "algorithm": {
+            "description": [
+                "Asymmetric Encryption Algorithm."
+            ],
+            "type": "str",
+            "default": "rsa",
+            "choices": [
+                "rsa",
+                "ec"
+            ],
+            "version_added": "23.5.0"
+        },
+        "security_strength": {
+            "description": [
+                "Security strength of the certificate in bits."
+            ],
+            "type": "int",
+            "default": 112,
+            "choices": [
+                112,
+                128,
+                192
+            ],
+            "version_added": "23.5.0"
+        },
+        "subject_alternatives": {
+            "description": [
+                "Subject alternative names for the certificate."
+            ],
+            "type": "dict",
+            "suboptions": {
+                "email": {
+                    "description": [
+                        "List of email subject alternative names."
+                    ],
+                    "type": "list",
+                    "elements": "str"
+                },
+                "dns": {
+                    "description": [
+                        "List of DNS subject alternative names."
+                    ],
+                    "type": "list",
+                    "elements": "str"
+                },
+                "ip": {
+                    "description": [
+                        "List of IP subject alternative names."
+                    ],
+                    "type": "list",
+                    "elements": "str"
+                },
+                "uri": {
+                    "description": [
+                        "List of URI subject alternative names."
+                    ],
+                    "type": "list",
+                    "elements": "str"
+                }
+            },
+            "version_added": "23.5.0"
+        },
+        "subject_name": {
+            "description": [
+                "Subject name details of the certificate. The format is a list of comma separated key=value pairs."
+            ],
+            "type": "str",
+            "version_added": "23.5.0"
+        },
+        "extended_key_usages": {
+            "description": [
+                "A list of extended key usage extensions."
+            ],
+            "type": "list",
+            "elements": "str",
+            "choices": [
+                "serverauth",
+                "clientauth",
+                "timestamping",
+                "dvcs",
+                "ocspsigning",
+                "codesigning",
+                "emailprotection",
+                "anyextendedkeyusage",
+                "critical"
+            ],
+            "version_added": "23.5.0"
+        },
+        "generate_csr": {
+            "description": [
+                "Generate a Certificate Signing Request (CSR) instead of creating or installing a certificate.",
+                "When true, the CSR is generated based on the provided parameters and returned in the output."
+            ],
+            "type": "bool",
+            "default": false,
+            "version_added": "23.5.0"
+        },
+        "key_usages": {
+            "description": [
+                "A list of key usage extensions."
+            ],
+            "type": "list",
+            "elements": "str",
+            "choices": [
+                "digitalsignature",
+                "nonrepudiation",
+                "keyencipherment",
+                "dataencipherment",
+                "keyagreement",
+                "keycertsign",
+                "crlsign",
+                "encipheronly",
+                "decipheronly",
+                "critical"
+            ],
+            "version_added": "23.5.0"
         }
     },
     "netapp.ontap.na_ontap_security_config": {
@@ -13278,6 +14018,36 @@ export const options_23_4_0: ModuleOptions = {
                 "automated_failover"
             ],
             "version_added": "22.2.0"
+        },
+        "lambda_config": {
+            "description": [
+                "Configuration parameters for AWS Lambda proxy functionality.",
+                "These option and suboptions are only supported with REST."
+            ],
+            "type": "dict",
+            "version_added": "23.5.0",
+            "suboptions": {
+                "function_name": {
+                    "description": [
+                        "The name of the AWS Lambda function to invoke."
+                    ],
+                    "type": "str",
+                    "required": true
+                },
+                "aws_region": {
+                    "description": [
+                        "The name of the AWS region."
+                    ],
+                    "type": "str",
+                    "required": true
+                },
+                "aws_profile": {
+                    "description": [
+                        "The name of the AWS profile to use for authentication."
+                    ],
+                    "type": "str"
+                }
+            }
         }
     },
     "netapp.ontap.na_ontap_snapshot": {
@@ -13480,6 +14250,36 @@ export const options_23_4_0: ModuleOptions = {
             "required": false,
             "type": "str",
             "version_added": "2.9.0"
+        },
+        "lambda_config": {
+            "description": [
+                "Configuration parameters for AWS Lambda proxy functionality.",
+                "These option and suboptions are only supported with REST."
+            ],
+            "type": "dict",
+            "version_added": "23.5.0",
+            "suboptions": {
+                "function_name": {
+                    "description": [
+                        "The name of the AWS Lambda function to invoke."
+                    ],
+                    "type": "str",
+                    "required": true
+                },
+                "aws_region": {
+                    "description": [
+                        "The name of the AWS region."
+                    ],
+                    "type": "str",
+                    "required": true
+                },
+                "aws_profile": {
+                    "description": [
+                        "The name of the AWS profile to use for authentication."
+                    ],
+                    "type": "str"
+                }
+            }
         }
     },
     "netapp.ontap.na_ontap_snmp": {
@@ -14393,6 +15193,19 @@ export const options_23_4_0: ModuleOptions = {
             "type": "bool",
             "version_added": "23.2.0"
         },
+        "anti_ransomware_default_volume_state": {
+            "description": [
+                "Specifies the default anti-ransomware state of the volumes in the SVM.",
+                "When the anti-ransomware license is not present, this property is ignored and volumes will be created with the \"disabled\" state.",
+                "Only supported with REST, requires ONTAP 9.10.1 or later."
+            ],
+            "type": "str",
+            "choices": [
+                "disabled",
+                "dry_run"
+            ],
+            "version_added": "23.5.0"
+        },
         "lambda_config": {
             "description": [
                 "Configuration parameters for AWS Lambda proxy functionality.",
@@ -15150,7 +15963,7 @@ export const options_23_4_0: ModuleOptions = {
                                 "all",
                                 "auto",
                                 "none",
-                                "snapshot-only"
+                                "snapshot_only"
                             ],
                             "type": "str"
                         },
@@ -15578,7 +16391,7 @@ export const options_23_4_0: ModuleOptions = {
                 "Requires ONTAP 9.4 or later."
             ],
             "choices": [
-                "snapshot-only",
+                "snapshot_only",
                 "auto",
                 "backup",
                 "none",
@@ -15953,6 +16766,29 @@ export const options_23_4_0: ModuleOptions = {
             ],
             "type": "bool",
             "version_added": "22.13.0"
+        },
+        "anti_ransomware": {
+            "description": [
+                "Anti-ransomware related information of the volume.",
+                "Only supported with REST and requires ONTAP 9.10 or later."
+            ],
+            "type": "dict",
+            "version_added": "23.5.0",
+            "suboptions": {
+                "state": {
+                    "description": [
+                        "Determines the the anti-ransomware state for the volume.",
+                        "C(paused) is valid only for modify operation."
+                    ],
+                    "type": "str",
+                    "choices": [
+                        "enabled",
+                        "disabled",
+                        "dry_run",
+                        "paused"
+                    ]
+                }
+            }
         },
         "lambda_config": {
             "description": [
@@ -16424,7 +17260,7 @@ export const options_23_4_0: ModuleOptions = {
                 "Only supported with REST."
             ],
             "type": "int",
-            "default": 120
+            "default": 30
         },
         "wait_for_completion": {
             "version_added": "23.4.0",
@@ -16435,6 +17271,15 @@ export const options_23_4_0: ModuleOptions = {
             ],
             "type": "bool",
             "default": true
+        },
+        "rest_timeout": {
+            "version_added": "23.5.0",
+            "description": [
+                "Specifies time to wait for REST API response in seconds.",
+                "Only supported with REST."
+            ],
+            "type": "int",
+            "default": 60
         },
         "lambda_config": {
             "description": [
@@ -17315,6 +18160,36 @@ export const options_23_4_0: ModuleOptions = {
             ],
             "type": "str",
             "required": true
+        },
+        "lambda_config": {
+            "description": [
+                "Configuration parameters for AWS Lambda proxy functionality.",
+                "These option and suboptions are only supported with REST."
+            ],
+            "type": "dict",
+            "version_added": "23.5.0",
+            "suboptions": {
+                "function_name": {
+                    "description": [
+                        "The name of the AWS Lambda function to invoke."
+                    ],
+                    "type": "str",
+                    "required": true
+                },
+                "aws_region": {
+                    "description": [
+                        "The name of the AWS region."
+                    ],
+                    "type": "str",
+                    "required": true
+                },
+                "aws_profile": {
+                    "description": [
+                        "The name of the AWS profile to use for authentication."
+                    ],
+                    "type": "str"
+                }
+            }
         }
     },
     "netapp.ontap.na_ontap_wait_for_condition": {
@@ -17377,6 +18252,36 @@ export const options_23_4_0: ModuleOptions = {
                 "C(snapmirror_relationship) requires C(destination_path) and C(expected_state) or C(expected_transfer_state) to match the condition(s)."
             ],
             "type": "dict"
+        },
+        "lambda_config": {
+            "description": [
+                "Configuration parameters for AWS Lambda proxy functionality.",
+                "These option and suboptions are only supported with REST."
+            ],
+            "type": "dict",
+            "version_added": "23.5.0",
+            "suboptions": {
+                "function_name": {
+                    "description": [
+                        "The name of the AWS Lambda function to invoke."
+                    ],
+                    "type": "str",
+                    "required": true
+                },
+                "aws_region": {
+                    "description": [
+                        "The name of the AWS region."
+                    ],
+                    "type": "str",
+                    "required": true
+                },
+                "aws_profile": {
+                    "description": [
+                        "The name of the AWS profile to use for authentication."
+                    ],
+                    "type": "str"
+                }
+            }
         }
     },
     "netapp.ontap.na_ontap_wwpn_alias": {
