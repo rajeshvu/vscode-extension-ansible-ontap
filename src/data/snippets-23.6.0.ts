@@ -1,6 +1,6 @@
 import { SnippetItem } from "./snippets";
 
-export const snippets_23_5_0: SnippetItem[] = [
+export const snippets_23_6_0: SnippetItem[] = [
     {
         "label": "Create active directory account.",
         "description": "- netapp.ontap.na_ontap_active_directory",
@@ -2114,7 +2114,7 @@ export const snippets_23_5_0: SnippetItem[] = [
     {
         "label": "Modify SSH algorithms at cluster level",
         "description": "- netapp.ontap.na_ontap_security_ssh",
-        "body": "- name: Modify SSH algorithms at cluster level\n  netapp.ontap.na_ontap_security_ssh:\n    vserver: null\n    ciphers:\n    - aes256_ctr\n    - aes192_ctr\n    key_exchange_algorithms:\n    - diffie_hellman_group_exchange_sha256\n    mac_algorithms:\n    - hmac_sha1\n    max_authentication_retry_count: 6\n    hostname: '{{ netapp_hostname }}'\n    username: '{{ netapp_username }}'\n    password: '{{ netapp_password }}'\n"
+        "body": "- name: Modify SSH algorithms at cluster level\n  netapp.ontap.na_ontap_security_ssh:\n    ciphers:\n    - aes256_ctr\n    - aes192_ctr\n    key_exchange_algorithms:\n    - diffie_hellman_group_exchange_sha256\n    mac_algorithms:\n    - hmac_sha1\n    max_authentication_retry_count: 6\n    hostname: '{{ netapp_hostname }}'\n    username: '{{ netapp_username }}'\n    password: '{{ netapp_password }}'\n"
     },
     {
         "label": "Modify SSH algorithms at cluster level",
@@ -2575,6 +2575,16 @@ export const snippets_23_5_0: SnippetItem[] = [
         "label": "Modify user role REST in ONTAP 9.11.1+ with query",
         "description": "- netapp.ontap.na_ontap_user_role",
         "body": "- name: Modify user role REST in ONTAP 9.11.1+ with query\n  netapp.ontap.na_ontap_user_role:\n    state: present\n    privileges:\n    - path: job schedule interval\n      access: readonly\n      query: -days <1 -hours >8\n    vserver: ansibleSVM\n    name: carchi-test-role\n    hostname: '{{ netapp_hostname }}'\n    username: '{{ netapp_username }}'\n    password: '{{ netapp_password }}'\n"
+    },
+    {
+        "label": "Modify user account restrictions - minimum size of the password",
+        "description": "- netapp.ontap.na_ontap_user_role_config",
+        "body": "- name: Modify user account restrictions - minimum size of the password\n  netapp.ontap.na_ontap_user_role_config:\n    state: present\n    role: csahu_role1\n    vserver: svm1\n    passwd_minlength: 10\n    hostname: '{{ netapp_hostname }}'\n    username: '{{ netapp_username }}'\n    password: '{{ netapp_password }}'\n    https: true\n    validate_certs: '{{ validate_certs }}'\n    use_rest: always\n"
+    },
+    {
+        "label": "Modify user account restrictions - maximum allowed invalid login attempts",
+        "description": "- netapp.ontap.na_ontap_user_role_config",
+        "body": "- name: Modify user account restrictions - maximum allowed invalid login attempts\n  netapp.ontap.na_ontap_user_role_config:\n    state: present\n    role: csahu_role1\n    vserver: svm1\n    max_failed_login_attempts: 3\n    hostname: '{{ netapp_hostname }}'\n    username: '{{ netapp_username }}'\n    password: '{{ netapp_password }}'\n    https: true\n    validate_certs: '{{ validate_certs }}'\n    use_rest: always\n"
     },
     {
         "label": "Create FlexVol",

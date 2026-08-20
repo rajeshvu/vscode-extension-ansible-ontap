@@ -1,4 +1,4 @@
-import { options_23_5_0 } from "./options-23.5.0";
+import { options_23_6_0 } from "./options-23.6.0";
 
 export interface OptionSubOptions {
     [subOption: string]: OptionDefinition;
@@ -24,5 +24,5 @@ export interface ModuleOptions {
 }
 
 export const MODULE_OPTIONS: Record<string, ModuleOptions> = {
-    '23.5.0': options_23_5_0,
+    '23.6.0': options_23_6_0,
 };

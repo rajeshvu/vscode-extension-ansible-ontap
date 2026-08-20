@@ -7,7 +7,7 @@ This extension helps you automate NetApp ONTAP management tasks by providing rea
 
 ## Features
 
-- Supports **NetApp ONTAP Ansible collection version 23.5.0**.
+- Supports **NetApp ONTAP Ansible collection version 23.6.0**.
 - Search for ONTAP Ansible snippets by keyword or description.
 - Insert ONTAP Ansible tasks into your playbooks with a single click.
 - Snippets cover common storage operations: provisioning, masking, snapshot, replication, and more.
@@ -34,7 +34,7 @@ This extension helps you automate NetApp ONTAP management tasks by providing rea
 
 1. Open a YAML or Ansible playbook file in VS Code.  
 2. Open the Command Palette (`Ctrl+Shift+P` or `Cmd+Shift+P` on Mac).  
-3. Type and select: `ONTAP Ansible Snippets - v23.5.0`  
+3. Type and select: `ONTAP Ansible Snippets - v23.6.0`  
 4. Search for a snippet by keyword or description.  
 5. Select a snippet to insert it at your cursor location.  
 
@@ -45,11 +45,11 @@ This extension helps you automate NetApp ONTAP management tasks by providing rea
 
 ### Demos
  
-![PowerMax Ansible Snippets - Demo1](https://raw.githubusercontent.com/rajeshvu/vscode-extension-ansible-ontap/refs/heads/release/23.5.0/src/resources/demo1.gif)
+![PowerMax Ansible Snippets - Demo1](https://raw.githubusercontent.com/rajeshvu/vscode-extension-ansible-ontap/refs/heads/release/23.6.0/src/resources/demo1.gif)
 
-![PowerMax Ansible Snippets - Demo2](https://raw.githubusercontent.com/rajeshvu/vscode-extension-ansible-ontap/refs/heads/release/23.5.0/src/resources/demo2.gif)
+![PowerMax Ansible Snippets - Demo2](https://raw.githubusercontent.com/rajeshvu/vscode-extension-ansible-ontap/refs/heads/release/23.6.0/src/resources/demo2.gif)
 
-![PowerMax Ansible Snippets - Demo3](https://raw.githubusercontent.com/rajeshvu/vscode-extension-ansible-ontap/refs/heads/release/23.5.0/src/resources/demo3.gif)
+![PowerMax Ansible Snippets - Demo3](https://raw.githubusercontent.com/rajeshvu/vscode-extension-ansible-ontap/refs/heads/release/23.6.0/src/resources/demo3.gif)
 
 ---
 
